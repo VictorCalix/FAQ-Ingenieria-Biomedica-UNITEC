@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bitácora | Ingeniería Biomédica</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .private-page {
+      width: min(760px, calc(100% - 32px));
+      margin: 55px auto;
+    }
+
+    .private-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 44px;
+      box-shadow: 0 12px 35px #193b6812;
+    }
+
+    .private-card h1 {
+      margin: 12px 0 8px;
+      color: var(--blue);
+      font: 48px Georgia, serif;
+    }
+
+    .private-card form {
+      display: grid;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .private-card form > label,
+    .private-card .form-grid > label {
+      color: #465a72;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .private-card input:not([type="checkbox"]),
+    .private-card textarea {
+      border-radius: 12px;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .private-card input:not([type="checkbox"]) {
+      min-height: 38px;
+      padding: 0 12px;
+    }
+
+    .field-error {
+      display: block;
+      margin-top: 6px;
+      color: #a33737;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .field-error[hidden] {
+      display: none;
+    }
+
+    .invalid-field {
+      border-color: #b94a4a !important;
+      box-shadow: 0 0 0 2px #b94a4a1f !important;
+    }
+
+    .terms-link {
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      padding: 0;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+
+    .terms-panel {
+      width: min(620px, 100%);
+    }
+
+    .terms-copy {
+      margin-top: 25px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--ice);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 620px) {
+      .private-card {
+        padding: 32px 22px;
+      }
+
+      .private-card h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="identity">
+      <img
+        class="header-logo"
+        src="assets/biomedica-blanco.png"
+        alt="Ingeniería Biomédica UNITEC"
+        width="2696"
+        height="393"
+        decoding="async"
+        fetchpriority="high"
+      >
+    </div>
+  </header>
+
+  <main class="private-page">
+    <section class="private-card">
+      <h1>Bitácora</h1>
+      <span>Laboratorio de Ingeniería en Biomédica</span>
+
+      <form id="log-form" lang="es" novalidate autocomplete="on">
+        <div class="form-grid">
+          <label>
+            Nombre completo
+            <input required name="nombre" autocomplete="name">
+            <small class="field-error" hidden></small>
+          </label>
+          <label>
+            Número de cuenta | TH
+            <input required name="cuenta" inputmode="numeric" autocomplete="username">
+            <small class="field-error" hidden></small>
+          </label>
+          <label>
+            Fecha
+            <input id="log-date" required name="fecha" type="date" autocomplete="on">
+            <small class="field-error" hidden></small>
+          </label>
+          <label>
+            Correo institucional
+            <input required name="correo" type="email" autocomplete="email" placeholder="nombre@unitec.edu">
+            <small class="field-error" hidden></small>
+          </label>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            Hora de inicio
+            <input required name="hora_inicio" type="time" autocomplete="off">
+            <small class="field-error" hidden></small>
+          </label>
+          <label>
+            Hora de fin
+            <input required name="hora_fin" type="time" autocomplete="off">
+            <small class="field-error" hidden></small>
+          </label>
+        </div>
+
+        <div class="filter-field">
+          <span class="filter-label">Equipo</span>
+          <div class="custom-select log-select" data-name="equipo" data-value="">
+            <button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span>Selecciona un equipo</span><i></i>
+            </button>
+            <div class="select-options" role="listbox" hidden>
+              <button type="button" role="option" aria-selected="false" data-value="Monitor de signos vitales">Monitor de signos vitales</button>
+              <button type="button" role="option" aria-selected="false" data-value="Electrocardiógrafo">Electrocardiógrafo</button>
+            </div>
+            <input class="select-value" type="hidden" name="equipo">
+          </div>
+        </div>
+
+        <label>
+          Insumos
+          <input name="insumos" placeholder="Describe los insumos utilizados">
+        </label>
+
+        <label>
+          Observaciones
+          <textarea name="observaciones" rows="5"></textarea>
+        </label>
+
+        <div class="terms-box">
+          <label class="terms-check">
+            <input required name="terminos" type="checkbox">
+            <span>
+              Acepto los
+              <button class="terms-link" id="open-log-terms" type="button">términos y condiciones</button>
+            </span>
+          </label>
+        </div>
+
+        <button class="submit" type="submit">Registrar uso</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="overlay" id="log-terms" hidden>
+    <section class="panel terms-panel" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+      <button class="close" id="close-log-terms" type="button" aria-label="Cerrar">×</button>
+      <h2 id="terms-title">Términos y condiciones</h2>
+      <div class="terms-copy">
+        <p>
+          Al registrar esta Bitácora, confirmo que los datos proporcionados son
+          correctos y corresponden al uso real del equipo indicado.
+        </p>
+        <p>
+          Me comprometo a reportar de manera clara cualquier falla, daño,
+          irregularidad o consumo de insumos observado durante la práctica.
+          Comprendo que la información podrá utilizarse para el seguimiento,
+          mantenimiento y control de los equipos del laboratorio.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const dateInput = document.querySelector("#log-date");
+    const today = new Date();
+    const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 10);
+    dateInput.value = localToday;
+
+    const termsModal = document.querySelector("#log-terms");
+    document.querySelector("#open-log-terms").addEventListener("click", () => {
+      termsModal.hidden = false;
+      document.body.classList.add("modal-open");
+    });
+    document.querySelector("#close-log-terms").addEventListener("click", () => {
+      termsModal.hidden = true;
+      document.body.classList.remove("modal-open");
+    });
+    termsModal.addEventListener("click", event => {
+      if (event.target === termsModal) {
+        termsModal.hidden = true;
+        document.body.classList.remove("modal-open");
+      }
+    });
+
+    function closeSelect(select) {
+      select.classList.remove("open");
+      select.querySelector(".select-trigger").setAttribute("aria-expanded", "false");
+      select.querySelector(".select-options").hidden = true;
+      const search = select.querySelector(".select-search");
+      search.value = "";
+      select.querySelectorAll("[role=option]").forEach(option => option.hidden = false);
+      select.querySelector(".no-options").hidden = true;
+    }
+
+    document.querySelectorAll(".log-select").forEach(select => {
+      const trigger = select.querySelector(".select-trigger");
+      const menu = select.querySelector(".select-options");
+      const search = document.createElement("input");
+      const noOptions = document.createElement("small");
+
+      search.className = "select-search";
+      search.type = "search";
+      search.placeholder = "Buscar…";
+      search.setAttribute("aria-label", "Buscar opción");
+      noOptions.className = "no-options";
+      noOptions.textContent = "Sin coincidencias";
+      noOptions.hidden = true;
+      menu.prepend(noOptions);
+      menu.prepend(search);
+
+      trigger.addEventListener("click", event => {
+        event.stopPropagation();
+        document.querySelectorAll(".log-select.open").forEach(open => {
+          if (open !== select) closeSelect(open);
+        });
+        const opening = menu.hidden;
+        menu.hidden = !opening;
+        select.classList.toggle("open", opening);
+        trigger.setAttribute("aria-expanded", String(opening));
+        if (opening) search.focus();
+      });
+
+      search.addEventListener("click", event => event.stopPropagation());
+      search.addEventListener("input", () => {
+        const query = search.value.trim().toLocaleLowerCase("es");
+        let matches = 0;
+        menu.querySelectorAll("[role=option]").forEach(option => {
+          const visible = option.textContent.toLocaleLowerCase("es").includes(query);
+          option.hidden = !visible;
+          if (visible) matches++;
+        });
+        noOptions.hidden = matches !== 0;
+      });
+
+      menu.querySelectorAll("[role=option]").forEach(option => {
+        option.addEventListener("click", () => {
+          select.dataset.value = option.dataset.value;
+          select.querySelector(".select-value").value = option.dataset.value;
+          trigger.querySelector("span").textContent = option.textContent;
+          menu.querySelectorAll("[role=option]").forEach(item => {
+            item.setAttribute("aria-selected", String(item === option));
+          });
+          closeSelect(select);
+          trigger.focus();
+        });
+      });
+    });
+
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".log-select.open").forEach(closeSelect);
+    });
+
+    document.querySelectorAll("#log-form input[required]:not([type=checkbox])").forEach(field => {
+      field.addEventListener("input", () => {
+        field.classList.remove("invalid-field");
+        const error = field.parentElement.querySelector(".field-error");
+        if (error) error.hidden = true;
+      });
+    });
+
+    document.querySelector("#log-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const requiredFields = [...event.target.querySelectorAll("input[required]:not([type=checkbox])")];
+      let firstInvalid = null;
+
+      requiredFields.forEach(field => {
+        const error = field.parentElement.querySelector(".field-error");
+        let message = "";
+        if (!field.value.trim()) {
+          message = "Completa este campo obligatorio.";
+        } else if (field.type === "email" && !field.validity.valid) {
+          message = "Ingresa un correo institucional válido.";
+        }
+        field.classList.toggle("invalid-field", Boolean(message));
+        if (error) {
+          error.textContent = message;
+          error.hidden = !message;
+        }
+        if (message && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
+      const missing = [...document.querySelectorAll(".log-select")].find(select => !select.dataset.value);
+      if (missing) {
+        missing.querySelector(".select-trigger").focus();
+        alert("Selecciona el equipo antes de registrar el uso.");
+        return;
+      }
+      const terms = event.target.elements.terminos;
+      if (!terms.checked) {
+        alert("Debes aceptar los términos y condiciones antes de registrar el uso.");
+        terms.focus();
+        return;
+      }
+      event.target.reset();
+      dateInput.value = localToday;
+      document.querySelectorAll(".log-select").forEach(select => {
+        select.dataset.value = "";
+        select.querySelector(".select-value").value = "";
+        select.querySelector(".select-trigger span").textContent = "Selecciona un equipo";
+        select.querySelectorAll("[role=option]").forEach(option => option.setAttribute("aria-selected", "false"));
+      });
+      alert("Formulario validado. Conectaremos el almacenamiento más adelante.");
+    });
+  </script>
+</body>
+</html>

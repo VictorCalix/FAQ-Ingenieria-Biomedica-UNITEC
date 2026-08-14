@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Preguntas frecuentes y recursos de Ingeniería Biomédica UNITEC.">
+  <title>FAQ Biomédica | UNITEC</title><link rel="stylesheet" href="styles.css"><script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="identity"><img class="header-logo" src="assets/biomedica-blanco.png" alt="Ingeniería Biomédica UNITEC" width="2696" height="393" decoding="async" fetchpriority="high"></div>
+    <button class="repo-button" id="open-repository">Repositorio <span class="repo-arrow">➜</span></button>
+  </header>
+
+  <main class="faq-page">
+    <div class="title-block"><span class="kicker">CENTRO DE AYUDA</span><h1>FAQ Biomédica</h1><p>Respuestas rápidas para la comunidad de Ingeniería Biomédica.</p></div>
+
+    <section class="questions" aria-label="Preguntas frecuentes">
+      <details><summary><span>¿Cómo puedo solicitar apoyo para utilizar un equipo?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Muy pronto encontrarás aquí el procedimiento completo y los contactos correspondientes.</div></details>
+      <details><summary><span>¿Dónde encuentro las guías rápidas y los manuales?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Puedes abrir el repositorio desde la esquina superior derecha y filtrar los documentos por equipo o tipo.</div></details>
+      <details><summary><span>¿Qué hago si detecto una falla en un equipo?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">No utilices el equipo. Comunica la situación al responsable del laboratorio y completa el registro correspondiente.</div></details>
+      <details><summary><span>¿Quién puede utilizar los equipos del laboratorio?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Esta respuesta se sustituirá por la información oficial que nos compartas.</div></details>
+      <details><summary><span>¿Qué normas debo seguir dentro del laboratorio?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Esta respuesta se sustituirá por la información oficial que nos compartas.</div></details>
+    </section>
+
+    <button class="suggest-button" id="open-suggestion"><span>¿No encontraste tu duda?</span>Sugerir una pregunta <b>➜</b></button>
+  </main>
+
+  <div class="overlay" id="repository" hidden><section class="panel" role="dialog" aria-modal="true" aria-labelledby="repo-title"><button class="close" data-close aria-label="Cerrar">×</button><div class="panel-scroll"><span class="kicker">BIBLIOTECA TÉCNICA</span><h2 id="repo-title">Repositorio</h2><p class="intro">Guías rápidas y manuales organizados por equipo.</p><div class="filters"><div class="filter-field"><span class="filter-label">Equipo</span><div class="custom-select" id="team-filter" data-value="Todos"><button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span>Todos</span><i></i></button><div class="select-options" role="listbox" hidden><button type="button" role="option" aria-selected="true" data-value="Todos">Todos</button><button type="button" role="option" aria-selected="false" data-value="Monitor">Monitor</button><button type="button" role="option" aria-selected="false" data-value="Electrocardiógrafo">Electrocardiógrafo</button></div></div></div><div class="filter-field"><span class="filter-label">Documento</span><div class="custom-select" id="type-filter" data-value="Todos"><button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span>Todos</span><i></i></button><div class="select-options" role="listbox" hidden><button type="button" role="option" aria-selected="true" data-value="Todos">Todos</button><button type="button" role="option" aria-selected="false" data-value="Guía rápida">Guía rápida</button><button type="button" role="option" aria-selected="false" data-value="Manual">Manual</button></div></div></div></div><div id="resource-list" class="resource-list"></div><p id="empty-state" hidden>No hay documentos con estos filtros.</p></div></section></div>
+
+  <div class="overlay" id="suggestion" hidden><section class="panel form-panel" role="dialog" aria-modal="true" aria-labelledby="suggest-title"><button class="close" data-close aria-label="Cerrar">×</button><div class="panel-scroll"><span class="kicker">NUEVA CONSULTA</span><h2 id="suggest-title">Sugiere una pregunta</h2><p class="intro">Ayúdanos a mejorar este espacio.</p><form id="suggestion-form"><div class="form-grid"><label>Nombre completo<input required name="nombre"></label><label>Número de cuenta<input required name="cuenta" inputmode="numeric"></label><label>Correo institucional<input required name="correo" type="email" placeholder="nombre@unitec.edu"></label><label>Número de teléfono<input required name="telefono" type="tel"></label></div><label>Pregunta<textarea required name="pregunta" rows="4"></textarea></label><div class="terms-box"><label class="terms-check"><input required name="terminos" type="checkbox"><span>Acepto los términos y condiciones</span></label><p>Soy consciente que si realizo una pregunta que ya está publicada en la página, se me negara está función de FAQ.</p></div><button class="submit" type="submit">Enviar pregunta</button></form></div></section></div>
+</body></html>
