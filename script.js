@@ -1,21 +1,30 @@
-const resources = [
-  { title: "Guía rápida · Monitor de signos vitales", team: "Monitor", type: "Guía rápida", file: "#" },
-  { title: "Manual · Monitor de signos vitales", team: "Monitor", type: "Manual", file: "#" },
-  { title: "Guía rápida · Electrocardiógrafo", team: "Electrocardiógrafo", type: "Guía rápida", file: "#" },
-  { title: "Manual · Electrocardiógrafo", team: "Electrocardiógrafo", type: "Manual", file: "#" }
-];
+const repositoryEquipment = equipmentData.repository;
+const resources = repositoryEquipment.flatMap(item => [
+  { title: `Guia rapida - ${item.name}`, team: item.name, type: "Guia rapida", file: "#" },
+  { title: `Manual - ${item.name}`, team: item.name, type: "Manual", file: "#" }
+]);
 
 const team = document.querySelector("#team-filter");
 const type = document.querySelector("#type-filter");
 const list = document.querySelector("#resource-list");
 const empty = document.querySelector("#empty-state");
 
+repositoryEquipment.forEach(item => {
+  const option = document.createElement("button");
+  option.type = "button";
+  option.role = "option";
+  option.dataset.value = item.name;
+  option.setAttribute("aria-selected", "false");
+  option.textContent = item.name;
+  team.querySelector(".select-options").append(option);
+});
+
 function render() {
   const items = resources.filter(item =>
     (team.dataset.value === "Todos" || item.team === team.dataset.value) &&
     (type.dataset.value === "Todos" || item.type === type.dataset.value)
   );
-  list.innerHTML = items.map(item => `<article><span class="pdf">PDF</span><div><h3>${item.title}</h3><p>${item.team} · ${item.type}</p></div><a href="${item.file}" aria-label="Abrir ${item.title}">↗</a></article>`).join("");
+  list.innerHTML = items.map(item => `<article><span class="pdf">PDF</span><div><h3>${item.title}</h3><p>${item.team} - ${item.type}</p></div><a href="${item.file}" aria-label="Abrir ${item.title}">Abrir</a></article>`).join("");
   empty.hidden = items.length > 0;
 }
 
@@ -36,7 +45,7 @@ document.querySelectorAll(".custom-select").forEach(select => {
   const noOptions = document.createElement("small");
   search.className = "select-search";
   search.type = "search";
-  search.placeholder = select.id === "team-filter" ? "Buscar equipo…" : "Buscar documento…";
+  search.placeholder = select.id === "team-filter" ? "Buscar equipo..." : "Buscar documento...";
   search.setAttribute("aria-label", search.placeholder);
   noOptions.className = "no-options";
   noOptions.textContent = "Sin coincidencias";
@@ -88,9 +97,81 @@ render();
 let active;
 function openModal(id) { active = document.querySelector(id); active.hidden = false; document.body.classList.add("modal-open"); }
 function closeModal() { if (!active) return; active.hidden = true; active = null; document.body.classList.remove("modal-open"); }
+function isValidInstitutionalEmail(value) { return /^[^\s@]+@unitec\.edu(\.hn)?$/i.test(value); }
+function isValidPhone(value) { return /^[1-9]\d{3}-?\d{4}$/.test(value); }
+function isValidCuenta(value) { return /^[1-9]\d{5,7}$/.test(value); }
+function normalizeCuentaInput(input) { input.value = input.value.replace(/\D/g, "").slice(0, 8); }
+function normalizePhoneInput(input) {
+  input.value = input.value
+    .replace(/[^\d-]/g, "")
+    .replace(/(?!^.{4})-/g, "")
+    .slice(0, 9);
+}
 document.querySelector("#open-repository").addEventListener("click", () => openModal("#repository"));
 document.querySelector("#open-suggestion").addEventListener("click", () => openModal("#suggestion"));
 document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", closeModal));
 document.querySelectorAll(".overlay").forEach(overlay => overlay.addEventListener("click", event => { if (event.target === overlay) closeModal(); }));
 document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
-document.querySelector("#suggestion-form").addEventListener("submit", event => { event.preventDefault(); event.target.reset(); closeModal(); alert("Formulario validado. Conectaremos el envío más adelante."); });
+document.querySelector("#suggestion-form input[name=cuenta]").addEventListener("input", event => normalizeCuentaInput(event.target));
+document.querySelector("#suggestion-form input[name=telefono]").addEventListener("input", event => normalizePhoneInput(event.target));
+document.querySelector("#suggestion-form").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const form = event.target;
+  const submitButton = form.querySelector(".submit");
+  submitButton.disabled = true;
+  submitButton.textContent = "Enviando...";
+
+  const payload = {
+    nombre: form.elements.nombre.value.trim(),
+    cuenta: form.elements.cuenta.value.trim(),
+    correo: form.elements.correo.value.trim(),
+    telefono: form.elements.telefono.value.trim(),
+    pregunta: form.elements.pregunta.value.trim()
+  };
+
+  if (!isValidCuenta(payload.cuenta)) {
+    alert("Ingresa un numero de cuenta valido.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar pregunta";
+    return;
+  }
+
+  if (!isValidInstitutionalEmail(payload.correo)) {
+    alert("Ingresa un correo institucional valido.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar pregunta";
+    return;
+  }
+
+  if (!isValidPhone(payload.telefono)) {
+    alert("Ingresa un numero de telefono valido.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar pregunta";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/sugerencia", {
+      method: "POST",
+      headers: { "content-type": "application/json; charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      throw new Error(result?.error || "No se pudo enviar la sugerencia.");
+    }
+  } catch (error) {
+    alert(error.message || "No se pudo sincronizar la sugerencia. Intentalo de nuevo.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar pregunta";
+    return;
+  }
+
+  form.reset();
+  submitButton.disabled = false;
+  submitButton.textContent = "Enviar pregunta";
+  closeModal();
+  alert("Pregunta enviada correctamente.");
+});
