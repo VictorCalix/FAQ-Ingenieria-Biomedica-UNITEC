@@ -50,6 +50,22 @@ const SUGERENCIAS_BLACKLIST_CUENTAS = [
 Despues de cambiarla, actualiza el despliegue del Apps Script con una nueva
 version. Guardar el archivo sin redeploy no actualiza la URL `/exec`.
 
+## Reportes PDF
+
+La pagina `bitacora.html` incluye un boton `Generar reporte PDF`. Ese boton
+usa `/api/bitacora/reporte`, que reenvia al Apps Script estas acciones:
+
+- `listarSemanas`: calcula automaticamente las semanas a partir de la columna
+  `Fecha` de los registros con `Validado por Pasante` marcado.
+- `obtenerFilas`: devuelve la vista previa de los registros validados de una
+  semana.
+- `generarPdf`: crea un PDF en Drive dentro de la carpeta
+  `Reportes Bitacora Biomedica` y devuelve un enlace.
+
+Despues de pegar cambios en `google-apps-script-bitacora.js`, crea una nueva
+version del despliegue del Apps Script. El reporte no funcionara con una
+version anterior del webhook.
+
 Webhook actual:
 
 ```text

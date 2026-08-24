@@ -1,0 +1,438 @@
+<!-- Reporte.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="UTF-8">
+<style>
+  :root{
+    --ink: #1c2b26;
+    --paper: #f6f4ed;
+    --panel: #ffffff;
+    --line: #d8d2c0;
+    --moss: #3f5d4e;
+    --moss-dark: #2b4137;
+    --clay: #b5652f;
+    --ok: #3f5d4e;
+    --err: #b5482f;
+    --mono: 'Courier New', Courier, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    color:var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    display:flex;
+    justify-content:center;
+    padding: 40px 16px 80px;
+  }
+  .sheet{
+    width:100%;
+    max-width: 820px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    box-shadow: 0 1px 0 var(--line), 0 12px 30px -18px rgba(28,43,38,0.35);
+  }
+  .band{
+    background:var(--moss-dark);
+    color:var(--paper);
+    padding: 22px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+  }
+  .band h1{
+    font-size: 1.15rem;
+    letter-spacing:.04em;
+    margin:0;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+  .band .tag{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:#cfe0d5;
+    white-space:nowrap;
+  }
+  .section{
+    padding: 26px 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .section:last-of-type{ border-bottom:none; }
+  .section-title{
+    font-family:var(--mono);
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--moss);
+    margin:0 0 4px;
+  }
+  .section-sub{
+    font-size:.82rem;
+    color:#5b675f;
+    margin:0 0 18px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+  }
+  .full{ grid-column: 1 / -1; }
+  label{
+    display:block;
+    font-family:var(--mono);
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:#6b7870;
+    margin-bottom:6px;
+  }
+  select{
+    width:100%;
+    padding:10px 11px;
+    border:1px solid var(--line);
+    background:#fdfcf8;
+    color:var(--ink);
+    font-family: Georgia, serif;
+    font-size:.94rem;
+    border-radius:2px;
+  }
+  select:focus{
+    outline:none;
+    border-color:var(--moss);
+    box-shadow:0 0 0 3px rgba(63,93,78,0.14);
+  }
+  .contador-badge{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:.62rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    background:#f3e3d3;
+    color:var(--clay);
+    padding:3px 8px;
+    border-radius:2px;
+    margin-left:8px;
+  }
+  .empty-state{
+    font-family:var(--mono);
+    font-size:.85rem;
+    color:#6b7870;
+    text-align:center;
+    padding:20px 0;
+  }
+  table.preview{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.78rem;
+    margin-top:14px;
+  }
+  table.preview th, table.preview td{
+    border:1px solid var(--line);
+    padding:7px 8px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.preview td.na{
+    color:#b3b3b3;
+  }
+  table.preview th{
+    font-family:var(--mono);
+    font-size:.62rem;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    background:#fbfaf5;
+    color:#6b7870;
+  }
+  .table-wrap{
+    max-height: 340px;
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:2px;
+  }
+  table.preview{ margin-top:0; border:none; }
+  .actions{
+    padding: 26px 32px 32px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  button{
+    background:var(--moss);
+    color:#fff;
+    border:none;
+    padding:13px 26px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    cursor:pointer;
+    border-radius:2px;
+    transition: background .15s ease;
+  }
+  button:hover{ background:var(--moss-dark); }
+  button:disabled{ background:#a9b3ac; cursor:not-allowed; }
+  .status{
+    font-family:var(--mono);
+    font-size:.78rem;
+  }
+  .status.ok{ color:var(--ok); }
+  .status.err{ color:var(--err); }
+  .status.pending{ color:#8b8a76; }
+  .pdf-link{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--moss-dark);
+    border:1px solid var(--moss);
+    padding:11px 20px;
+    border-radius:2px;
+    text-decoration:none;
+  }
+  .pdf-link:hover{ background:var(--moss); color:#fff; }
+  .stamp{
+    text-align:center;
+    font-family:var(--mono);
+    font-size:.66rem;
+    color:#a09e8c;
+    letter-spacing:.08em;
+    padding: 18px 0 0;
+  }
+  @media (max-width:560px){
+    .grid{ grid-template-columns: 1fr; }
+    .band{ flex-direction:column; gap:4px; }
+    .section{ padding:20px; }
+    .actions{ padding:20px; flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="band">
+    <h1>Reporte semanal</h1>
+    <span class="tag" id="semanasTag">cargando…</span>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Selecciona la semana</p>
+    <p class="section-sub">Se listan las semanas que ya tienen al menos una reserva revisada.</p>
+
+    <div class="grid">
+      <div class="full">
+        <label for="semanaSelect">Semana de revisión</label>
+        <select id="semanaSelect">
+          <option value="">Cargando semanas…</option>
+        </select>
+      </div>
+    </div>
+
+    <p id="emptyState" class="empty-state" style="display:none;">
+      Todavía no hay ninguna reserva revisada con una semana asignada.
+    </p>
+  </div>
+
+  <div class="section" id="previewSection" style="display:none;">
+    <p class="section-title">Vista previa <span class="contador-badge" id="previewCount"></span></p>
+    <p class="section-sub">Estas son las filas que se incluirán en el PDF.</p>
+    <div class="table-wrap">
+      <table class="preview">
+        <thead>
+          <tr>
+            <th>Marca temporal reserva</th>
+            <th>Nombre del responsable</th>
+            <th>Número de cuenta</th>
+            <th>Hora inicio</th>
+            <th>Hora fin</th>
+            <th>Fecha</th>
+            <th>Insumos utilizados</th>
+            <th>Cantidad de insumos</th>
+            <th>Equipo</th>
+            <th>Accesorios utilizados</th>
+            <th>Otros accesorios</th>
+            <th>Actividad</th>
+            <th>Observaciones de reserva</th>
+            <th>Encargado de revisión</th>
+            <th>Fecha de revisión</th>
+            <th>Observaciones de la revisión</th>
+          </tr>
+        </thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="button" id="generarBtn" disabled>Generar PDF</button>
+    <span class="status pending" id="statusMsg">Selecciona una semana</span>
+    <a href="#" id="pdfLink" class="pdf-link" style="display:none;" target="_blank" rel="noopener">Abrir / descargar PDF</a>
+  </div>
+
+  <p class="stamp">GENERADO DESDE GOOGLE SHEETS · APPS SCRIPT</p>
+</div>
+
+<script>
+  const semanaSelect = document.getElementById('semanaSelect');
+  const semanasTag = document.getElementById('semanasTag');
+  const emptyState = document.getElementById('emptyState');
+  const previewSection = document.getElementById('previewSection');
+  const previewBody = document.getElementById('previewBody');
+  const previewCount = document.getElementById('previewCount');
+  const generarBtn = document.getElementById('generarBtn');
+  const statusMsg = document.getElementById('statusMsg');
+  const pdfLink = document.getElementById('pdfLink');
+
+  function cargarSemanas(){
+    semanaSelect.innerHTML = '<option value="">Cargando semanas…</option>';
+    google.script.run
+      .withSuccessHandler(mostrarSemanas)
+      .withFailureHandler(function(err){
+        semanaSelect.innerHTML = '<option value="">Error al cargar</option>';
+        statusMsg.textContent = "Error al cargar semanas: " + (err && err.message ? err.message : err);
+        statusMsg.className = "status err";
+      })
+      .obtenerSemanasDisponibles();
+  }
+
+  function mostrarSemanas(semanas){
+    semanas = semanas || [];
+    semanasTag.textContent = semanas.length + (semanas.length === 1 ? ' semana' : ' semanas');
+    semanaSelect.innerHTML = '';
+
+    if (semanas.length === 0) {
+      emptyState.style.display = 'block';
+      const ph = document.createElement('option');
+      ph.value = '';
+      ph.textContent = 'No hay semanas registradas';
+      semanaSelect.appendChild(ph);
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    const ph = document.createElement('option');
+    ph.value = '';
+    ph.disabled = true;
+    ph.selected = true;
+    ph.textContent = 'Seleccione una semana…';
+    semanaSelect.appendChild(ph);
+
+    semanas.forEach(function(s){
+      const opt = document.createElement('option');
+      opt.value = s;
+      opt.textContent = s;
+      semanaSelect.appendChild(opt);
+    });
+  }
+
+  semanaSelect.addEventListener('change', function(){
+    const semana = this.value;
+    console.log('[DEBUG] Semana seleccionada (valor exacto):', JSON.stringify(semana));
+    pdfLink.style.display = 'none';
+
+    if (!semana) {
+      previewSection.style.display = 'none';
+      generarBtn.disabled = true;
+      statusMsg.textContent = "Selecciona una semana";
+      statusMsg.className = "status pending";
+      return;
+    }
+
+    statusMsg.textContent = "Cargando filas de esa semana…";
+    statusMsg.className = "status pending";
+    generarBtn.disabled = true;
+
+    google.script.run
+      .withSuccessHandler(function(filas){
+        console.log('[DEBUG] Filas recibidas del servidor:', filas);
+        mostrarPreview(filas || []);
+      })
+      .withFailureHandler(function(err){
+        console.log('[DEBUG] ERROR del servidor:', err);
+        statusMsg.textContent = "Error al cargar filas: " + (err && err.message ? err.message : err);
+        statusMsg.className = "status err";
+      })
+      .obtenerFilasPorSemana(semana);
+  });
+
+  function mostrarPreview(filas){
+    previewBody.innerHTML = '';
+
+    if (filas.length === 0) {
+      previewSection.style.display = 'none';
+      generarBtn.disabled = true;
+      statusMsg.textContent = "No hay filas revisadas para esa semana";
+      statusMsg.className = "status pending";
+      return;
+    }
+
+    filas.forEach(function(f){
+      const tr = document.createElement('tr');
+      [
+        f.marcaTemporalReserva, f.nombreResponsable, f.numeroCuenta,
+        f.horaInicio, f.horaFin, f.fechaReserva, f.insumos, f.cantidadInsumos,
+        f.equipo, f.accesorios, f.accesoriosOtros, f.actividad,
+        f.observacionesReserva, f.encargadoRevision, f.fechaRevision,
+        f.observacionesRevision
+      ].forEach(function(valor){
+        const td = document.createElement('td');
+        const texto = (valor === null || valor === undefined || valor === '') ? 'N/A' : valor;
+        td.textContent = texto;
+        if (texto === 'N/A') td.classList.add('na');
+        tr.appendChild(td);
+      });
+      previewBody.appendChild(tr);
+    });
+
+    previewCount.textContent = filas.length + (filas.length === 1 ? ' fila' : ' filas');
+    previewSection.style.display = 'block';
+    generarBtn.disabled = false;
+    statusMsg.textContent = "Listo para generar el PDF";
+    statusMsg.className = "status pending";
+  }
+
+  generarBtn.addEventListener('click', function(){
+    const semana = semanaSelect.value;
+    if (!semana) return;
+
+    generarBtn.disabled = true;
+    pdfLink.style.display = 'none';
+    statusMsg.textContent = "Generando PDF…";
+    statusMsg.className = "status pending";
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if (res && res.result === 'error') {
+          statusMsg.textContent = "Error: " + res.error;
+          statusMsg.className = "status err";
+          generarBtn.disabled = false;
+          return;
+        }
+        statusMsg.textContent = "PDF generado (" + res.totalFilas + " filas) ✓";
+        statusMsg.className = "status ok";
+        pdfLink.href = res.url;
+        pdfLink.style.display = 'inline-block';
+        generarBtn.disabled = false;
+      })
+      .withFailureHandler(function(err){
+        statusMsg.textContent = "Error al generar: " + (err && err.message ? err.message : err);
+        statusMsg.className = "status err";
+        generarBtn.disabled = false;
+      })
+      .generarReportePdf(semana);
+  });
+
+  cargarSemanas();
+</script>
+
+</body>
+</html>

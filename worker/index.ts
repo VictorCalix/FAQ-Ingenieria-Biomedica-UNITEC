@@ -38,6 +38,10 @@ const worker = {
       return submitSheetForm(request, env, "bitacora");
     }
 
+    if (url.pathname === "/api/bitacora/reporte" && request.method === "POST") {
+      return submitReportRequest(request, env);
+    }
+
     if (url.pathname === "/api/sugerencia" && request.method === "POST") {
       return submitSheetForm(request, env, "sugerencia");
     }
@@ -120,6 +124,60 @@ async function submitSheetForm(request: Request, env: Env, formType: "bitacora" 
   }
 
   return jsonResponse({ ok: true });
+}
+
+async function submitReportRequest(request: Request, env: Env): Promise<Response> {
+  if (!env.BITACORA_WEBHOOK_URL) {
+    return jsonResponse({ ok: false, error: "BITACORA_WEBHOOK_URL no esta configurado." }, 500);
+  }
+
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json() as Record<string, unknown>;
+  } catch {
+    return jsonResponse({ ok: false, error: "El cuerpo de la solicitud no es JSON valido." }, 400);
+  }
+
+  const action = String(body.action || "");
+  const allowedActions = new Set(["listarSemanas", "obtenerFilas", "generarPdf"]);
+  if (!allowedActions.has(action)) {
+    return jsonResponse({ ok: false, error: "Accion de reporte invalida." }, 400);
+  }
+
+  const payload = {
+    action,
+    semana: body.semana || "",
+    sheetName: env.BITACORA_SHEET_NAME || "Bitacora",
+    spreadsheetId: env.BITACORA_SPREADSHEET_ID || "",
+    submittedAt: new Date().toISOString(),
+    token: env.BITACORA_WEBHOOK_TOKEN || "",
+  };
+
+  const headers = new Headers({ "content-type": "application/json; charset=utf-8" });
+  if (env.BITACORA_WEBHOOK_TOKEN) {
+    headers.set("authorization", `Bearer ${env.BITACORA_WEBHOOK_TOKEN}`);
+  }
+
+  const upstream = await fetch(env.BITACORA_WEBHOOK_URL, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(payload),
+  });
+
+  if (!upstream.ok) {
+    const error = await upstream.text();
+    return jsonResponse({ ok: false, error: error || "No se pudo procesar el reporte." }, 502);
+  }
+
+  const upstreamBody = await upstream.json().catch(() => null) as { ok?: boolean; error?: string } | null;
+  if (!upstreamBody?.ok) {
+    return jsonResponse({
+      ok: false,
+      error: upstreamBody?.error || "No se pudo procesar el reporte.",
+    }, 403);
+  }
+
+  return jsonResponse(upstreamBody);
 }
 
 function jsonResponse(data: unknown, status = 200): Response {

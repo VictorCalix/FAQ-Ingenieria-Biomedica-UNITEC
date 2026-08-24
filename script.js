@@ -1,4 +1,22 @@
-const repositoryEquipment = equipmentData.repository;
+function normalizeRepositoryKey(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("es")
+    .replace(/\bseries\b/g, "serie")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function getRepositoryKey(item) {
+  return [
+    normalizeRepositoryKey(item.baseName || item.name),
+    normalizeRepositoryKey(item.model || item.name)
+  ].join("|");
+}
+
+const repositoryEquipment = [...new Map(
+  equipmentData.repository.map(item => [getRepositoryKey(item), item])
+).values()];
 const resources = repositoryEquipment.flatMap(item => [
   { title: `Guia rapida - ${item.name}`, team: item.name, type: "Guia rapida", file: "#" },
   { title: `Manual - ${item.name}`, team: item.name, type: "Manual", file: "#" }

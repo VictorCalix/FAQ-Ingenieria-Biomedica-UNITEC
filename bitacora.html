@@ -124,8 +124,27 @@
 
     .accessories-list {
       display: grid;
-      gap: 8px;
+      gap: 14px;
       margin: 0;
+    }
+
+    .accessories-group {
+      display: grid;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid #c8dce0;
+    }
+
+    .accessories-group:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .accessories-group-title {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
     }
 
     .accessories-list label {
@@ -148,6 +167,117 @@
       accent-color: var(--blue);
     }
 
+    .log-select .select-options button[aria-selected="true"]::before {
+      content: "\2713";
+      display: inline-block;
+      width: 16px;
+      font-weight: 700;
+    }
+
+    .log-select .select-options button[aria-selected="false"]::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+    }
+
+    .report-panel {
+      width: min(900px, 100%);
+    }
+
+    .report-controls {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .report-status {
+      min-height: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .report-status.is-error {
+      color: #a33737;
+    }
+
+    .report-status.is-ok {
+      color: var(--blue);
+    }
+
+    .report-preview {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .report-preview.is-visible {
+      display: block;
+    }
+
+    .report-preview-count {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .report-table-wrap {
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .report-table th,
+    .report-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    .report-table th {
+      position: sticky;
+      top: 0;
+      background: var(--ice);
+      color: var(--blue);
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .report-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .report-link {
+      display: none;
+      border: 1px solid var(--blue);
+      border-radius: 999px;
+      padding: 12px 17px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .report-link.is-visible {
+      display: inline-flex;
+    }
+
     @media (max-width: 620px) {
       .private-card {
         padding: 32px 22px;
@@ -156,6 +286,7 @@
       .private-card h1 {
         font-size: 40px;
       }
+
     }
   </style>
 </head>
@@ -172,6 +303,7 @@
         fetchpriority="high"
       >
     </div>
+    <button class="repo-button" id="open-report-modal" type="button">Generar PDF</button>
   </header>
 
   <main class="private-page">
@@ -220,7 +352,7 @@
           <span class="filter-label">Equipo</span>
           <div class="custom-select log-select" data-name="equipo" data-value="">
             <button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-              <span>Selecciona un equipo</span><i></i>
+              <span>Selecciona uno o varios equipos</span><i></i>
             </button>
             <div class="select-options" role="listbox" hidden>
             </div>
@@ -276,10 +408,63 @@
     </section>
   </div>
 
+  <div class="overlay" id="report-modal" hidden>
+    <section class="panel report-panel" role="dialog" aria-modal="true" aria-labelledby="report-title">
+      <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">X</button>
+      <h2 id="report-title">Reporte semanal</h2>
+      <p class="intro">Selecciona una semana calculada automaticamente desde las fechas de registros validados.</p>
+
+      <div class="report-controls">
+        <label>
+          Semana
+          <select id="report-week">
+            <option value="">Cargando semanas...</option>
+          </select>
+        </label>
+        <span class="report-status" id="report-status">Selecciona una semana.</span>
+      </div>
+
+      <div class="report-preview" id="report-preview">
+        <span class="report-preview-count" id="report-preview-count"></span>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Cuenta</th>
+                <th>Fecha</th>
+                <th>Hora inicio</th>
+                <th>Hora fin</th>
+                <th>Equipo</th>
+                <th>Accesorios</th>
+                <th>Insumos</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
+            <tbody id="report-preview-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="report-actions">
+        <button class="submit" id="generate-report-pdf" type="button" disabled>Generar PDF</button>
+        <a class="report-link" id="report-pdf-link" href="#" target="_blank" rel="noopener">Abrir / descargar PDF</a>
+      </div>
+    </section>
+  </div>
+
   <script>
     const dateInput = document.querySelector("#log-date");
     const accessoriesBox = document.querySelector("#accessories-box");
     const accessoriesList = document.querySelector("#accessories-list");
+    const reportModal = document.querySelector("#report-modal");
+    const reportWeekSelect = document.querySelector("#report-week");
+    const reportStatus = document.querySelector("#report-status");
+    const reportPreview = document.querySelector("#report-preview");
+    const reportPreviewBody = document.querySelector("#report-preview-body");
+    const reportPreviewCount = document.querySelector("#report-preview-count");
+    const generateReportButton = document.querySelector("#generate-report-pdf");
+    const reportPdfLink = document.querySelector("#report-pdf-link");
     const equipmentByName = new Map(equipmentData.equipment.map(item => [item.name, item]));
     const today = new Date();
     const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
@@ -303,6 +488,16 @@
       }
     });
 
+    document.querySelector("#open-report-modal").addEventListener("click", () => {
+      reportModal.hidden = false;
+      document.body.classList.add("modal-open");
+      loadReportWeeks();
+    });
+    document.querySelector("#close-report-modal").addEventListener("click", closeReportModal);
+    reportModal.addEventListener("click", event => {
+      if (event.target === reportModal) closeReportModal();
+    });
+
     function closeSelect(select) {
       select.classList.remove("open");
       select.querySelector(".select-trigger").setAttribute("aria-expanded", "false");
@@ -314,7 +509,7 @@
     }
 
     function escapeHtml(value) {
-      return value.replace(/[&<>"']/g, char => ({
+      return String(value).replace(/[&<>"']/g, char => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
@@ -322,6 +517,132 @@
         "'": "&#039;"
       }[char]));
     }
+
+    function closeReportModal() {
+      reportModal.hidden = true;
+      document.body.classList.remove("modal-open");
+    }
+
+    function setReportStatus(message, type = "") {
+      reportStatus.textContent = message;
+      reportStatus.className = `report-status${type ? ` is-${type}` : ""}`;
+    }
+
+    async function reportRequest(action, data = {}) {
+      const response = await fetch("/api/bitacora/reporte", {
+        method: "POST",
+        headers: { "content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ action, ...data })
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "No se pudo procesar el reporte.");
+      }
+
+      return result;
+    }
+
+    async function loadReportWeeks() {
+      reportWeekSelect.innerHTML = '<option value="">Cargando semanas...</option>';
+      reportWeekSelect.disabled = true;
+      generateReportButton.disabled = true;
+      reportPreview.classList.remove("is-visible");
+      reportPdfLink.classList.remove("is-visible");
+      setReportStatus("Cargando semanas validadas...");
+
+      try {
+        const result = await reportRequest("listarSemanas");
+        const weeks = result.semanas || [];
+        reportWeekSelect.innerHTML = "";
+
+        if (!weeks.length) {
+          reportWeekSelect.innerHTML = '<option value="">No hay semanas con registros validados</option>';
+          setReportStatus("Todavia no hay registros validados para generar reporte.");
+          return;
+        }
+
+        reportWeekSelect.append(new Option("Selecciona una semana...", ""));
+        weeks.forEach(week => reportWeekSelect.append(new Option(week, week)));
+        reportWeekSelect.disabled = false;
+        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"}.`);
+      } catch (error) {
+        reportWeekSelect.innerHTML = '<option value="">Error al cargar</option>';
+        setReportStatus(error.message, "error");
+      }
+    }
+
+    async function loadReportRows(week) {
+      reportPreview.classList.remove("is-visible");
+      reportPdfLink.classList.remove("is-visible");
+      generateReportButton.disabled = true;
+
+      if (!week) {
+        setReportStatus("Selecciona una semana.");
+        return;
+      }
+
+      setReportStatus("Cargando registros de la semana...");
+
+      try {
+        const result = await reportRequest("obtenerFilas", { semana: week });
+        renderReportPreview(result.filas || []);
+      } catch (error) {
+        setReportStatus(error.message, "error");
+      }
+    }
+
+    function renderReportPreview(rows) {
+      reportPreviewBody.innerHTML = "";
+
+      if (!rows.length) {
+        setReportStatus("No hay registros validados para esa semana.");
+        return;
+      }
+
+      reportPreviewBody.innerHTML = rows.map(row => `
+        <tr>
+          <td>${escapeHtml(row.nombre || "N/A")}</td>
+          <td>${escapeHtml(row.cuenta || "N/A")}</td>
+          <td>${escapeHtml(row.fecha || "N/A")}</td>
+          <td>${escapeHtml(row.horaInicio || "N/A")}</td>
+          <td>${escapeHtml(row.horaFin || "N/A")}</td>
+          <td>${escapeHtml(row.equipo || "N/A")}</td>
+          <td>${escapeHtml(row.accesorios || "N/A")}</td>
+          <td>${escapeHtml(row.insumos || "N/A")}</td>
+          <td>${escapeHtml(row.observaciones || "N/A")}</td>
+        </tr>
+      `).join("");
+
+      reportPreviewCount.textContent = `${rows.length} registro${rows.length === 1 ? "" : "s"} validado${rows.length === 1 ? "" : "s"}`;
+      reportPreview.classList.add("is-visible");
+      generateReportButton.disabled = false;
+      setReportStatus("Listo para generar el PDF.", "ok");
+    }
+
+    reportWeekSelect.addEventListener("change", event => {
+      loadReportRows(event.target.value);
+    });
+
+    generateReportButton.addEventListener("click", async () => {
+      const week = reportWeekSelect.value;
+      if (!week) return;
+
+      generateReportButton.disabled = true;
+      reportPdfLink.classList.remove("is-visible");
+      setReportStatus("Generando PDF...");
+
+      try {
+        const result = await reportRequest("generarPdf", { semana: week });
+        reportPdfLink.href = result.url;
+        reportPdfLink.classList.add("is-visible");
+        setReportStatus(`PDF generado (${result.totalFilas} registro${result.totalFilas === 1 ? "" : "s"}).`, "ok");
+      } catch (error) {
+        setReportStatus(error.message, "error");
+      } finally {
+        generateReportButton.disabled = false;
+      }
+    });
 
     function isValidInstitutionalEmail(value) {
       return /^[^\s@]+@unitec\.edu(\.hn)?$/i.test(value);
@@ -335,18 +656,73 @@
       input.value = input.value.replace(/\D/g, "").slice(0, 8);
     }
 
-    function renderAccessories(equipmentName) {
-      const equipment = equipmentByName.get(equipmentName);
-      const accessories = equipment?.accessories || [];
+    function getSelectedEquipment(select) {
+      return select.dataset.value
+        ? select.dataset.value.split("|").map(value => value.trim()).filter(Boolean)
+        : [];
+    }
 
-      accessoriesList.innerHTML = accessories.length
-        ? accessories.map((item, index) => `
-            <label>
-              <input type="checkbox" name="accesorios" value="${escapeHtml(item)}">
-              <span>${escapeHtml(item)}</span>
-            </label>
-          `).join("")
-        : "<small>No hay accesorios registrados para este equipo.</small>";
+    function normalizeAccessories(accessories) {
+      if (Array.isArray(accessories)) {
+        return accessories.filter(Boolean).map(String);
+      }
+
+      if (typeof accessories === "string") {
+        return accessories.trim() ? [accessories.trim()] : [];
+      }
+
+      if (accessories && typeof accessories === "object") {
+        return Object.values(accessories).filter(Boolean).map(String);
+      }
+
+      return [];
+    }
+
+    function updateSelectedEquipment(select, selected) {
+      const value = selected.join(" | ");
+      const trigger = select.querySelector(".select-trigger span");
+
+      select.dataset.value = value;
+      select.querySelector(".select-value").value = value;
+      trigger.textContent = selected.length
+        ? `${selected.length} equipo${selected.length === 1 ? "" : "s"} seleccionado${selected.length === 1 ? "" : "s"}`
+        : "Selecciona uno o varios equipos";
+
+      select.querySelectorAll("[role=option]").forEach(option => {
+        option.setAttribute("aria-selected", String(selected.includes(option.dataset.value)));
+      });
+
+      renderAccessories(selected);
+    }
+
+    function renderAccessories(equipmentNames) {
+      const selected = Array.isArray(equipmentNames) ? equipmentNames : [equipmentNames].filter(Boolean);
+
+      if (!selected.length) {
+        accessoriesBox.classList.remove("is-visible");
+        accessoriesList.innerHTML = "";
+        return;
+      }
+
+      accessoriesList.innerHTML = selected.map(equipmentName => {
+        const equipment = equipmentByName.get(equipmentName);
+        const accessories = normalizeAccessories(equipment?.accessories);
+        const list = accessories.length
+          ? accessories.map(item => `
+              <label>
+                <input type="checkbox" name="accesorios" value="${escapeHtml(`${equipmentName}: ${item}`)}">
+                <span>${escapeHtml(item)}</span>
+              </label>
+            `).join("")
+          : "<small>No hay accesorios registrados para este equipo.</small>";
+
+        return `
+          <section class="accessories-group">
+            <strong class="accessories-group-title">${escapeHtml(equipmentName)}</strong>
+            ${list}
+          </section>
+        `;
+      }).join("");
       accessoriesBox.classList.add("is-visible");
     }
 
@@ -405,16 +781,16 @@
       });
 
       menu.querySelectorAll("[role=option]").forEach(option => {
-        option.addEventListener("click", () => {
-          select.dataset.value = option.dataset.value;
-          select.querySelector(".select-value").value = option.dataset.value;
-          trigger.querySelector("span").textContent = option.textContent;
-          menu.querySelectorAll("[role=option]").forEach(item => {
-            item.setAttribute("aria-selected", String(item === option));
-          });
-          renderAccessories(option.dataset.value);
-          closeSelect(select);
-          trigger.focus();
+        option.addEventListener("click", event => {
+          event.stopPropagation();
+          const selected = getSelectedEquipment(select);
+          const value = option.dataset.value;
+          const next = selected.includes(value)
+            ? selected.filter(item => item !== value)
+            : [...selected, value];
+
+          updateSelectedEquipment(select, next);
+          search.focus();
         });
       });
     });
@@ -478,10 +854,10 @@
         return;
       }
 
-      const missing = [...document.querySelectorAll(".log-select")].find(select => !select.dataset.value);
+      const missing = [...document.querySelectorAll(".log-select")].find(select => !getSelectedEquipment(select).length);
       if (missing) {
         missing.querySelector(".select-trigger").focus();
-        alert("Selecciona el equipo antes de registrar el uso.");
+        alert("Selecciona al menos un equipo antes de registrar el uso.");
         return;
       }
       const terms = event.target.elements.terminos;
@@ -515,10 +891,7 @@
       event.target.reset();
       dateInput.value = localToday;
       document.querySelectorAll(".log-select").forEach(select => {
-        select.dataset.value = "";
-        select.querySelector(".select-value").value = "";
-        select.querySelector(".select-trigger span").textContent = "Selecciona un equipo";
-        select.querySelectorAll("[role=option]").forEach(option => option.setAttribute("aria-selected", "false"));
+        updateSelectedEquipment(select, []);
       });
       accessoriesBox.classList.remove("is-visible");
       accessoriesList.innerHTML = "";
