@@ -1,3 +1,5 @@
+import { equipmentData } from "./equipment-data.js";
+
 function normalizeRepositoryKey(value) {
   return String(value || "")
     .normalize("NFD")

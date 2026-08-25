@@ -6,7 +6,6 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Bitácora | Ingeniería Biomédica</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="equipment-data.js"></script>
   <style>
     .private-page {
       width: min(760px, calc(100% - 32px));
@@ -453,7 +452,9 @@
     </section>
   </div>
 
-  <script>
+  <script type="module">
+    import { equipmentData } from "./equipment-data.js";
+
     const dateInput = document.querySelector("#log-date");
     const accessoriesBox = document.querySelector("#accessories-box");
     const accessoriesList = document.querySelector("#accessories-list");

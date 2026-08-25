@@ -1,4 +1,4 @@
-锘縞onst equipmentData = {
+export const equipmentData = {
     "repository":  [
                        {
                            "name":  "AMBP - ABPM50",
@@ -6,18 +6,18 @@
                            "model":  "ABPM50"
                        },
                        {
-                           "name":  "Analizador de Agente Anest茅sico - AA-8000",
-                           "baseName":  "Analizador de Agente Anest茅sico",
+                           "name":  "Analizador de Agente Anest閟ico - AA-8000",
+                           "baseName":  "Analizador de Agente Anest閟ico",
                            "model":  "AA-8000"
                        },
                        {
-                           "name":  "Analizador de Biomec谩nica - Xsens Awinda",
-                           "baseName":  "Analizador de Biomec谩nica",
+                           "name":  "Analizador de Biomec醤ica - Xsens Awinda",
+                           "baseName":  "Analizador de Biomec醤ica",
                            "model":  "Xsens Awinda"
                        },
                        {
-                           "name":  "Analizador de Bomba de Infusi贸n - IPA-3400",
-                           "baseName":  "Analizador de Bomba de Infusi贸n",
+                           "name":  "Analizador de Bomba de Infusi髇 - IPA-3400",
+                           "baseName":  "Analizador de Bomba de Infusi髇",
                            "model":  "IPA-3400"
                        },
                        {
@@ -31,8 +31,8 @@
                            "model":  "DA-2006P"
                        },
                        {
-                           "name":  "Analizador de Dosis de 脕rea - RaySafe 452",
-                           "baseName":  "Analizador de Dosis de 脕rea",
+                           "name":  "Analizador de Dosis de 羠ea - RaySafe 452",
+                           "baseName":  "Analizador de Dosis de 羠ea",
                            "model":  "RaySafe 452"
                        },
                        {
@@ -51,23 +51,23 @@
                            "model":  "X2"
                        },
                        {
-                           "name":  "Analizador de Seguridad El茅ctrica - SA-2010",
-                           "baseName":  "Analizador de Seguridad El茅ctrica",
+                           "name":  "Analizador de Seguridad El閏trica - SA-2010",
+                           "baseName":  "Analizador de Seguridad El閏trica",
                            "model":  "SA-2010"
                        },
                        {
-                           "name":  "Analizador de Unidad Electroquir煤rgica - ESU-2300",
-                           "baseName":  "Analizador de Unidad Electroquir煤rgica",
+                           "name":  "Analizador de Unidad Electroquir鷕gica - ESU-2300",
+                           "baseName":  "Analizador de Unidad Electroquir鷕gica",
                            "model":  "ESU-2300"
                        },
                        {
-                           "name":  "Analizador de Ventilaci贸n - Certifier FA plus",
-                           "baseName":  "Analizador de Ventilaci贸n",
+                           "name":  "Analizador de Ventilaci髇 - Certifier FA plus",
+                           "baseName":  "Analizador de Ventilaci髇",
                            "model":  "Certifier FA plus"
                        },
                        {
-                           "name":  "Analizador Hematol贸gico - AC610",
-                           "baseName":  "Analizador Hematol贸gico",
+                           "name":  "Analizador Hematol骻ico - AC610",
+                           "baseName":  "Analizador Hematol骻ico",
                            "model":  "AC610"
                        },
                        {
@@ -76,38 +76,38 @@
                            "model":  "SA-232"
                        },
                        {
-                           "name":  "Bal贸metro - ALNOR",
-                           "baseName":  "Bal贸metro",
+                           "name":  "Bal髆etro - ALNOR",
+                           "baseName":  "Bal髆etro",
                            "model":  "ALNOR"
                        },
                        {
-                           "name":  "BASE con Fuente de Alimentaci贸n - DL3155AL2RM",
-                           "baseName":  "BASE con Fuente de Alimentaci贸n",
+                           "name":  "BASE con Fuente de Alimentaci髇 - DL3155AL2RM",
+                           "baseName":  "BASE con Fuente de Alimentaci髇",
                            "model":  "DL3155AL2RM"
                        },
                        {
-                           "name":  "Bomba de Infusi贸n - 550T2",
-                           "baseName":  "Bomba de Infusi贸n",
+                           "name":  "Bomba de Infusi髇 - 550T2",
+                           "baseName":  "Bomba de Infusi髇",
                            "model":  "550T2"
                        },
                        {
-                           "name":  "Bomba de Infusi贸n - BeneFusion uSP",
-                           "baseName":  "Bomba de Infusi贸n",
+                           "name":  "Bomba de Infusi髇 - BeneFusion uSP",
+                           "baseName":  "Bomba de Infusi髇",
                            "model":  "BeneFusion uSP"
                        },
                        {
-                           "name":  "Bomba de Infusi贸n - BeneFusion uVP",
-                           "baseName":  "Bomba de Infusi贸n",
+                           "name":  "Bomba de Infusi髇 - BeneFusion uVP",
+                           "baseName":  "Bomba de Infusi髇",
                            "model":  "BeneFusion uVP"
                        },
                        {
-                           "name":  "Bomba de Infusi贸n - SERENE",
-                           "baseName":  "Bomba de Infusi贸n",
+                           "name":  "Bomba de Infusi髇 - SERENE",
+                           "baseName":  "Bomba de Infusi髇",
                            "model":  "SERENE"
                        },
                        {
-                           "name":  "Bomba de Infusi贸n - Sigmaspectrum",
-                           "baseName":  "Bomba de Infusi贸n",
+                           "name":  "Bomba de Infusi髇 - Sigmaspectrum",
+                           "baseName":  "Bomba de Infusi髇",
                            "model":  "Sigmaspectrum"
                        },
                        {
@@ -151,28 +151,28 @@
                            "model":  "Lifepack12"
                        },
                        {
-                           "name":  "Detector de Fugas Ultras贸nico",
-                           "baseName":  "Detector de Fugas Ultras贸nico",
+                           "name":  "Detector de Fugas Ultras髇ico",
+                           "baseName":  "Detector de Fugas Ultras髇ico",
                            "model":  "N/A"
                        },
                        {
-                           "name":  "Electrocardi贸grafo - Digital 3 Channels Electrocardiograph",
-                           "baseName":  "Electrocardi贸grafo",
+                           "name":  "Electrocardi骻rafo - Digital 3 Channels Electrocardiograph",
+                           "baseName":  "Electrocardi骻rafo",
                            "model":  "Digital 3 Channels Electrocardiograph"
                        },
                        {
-                           "name":  "Electrocardi贸grafo - ECG 100G",
-                           "baseName":  "Electrocardi贸grafo",
+                           "name":  "Electrocardi骻rafo - ECG 100G",
+                           "baseName":  "Electrocardi骻rafo",
                            "model":  "ECG 100G"
                        },
                        {
-                           "name":  "Electroencefal贸grafo - MARK IV",
-                           "baseName":  "Electroencefal贸grafo",
+                           "name":  "Electroencefal骻rafo - MARK IV",
+                           "baseName":  "Electroencefal骻rafo",
                            "model":  "MARK IV"
                        },
                        {
-                           "name":  "Hemodi谩lisis - 2008E",
-                           "baseName":  "Hemodi谩lisis",
+                           "name":  "Hemodi醠isis - 2008E",
+                           "baseName":  "Hemodi醠isis",
                            "model":  "2008E"
                        },
                        {
@@ -191,8 +191,8 @@
                            "model":  "SH330"
                        },
                        {
-                           "name":  "Humidificador (Ventilador Mec谩nico Comen) - VH-3000",
-                           "baseName":  "Humidificador (Ventilador Mec谩nico Comen)",
+                           "name":  "Humidificador (Ventilador Mec醤ico Comen) - VH-3000",
+                           "baseName":  "Humidificador (Ventilador Mec醤ico Comen)",
                            "model":  "VH-3000"
                        },
                        {
@@ -216,13 +216,13 @@
                            "model":  "AI - 1B"
                        },
                        {
-                           "name":  "Lux贸metro - MAVOLUX 5032B",
-                           "baseName":  "Lux贸metro",
+                           "name":  "Lux髆etro - MAVOLUX 5032B",
+                           "baseName":  "Lux髆etro",
                            "model":  "MAVOLUX 5032B"
                        },
                        {
-                           "name":  "M谩quina de Anestesia - S6100",
-                           "baseName":  "M谩quina de Anestesia",
+                           "name":  "M醧uina de Anestesia - S6100",
+                           "baseName":  "M醧uina de Anestesia",
                            "model":  "S6100"
                        },
                        {
@@ -231,8 +231,8 @@
                            "model":  "STARLITE"
                        },
                        {
-                           "name":  "Monitor de M谩quina de Anestesia - SP-J12H",
-                           "baseName":  "Monitor de M谩quina de Anestesia",
+                           "name":  "Monitor de M醧uina de Anestesia - SP-J12H",
+                           "baseName":  "Monitor de M醧uina de Anestesia",
                            "model":  "SP-J12H"
                        },
                        {
@@ -251,8 +251,8 @@
                            "model":  "CMS800G"
                        },
                        {
-                           "name":  "Osciloscopio Port谩til - 190-202 Series III",
-                           "baseName":  "Osciloscopio Port谩til",
+                           "name":  "Osciloscopio Port醫il - 190-202 Series III",
+                           "baseName":  "Osciloscopio Port醫il",
                            "model":  "190-202 Series III"
                        },
                        {
@@ -261,23 +261,23 @@
                            "model":  "054GS"
                        },
                        {
-                           "name":  "Placa de Audi贸metro - DL3155BIO6",
-                           "baseName":  "Placa de Audi贸metro",
+                           "name":  "Placa de Audi髆etro - DL3155BIO6",
+                           "baseName":  "Placa de Audi髆etro",
                            "model":  "DL3155BIO6"
                        },
                        {
-                           "name":  "Placa de Audi贸metro - DL3155BIO9",
-                           "baseName":  "Placa de Audi贸metro",
+                           "name":  "Placa de Audi髆etro - DL3155BIO9",
+                           "baseName":  "Placa de Audi髆etro",
                            "model":  "DL3155BIO9"
                        },
                        {
-                           "name":  "Placa de Electroestimulaci贸n - DL3155BIO12",
-                           "baseName":  "Placa de Electroestimulaci贸n",
+                           "name":  "Placa de Electroestimulaci髇 - DL3155BIO12",
+                           "baseName":  "Placa de Electroestimulaci髇",
                            "model":  "DL3155BIO12"
                        },
                        {
-                           "name":  "Placa de Frecuencia Card铆aca - DL3155BIO6",
-                           "baseName":  "Placa de Frecuencia Card铆aca",
+                           "name":  "Placa de Frecuencia Card韆ca - DL3155BIO6",
+                           "baseName":  "Placa de Frecuencia Card韆ca",
                            "model":  "DL3155BIO6"
                        },
                        {
@@ -291,18 +291,18 @@
                            "model":  "DL3155BIO11"
                        },
                        {
-                           "name":  "Placa de Monitoreo de Presi贸n - DL3155BIO16",
-                           "baseName":  "Placa de Monitoreo de Presi贸n",
+                           "name":  "Placa de Monitoreo de Presi髇 - DL3155BIO16",
+                           "baseName":  "Placa de Monitoreo de Presi髇",
                            "model":  "DL3155BIO16"
                        },
                        {
-                           "name":  "Placa de Resistencia Galv谩nica - DL3155BI08",
-                           "baseName":  "Placa de Resistencia Galv谩nica",
+                           "name":  "Placa de Resistencia Galv醤ica - DL3155BI08",
+                           "baseName":  "Placa de Resistencia Galv醤ica",
                            "model":  "DL3155BI08"
                        },
                        {
-                           "name":  "Placa de Temperatura y Respiraci贸n - DL3155BIO7",
-                           "baseName":  "Placa de Temperatura y Respiraci贸n",
+                           "name":  "Placa de Temperatura y Respiraci髇 - DL3155BIO7",
+                           "baseName":  "Placa de Temperatura y Respiraci髇",
                            "model":  "DL3155BIO7"
                        },
                        {
@@ -316,8 +316,8 @@
                            "model":  "DL3155BIO15"
                        },
                        {
-                           "name":  "Placa de Terapia L谩ser - DL3155BIO13",
-                           "baseName":  "Placa de Terapia L谩ser",
+                           "name":  "Placa de Terapia L醩er - DL3155BIO13",
+                           "baseName":  "Placa de Terapia L醩er",
                            "model":  "DL3155BIO13"
                        },
                        {
@@ -336,8 +336,8 @@
                            "model":  "LS-2000A"
                        },
                        {
-                           "name":  "Simulador Pulmonar Pedi谩trico - LS-2000I",
-                           "baseName":  "Simulador Pulmonar Pedi谩trico",
+                           "name":  "Simulador Pulmonar Pedi醫rico - LS-2000I",
+                           "baseName":  "Simulador Pulmonar Pedi醫rico",
                            "model":  "LS-2000I"
                        },
                        {
@@ -351,33 +351,33 @@
                            "model":  "DP-30"
                        },
                        {
-                           "name":  "Unidad de Electrocirug铆a - ForceFX",
-                           "baseName":  "Unidad de Electrocirug铆a",
+                           "name":  "Unidad de Electrocirug韆 - ForceFX",
+                           "baseName":  "Unidad de Electrocirug韆",
                            "model":  "ForceFX"
                        },
                        {
-                           "name":  "Ventilador Mec谩nico - 15215",
-                           "baseName":  "Ventilador Mec谩nico",
+                           "name":  "Ventilador Mec醤ico - 15215",
+                           "baseName":  "Ventilador Mec醤ico",
                            "model":  "15215"
                        },
                        {
-                           "name":  "Ventilador Mec谩nico - 7200 SERIE",
-                           "baseName":  "Ventilador Mec谩nico",
+                           "name":  "Ventilador Mec醤ico - 7200 SERIE",
+                           "baseName":  "Ventilador Mec醤ico",
                            "model":  "7200 SERIE"
                        },
                        {
-                           "name":  "Ventilador Mec谩nico - 7200 Series",
-                           "baseName":  "Ventilador Mec谩nico",
+                           "name":  "Ventilador Mec醤ico - 7200 Series",
+                           "baseName":  "Ventilador Mec醤ico",
                            "model":  "7200 Series"
                        },
                        {
-                           "name":  "Ventilador Mec谩nico - InfantStar",
-                           "baseName":  "Ventilador Mec谩nico",
+                           "name":  "Ventilador Mec醤ico - InfantStar",
+                           "baseName":  "Ventilador Mec醤ico",
                            "model":  "InfantStar"
                        },
                        {
-                           "name":  "Ventilador Mec谩nico - V3/V3A",
-                           "baseName":  "Ventilador Mec谩nico",
+                           "name":  "Ventilador Mec醤ico - V3/V3A",
+                           "baseName":  "Ventilador Mec醤ico",
                            "model":  "V3/V3A"
                        },
                        {
@@ -441,10 +441,10 @@
                                           ]
                       },
                       {
-                          "name":  "Analizador de Biomec谩nica",
-                          "baseName":  "Analizador de Biomec谩nica",
+                          "name":  "Analizador de Biomec醤ica",
+                          "baseName":  "Analizador de Biomec醤ica",
                           "model":  "Xsens Awinda",
-                          "repositoryName":  "Analizador de Biomec谩nica - Xsens Awinda",
+                          "repositoryName":  "Analizador de Biomec醤ica - Xsens Awinda",
                           "accessories":  [
                                               "Sensores inersiales (6)",
                                               "adaptadores(3)",
@@ -452,24 +452,24 @@
                                               "Modulo (1)",
                                               "Camisas (3)",
                                               "Cinta para la cabeza (1)",
-                                              "Mu帽equeras (4)",
-                                              "Banda elastica peque帽a (8)",
+                                              "Mu馿queras (4)",
+                                              "Banda elastica peque馻 (8)",
                                               "Banda elastica grande (3)",
-                                              "Antena de se帽al (2)",
+                                              "Antena de se馻l (2)",
                                               "Soporte de sensor (2)",
                                               "cable USB (1)"
                                           ]
                       },
                       {
-                          "name":  "Analizador de Bomba de Infusi贸n",
-                          "baseName":  "Analizador de Bomba de Infusi贸n",
+                          "name":  "Analizador de Bomba de Infusi髇",
+                          "baseName":  "Analizador de Bomba de Infusi髇",
                           "model":  "IPA-3400",
-                          "repositoryName":  "Analizador de Bomba de Infusi贸n - IPA-3400",
+                          "repositoryName":  "Analizador de Bomba de Infusi髇 - IPA-3400",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Cable USB",
-                                              "C谩nula gruesa",
-                                              "C谩nula delgada",
+                                              "C醤ula gruesa",
+                                              "C醤ula delgada",
                                               "Adaptadores (12)",
                                               "Llaves de tres vias (4)"
                                           ]
@@ -500,14 +500,14 @@
                                               "Cargador (1)",
                                               "Protectores de tubo de soporte (2)",
                                               "Perilla ajustable de presion (1)",
-                                              "Soporte peque帽o (1)"
+                                              "Soporte peque駉 (1)"
                                           ]
                       },
                       {
-                          "name":  "Electroencefal贸grafo",
-                          "baseName":  "Electroencefal贸grafo",
+                          "name":  "Electroencefal骻rafo",
+                          "baseName":  "Electroencefal骻rafo",
                           "model":  "MARK IV",
-                          "repositoryName":  "Electroencefal贸grafo - MARK IV",
+                          "repositoryName":  "Electroencefal骻rafo - MARK IV",
                           "accessories":  [
                                               "Placas CITONDAISY (2)",
                                               "Modulo USB",
@@ -545,10 +545,10 @@
                                           ]
                       },
                       {
-                          "name":  "Analizador de Ventilaci贸n",
-                          "baseName":  "Analizador de Ventilaci贸n",
+                          "name":  "Analizador de Ventilaci髇",
+                          "baseName":  "Analizador de Ventilaci髇",
                           "model":  "Certifier FA plus",
-                          "repositoryName":  "Analizador de Ventilaci贸n - Certifier FA plus",
+                          "repositoryName":  "Analizador de Ventilaci髇 - Certifier FA plus",
                           "accessories":  [
                                               "cable de alimentacion (1)",
                                               "Filtro (1)",
@@ -576,10 +576,10 @@
                                           ]
                       },
                       {
-                          "name":  "Humidificador (Ventilador Mec谩nico Comen)",
-                          "baseName":  "Humidificador (Ventilador Mec谩nico Comen)",
+                          "name":  "Humidificador (Ventilador Mec醤ico Comen)",
+                          "baseName":  "Humidificador (Ventilador Mec醤ico Comen)",
                           "model":  "VH-3000",
-                          "repositoryName":  "Humidificador (Ventilador Mec谩nico Comen) - VH-3000",
+                          "repositoryName":  "Humidificador (Ventilador Mec醤ico Comen) - VH-3000",
                           "accessories":  [
                                               "Cables de interconexion humidicador ventilador (2)",
                                               "Frasco Reusable (1)",
@@ -588,12 +588,12 @@
                                           ]
                       },
                       {
-                          "name":  "Analizador de Unidad Electroquir煤rgica",
-                          "baseName":  "Analizador de Unidad Electroquir煤rgica",
+                          "name":  "Analizador de Unidad Electroquir鷕gica",
+                          "baseName":  "Analizador de Unidad Electroquir鷕gica",
                           "model":  "ESU-2300",
-                          "repositoryName":  "Analizador de Unidad Electroquir煤rgica - ESU-2300",
+                          "repositoryName":  "Analizador de Unidad Electroquir鷕gica - ESU-2300",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Electrodo de retorno (1)",
                                               "Cable de pinzas a tierra (1) Verde",
                                               "Cables de dispersivos (4) Azules",
@@ -607,16 +607,16 @@
                           "model":  "GoodKnight 420G",
                           "repositoryName":  "CPAP - GoodKnight 420G",
                           "accessories":  [
-                                              "C谩nula",
+                                              "C醤ula",
                                               "Cargador",
                                               "Maletin de transporte"
                                           ]
                       },
                       {
-                          "name":  "Analizador Hematol贸gico",
-                          "baseName":  "Analizador Hematol贸gico",
+                          "name":  "Analizador Hematol骻ico",
+                          "baseName":  "Analizador Hematol骻ico",
                           "model":  "AC610",
-                          "repositoryName":  "Analizador Hematol贸gico - AC610",
+                          "repositoryName":  "Analizador Hematol骻ico - AC610",
                           "accessories":  [
                                               "Cables USB (2)",
                                               "Lisante (2)",
@@ -632,17 +632,17 @@
                           "model":  "SA-232",
                           "repositoryName":  "Autoclave - SA-232",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Tuberia de desague",
                                               "Bandeja para esterilizar",
                                               "Agua destilada (5)"
                                           ]
                       },
                       {
-                          "name":  "Bal贸metro",
-                          "baseName":  "Bal贸metro",
+                          "name":  "Bal髆etro",
+                          "baseName":  "Bal髆etro",
                           "model":  "ALNOR",
-                          "repositoryName":  "Bal贸metro - ALNOR",
+                          "repositoryName":  "Bal髆etro - ALNOR",
                           "accessories":  [
                                               "Mangueras negras (2)",
                                               "Correa de transporte",
@@ -650,7 +650,7 @@
                                               "CD de software",
                                               "Cargador",
                                               "Adaptadores (5)",
-                                              "Base para bater铆as (2)",
+                                              "Base para bater韆s (2)",
                                               "Clavijas (2)",
                                               "Rodo para sonda",
                                               "Base para sonda",
@@ -658,17 +658,17 @@
                                           ]
                       },
                       {
-                          "name":  "Placa de Audi贸metro 1",
-                          "baseName":  "Placa de Audi贸metro",
+                          "name":  "Placa de Audi髆etro 1",
+                          "baseName":  "Placa de Audi髆etro",
                           "model":  "DL3155BIO6",
-                          "repositoryName":  "Placa de Audi贸metro - DL3155BIO6",
+                          "repositoryName":  "Placa de Audi髆etro - DL3155BIO6",
                           "accessories":  "Audifonos (1)"
                       },
                       {
-                          "name":  "Placa de Audi贸metro 2",
-                          "baseName":  "Placa de Audi贸metro",
+                          "name":  "Placa de Audi髆etro 2",
+                          "baseName":  "Placa de Audi髆etro",
                           "model":  "DL3155BIO9",
-                          "repositoryName":  "Placa de Audi贸metro - DL3155BIO9",
+                          "repositoryName":  "Placa de Audi髆etro - DL3155BIO9",
                           "accessories":  {
 
                                           }
@@ -685,15 +685,15 @@
                                           ]
                       },
                       {
-                          "name":  "Detector de Fugas Ultras贸nico 1",
-                          "baseName":  "Detector de Fugas Ultras贸nico",
+                          "name":  "Detector de Fugas Ultras髇ico 1",
+                          "baseName":  "Detector de Fugas Ultras髇ico",
                           "model":  "N/A",
-                          "repositoryName":  "Detector de Fugas Ultras贸nico",
+                          "repositoryName":  "Detector de Fugas Ultras髇ico",
                           "accessories":  [
                                               "Audifono (1)",
                                               "Cable adaptador (1)",
                                               "Sondas de prueba grande (1)",
-                                              "Sondas de prueba peque帽a (1)",
+                                              "Sondas de prueba peque馻 (1)",
                                               "Modulo SON- CASTER (1) (perilla encendido apagado)",
                                               "Frasco de gotas (1)"
                                           ]
@@ -703,7 +703,7 @@
                           "baseName":  "Humidificador",
                           "model":  "SH330",
                           "repositoryName":  "Humidificador - SH330",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
                           "name":  "Humidificador APAP",
@@ -713,7 +713,7 @@
                           "accessories":  [
                                               "Circuito",
                                               "Mascarilla",
-                                              "Cable de alimentaci贸n de grado m茅dico"
+                                              "Cable de alimentaci髇 de grado m閐ico"
                                           ]
                       },
                       {
@@ -726,25 +726,25 @@
                                               "Soporte de transductores (2)",
                                               "Cable auxiliar",
                                               "Cable USB",
-                                              "Cable de alimenaci贸n de grado m茅dico impresora"
+                                              "Cable de alimenaci髇 de grado m閐ico impresora"
                                           ]
                       },
                       {
-                          "name":  "Lux贸metro",
-                          "baseName":  "Lux贸metro",
+                          "name":  "Lux髆etro",
+                          "baseName":  "Lux髆etro",
                           "model":  "MAVOLUX 5032B",
-                          "repositoryName":  "Lux贸metro - MAVOLUX 5032B",
+                          "repositoryName":  "Lux髆etro - MAVOLUX 5032B",
                           "accessories":  [
                                               "Cable USB",
-                                              "Sonda de medici贸n",
+                                              "Sonda de medici髇",
                                               "Correa para transporte"
                                           ]
                       },
                       {
-                          "name":  "Osciloscopio Port谩til",
-                          "baseName":  "Osciloscopio Port谩til",
+                          "name":  "Osciloscopio Port醫il",
+                          "baseName":  "Osciloscopio Port醫il",
                           "model":  "190-202 Series III",
-                          "repositoryName":  "Osciloscopio Port谩til - 190-202 Series III",
+                          "repositoryName":  "Osciloscopio Port醫il - 190-202 Series III",
                           "accessories":  [
                                               "Cable de alimentacion (1)",
                                               "Pinzas de multimetro (2) roja y negra",
@@ -752,7 +752,7 @@
                                               "Pinzas para prueba de voltaje (2) roja",
                                               "azul",
                                               "pinza o gancho de prueba para punta de sonda (2)",
-                                              "cable de puesta a tierra con pinza caim谩n peque帽a (2)",
+                                              "cable de puesta a tierra con pinza caim醤 peque馻 (2)",
                                               "resorte de tierra para punta de sonda (2)",
                                               "Cable de USB A (1)",
                                               "correa de transporte (1)"
@@ -769,18 +769,18 @@
                                               "Transductor lineal",
                                               "Transductor endocavitario",
                                               "Guia rapida para usuario",
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Maletin de transporte de transporte"
                                           ]
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 1",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 1",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "V3/V3A",
-                          "repositoryName":  "Ventilador Mec谩nico - V3/V3A",
+                          "repositoryName":  "Ventilador Mec醤ico - V3/V3A",
                           "accessories":  [
                                               "Cable a tierra (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Manguera de oxigeno (1)",
                                               "Manometro (1)",
                                               "Reemplazos de circuitos inspiratorio y espiratorio (1)",
@@ -812,31 +812,31 @@
                           "model":  "1022334",
                           "repositoryName":  "CPAP - 1022334",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Maletin de transporte de transporte"
                                           ]
                       },
                       {
-                          "name":  "Detector de Fugas Ultras贸nico 2",
-                          "baseName":  "Detector de Fugas Ultras贸nico",
+                          "name":  "Detector de Fugas Ultras髇ico 2",
+                          "baseName":  "Detector de Fugas Ultras髇ico",
                           "model":  "N/A",
-                          "repositoryName":  "Detector de Fugas Ultras贸nico",
+                          "repositoryName":  "Detector de Fugas Ultras髇ico",
                           "accessories":  [
                                               "Audifonos (1)",
                                               "Cable adaptador (1)",
-                                              "Sonda Peque帽a (1)",
+                                              "Sonda Peque馻 (1)",
                                               "Sonda Grande (1)",
                                               "Modulo SON CASTER (1)",
                                               "Frasco de gotas (1)"
                                           ]
                       },
                       {
-                          "name":  "Electrocardi贸grafo 1",
-                          "baseName":  "Electrocardi贸grafo",
+                          "name":  "Electrocardi骻rafo 1",
+                          "baseName":  "Electrocardi骻rafo",
                           "model":  "ECG 100G",
-                          "repositoryName":  "Electrocardi贸grafo - ECG 100G",
+                          "repositoryName":  "Electrocardi骻rafo - ECG 100G",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Cable de tierra",
                                               "Cable de paciente",
                                               "Electrodos de pinza",
@@ -845,23 +845,23 @@
                                           ]
                       },
                       {
-                          "name":  "Electrocardi贸grafo 2",
-                          "baseName":  "Electrocardi贸grafo",
+                          "name":  "Electrocardi骻rafo 2",
+                          "baseName":  "Electrocardi骻rafo",
                           "model":  "ECG 100G",
-                          "repositoryName":  "Electrocardi贸grafo - ECG 100G",
+                          "repositoryName":  "Electrocardi骻rafo - ECG 100G",
                           "accessories":  [
                                               "Electrodos de succion (6)",
                                               "Cable de paciente de 10 derivaciones",
                                               "Electrodos de Pinza (4)",
                                               "Cable de tierra (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)"
+                                              "Cable de alimenaci髇 de grado m閐ico (1)"
                                           ]
                       },
                       {
-                          "name":  "Electrocardi贸grafo 3",
-                          "baseName":  "Electrocardi贸grafo",
+                          "name":  "Electrocardi骻rafo 3",
+                          "baseName":  "Electrocardi骻rafo",
                           "model":  "Digital 3 Channels Electrocardiograph",
-                          "repositoryName":  "Electrocardi贸grafo - Digital 3 Channels Electrocardiograph",
+                          "repositoryName":  "Electrocardi骻rafo - Digital 3 Channels Electrocardiograph",
                           "accessories":  [
                                               "Electrodos de pinza (4)",
                                               "Electros de succion (6)",
@@ -876,7 +876,7 @@
                           "repositoryName":  "Monitor de Signos Vitales - X12",
                           "accessories":  [
                                               "Cable de NIBP (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Brazalete de NIBP (1)",
                                               "Cable de SpO2 (1)",
                                               "Cable de tierra (1)",
@@ -892,7 +892,7 @@
                           "repositoryName":  "Monitor de Signos Vitales - X12",
                           "accessories":  [
                                               "Cable de NIBP (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Brazalete de NIBP (1)",
                                               "Cable de SpO2 (1)",
                                               "Cable de tierra (1)",
@@ -907,7 +907,7 @@
                           "model":  "C50",
                           "repositoryName":  "Monitor de Signos Vitales - C50",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Cable de temperatura (2)",
                                               "Oximetro de pulso (2)",
                                               "Cable de NIBP",
@@ -935,19 +935,19 @@
                           "model":  "STARLITE",
                           "repositoryName":  "Medidor de Potencia - STARLITE",
                           "accessories":  [
-                                              "Malet铆n de transporte",
+                                              "Malet韓 de transporte",
                                               "Cargador y adaptadores (4)",
                                               "Analog Output Connector (1)",
                                               "Sensor con base"
                                           ]
                       },
                       {
-                          "name":  "Hemodi谩lisis",
-                          "baseName":  "Hemodi谩lisis",
+                          "name":  "Hemodi醠isis",
+                          "baseName":  "Hemodi醠isis",
                           "model":  "2008E",
-                          "repositoryName":  "Hemodi谩lisis - 2008E",
+                          "repositoryName":  "Hemodi醠isis - 2008E",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Cable para analizador rojo (1)",
                                               "Cable para analizador azul (1)",
                                               "Cable de presion de agua (1)",
@@ -958,22 +958,22 @@
                                           ]
                       },
                       {
-                          "name":  "Analizador de Agente Anest茅sico",
-                          "baseName":  "Analizador de Agente Anest茅sico",
+                          "name":  "Analizador de Agente Anest閟ico",
+                          "baseName":  "Analizador de Agente Anest閟ico",
                           "model":  "AA-8000",
-                          "repositoryName":  "Analizador de Agente Anest茅sico - AA-8000",
+                          "repositoryName":  "Analizador de Agente Anest閟ico - AA-8000",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Tubo de barrido",
                                               "Cable usb (2)",
                                               "Cable COMM DB9"
                                           ]
                       },
                       {
-                          "name":  "Analizador de Dosis de 脕rea",
-                          "baseName":  "Analizador de Dosis de 脕rea",
+                          "name":  "Analizador de Dosis de 羠ea",
+                          "baseName":  "Analizador de Dosis de 羠ea",
                           "model":  "RaySafe 452",
-                          "repositoryName":  "Analizador de Dosis de 脕rea - RaySafe 452",
+                          "repositoryName":  "Analizador de Dosis de 羠ea - RaySafe 452",
                           "accessories":  [
                                               "Cable USB a USB",
                                               "Cable USB a MicroUsb (azul)",
@@ -983,24 +983,24 @@
                                           ]
                       },
                       {
-                          "name":  "Unidad de Electrocirug铆a",
-                          "baseName":  "Unidad de Electrocirug铆a",
+                          "name":  "Unidad de Electrocirug韆",
+                          "baseName":  "Unidad de Electrocirug韆",
                           "model":  "ForceFX",
-                          "repositoryName":  "Unidad de Electrocirug铆a - ForceFX",
+                          "repositoryName":  "Unidad de Electrocirug韆 - ForceFX",
                           "accessories":  [
-                                              "Cable de alimentaci贸n de grado m茅dico (1)",
+                                              "Cable de alimentaci髇 de grado m閐ico (1)",
                                               "Pedal (1)",
                                               "Electrodos de retorno (5)",
                                               "Sets de lapices (4)"
                                           ]
                       },
                       {
-                          "name":  "Analizador de Seguridad El茅ctrica 1",
-                          "baseName":  "Analizador de Seguridad El茅ctrica",
+                          "name":  "Analizador de Seguridad El閏trica 1",
+                          "baseName":  "Analizador de Seguridad El閏trica",
                           "model":  "SA-2010",
-                          "repositoryName":  "Analizador de Seguridad El茅ctrica - SA-2010",
+                          "repositoryName":  "Analizador de Seguridad El閏trica - SA-2010",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Cable de chasis a tierra",
                                               "Maletin de transporte de transporte"
                                           ]
@@ -1017,19 +1017,19 @@
                                           ]
                       },
                       {
-                          "name":  "Placa de Electroestimulaci贸n 1",
-                          "baseName":  "Placa de Electroestimulaci贸n",
+                          "name":  "Placa de Electroestimulaci髇 1",
+                          "baseName":  "Placa de Electroestimulaci髇",
                           "model":  "DL3155BIO12",
-                          "repositoryName":  "Placa de Electroestimulaci贸n - DL3155BIO12",
+                          "repositoryName":  "Placa de Electroestimulaci髇 - DL3155BIO12",
                           "accessories":  {
 
                                           }
                       },
                       {
-                          "name":  "Placa de Electroestimulaci贸n 2",
-                          "baseName":  "Placa de Electroestimulaci贸n",
+                          "name":  "Placa de Electroestimulaci髇 2",
+                          "baseName":  "Placa de Electroestimulaci髇",
                           "model":  "DL3155BIO12",
-                          "repositoryName":  "Placa de Electroestimulaci贸n - DL3155BIO12",
+                          "repositoryName":  "Placa de Electroestimulaci髇 - DL3155BIO12",
                           "accessories":  {
 
                                           }
@@ -1040,7 +1040,7 @@
                           "model":  "AI - 1B",
                           "repositoryName":  "Incubadora - AI - 1B",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Soportes para accesorios (2)",
                                               "Llaves (2)",
                                               "Filtros blancos (2)",
@@ -1050,19 +1050,19 @@
                                           ]
                       },
                       {
-                          "name":  "Placa de Terapia L谩ser 1",
-                          "baseName":  "Placa de Terapia L谩ser",
+                          "name":  "Placa de Terapia L醩er 1",
+                          "baseName":  "Placa de Terapia L醩er",
                           "model":  "DL3155BIO13",
-                          "repositoryName":  "Placa de Terapia L谩ser - DL3155BIO13",
+                          "repositoryName":  "Placa de Terapia L醩er - DL3155BIO13",
                           "accessories":  {
 
                                           }
                       },
                       {
-                          "name":  "M谩quina de Anestesia",
-                          "baseName":  "M谩quina de Anestesia",
+                          "name":  "M醧uina de Anestesia",
+                          "baseName":  "M醧uina de Anestesia",
                           "model":  "S6100",
-                          "repositoryName":  "M谩quina de Anestesia - S6100",
+                          "repositoryName":  "M醧uina de Anestesia - S6100",
                           "accessories":  [
                                               "Mangueras de oxigeno (2)",
                                               "Manguera de N2O (1)",
@@ -1073,44 +1073,44 @@
                                           ]
                       },
                       {
-                          "name":  "Analizador de Seguridad El茅ctrica 2",
-                          "baseName":  "Analizador de Seguridad El茅ctrica",
+                          "name":  "Analizador de Seguridad El閏trica 2",
+                          "baseName":  "Analizador de Seguridad El閏trica",
                           "model":  "SA-2010",
-                          "repositoryName":  "Analizador de Seguridad El茅ctrica - SA-2010",
+                          "repositoryName":  "Analizador de Seguridad El閏trica - SA-2010",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Cable de chasis a tierra",
                                               "Maletin de transporte de transporte"
                                           ]
                       },
                       {
-                          "name":  "Monitor de M谩quina de Anestesia",
-                          "baseName":  "Monitor de M谩quina de Anestesia",
+                          "name":  "Monitor de M醧uina de Anestesia",
+                          "baseName":  "Monitor de M醧uina de Anestesia",
                           "model":  "SP-J12H",
-                          "repositoryName":  "Monitor de M谩quina de Anestesia - SP-J12H",
+                          "repositoryName":  "Monitor de M醧uina de Anestesia - SP-J12H",
                           "accessories":  [
                                               "Sensor de Oxigeno (1)",
                                               "Cable de temperatura (2)",
                                               "Cable de 5 derivaciones (1)",
                                               "Cable de SpO2 (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)",
+                                              "Cable de alimenaci髇 de grado m閐ico (1)",
                                               "Cable a tierra (1)"
                                           ]
                       },
                       {
-                          "name":  "Placa de Terapia L谩ser 2",
-                          "baseName":  "Placa de Terapia L谩ser",
+                          "name":  "Placa de Terapia L醩er 2",
+                          "baseName":  "Placa de Terapia L醩er",
                           "model":  "DL3155BIO13",
-                          "repositoryName":  "Placa de Terapia L谩ser - DL3155BIO13",
+                          "repositoryName":  "Placa de Terapia L醩er - DL3155BIO13",
                           "accessories":  {
 
                                           }
                       },
                       {
-                          "name":  "BASE con Fuente de Alimentaci贸n 1",
-                          "baseName":  "BASE con Fuente de Alimentaci贸n",
+                          "name":  "BASE con Fuente de Alimentaci髇 1",
+                          "baseName":  "BASE con Fuente de Alimentaci髇",
                           "model":  "DL3155AL2RM",
-                          "repositoryName":  "BASE con Fuente de Alimentaci贸n - DL3155AL2RM",
+                          "repositoryName":  "BASE con Fuente de Alimentaci髇 - DL3155AL2RM",
                           "accessories":  [
                                               "Cable de alimentacion (1)",
                                               "Sondas de osciloscopio (3)",
@@ -1118,41 +1118,41 @@
                                           ]
                       },
                       {
-                          "name":  "BASE con Fuente de Alimentaci贸n 2",
-                          "baseName":  "BASE con Fuente de Alimentaci贸n",
+                          "name":  "BASE con Fuente de Alimentaci髇 2",
+                          "baseName":  "BASE con Fuente de Alimentaci髇",
                           "model":  "DL3155AL2RM",
-                          "repositoryName":  "BASE con Fuente de Alimentaci贸n - DL3155AL2RM",
+                          "repositoryName":  "BASE con Fuente de Alimentaci髇 - DL3155AL2RM",
                           "accessories":  [
                                               "Sondas de osciloscopio (3)",
                                               "Cablen Adaptador (1)"
                                           ]
                       },
                       {
-                          "name":  "Placa de Monitoreo de Presi贸n 1",
-                          "baseName":  "Placa de Monitoreo de Presi贸n",
+                          "name":  "Placa de Monitoreo de Presi髇 1",
+                          "baseName":  "Placa de Monitoreo de Presi髇",
                           "model":  "DL3155BIO16",
-                          "repositoryName":  "Placa de Monitoreo de Presi贸n - DL3155BIO16",
+                          "repositoryName":  "Placa de Monitoreo de Presi髇 - DL3155BIO16",
                           "accessories":  "Brazelete de presion (1)"
                       },
                       {
-                          "name":  "Placa de Monitoreo de Presi贸n 2",
-                          "baseName":  "Placa de Monitoreo de Presi贸n",
+                          "name":  "Placa de Monitoreo de Presi髇 2",
+                          "baseName":  "Placa de Monitoreo de Presi髇",
                           "model":  "DL3155BIO16",
-                          "repositoryName":  "Placa de Monitoreo de Presi贸n - DL3155BIO16",
+                          "repositoryName":  "Placa de Monitoreo de Presi髇 - DL3155BIO16",
                           "accessories":  "Brazalete de presion (1)"
                       },
                       {
-                          "name":  "Placa de Temperatura y Respiraci贸n 1",
-                          "baseName":  "Placa de Temperatura y Respiraci贸n",
+                          "name":  "Placa de Temperatura y Respiraci髇 1",
+                          "baseName":  "Placa de Temperatura y Respiraci髇",
                           "model":  "DL3155BIO7",
-                          "repositoryName":  "Placa de Temperatura y Respiraci贸n - DL3155BIO7",
+                          "repositoryName":  "Placa de Temperatura y Respiraci髇 - DL3155BIO7",
                           "accessories":  "Cables de temperatura (2)"
                       },
                       {
-                          "name":  "Placa de Temperatura y Respiraci贸n 2",
-                          "baseName":  "Placa de Temperatura y Respiraci贸n",
+                          "name":  "Placa de Temperatura y Respiraci髇 2",
+                          "baseName":  "Placa de Temperatura y Respiraci髇",
                           "model":  "DL3155BIO7",
-                          "repositoryName":  "Placa de Temperatura y Respiraci贸n - DL3155BIO7",
+                          "repositoryName":  "Placa de Temperatura y Respiraci髇 - DL3155BIO7",
                           "accessories":  "Cable de temperatura (2)"
                       },
                       {
@@ -1162,37 +1162,37 @@
                           "repositoryName":  "Analizador de Desfibrilador - DA-2006P",
                           "accessories":  [
                                               "Protector de paletas (2)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)"
+                                              "Cable de alimenaci髇 de grado m閐ico (1)"
                                           ]
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 1",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 1",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "SERENE",
-                          "repositoryName":  "Bomba de Infusi贸n - SERENE",
+                          "repositoryName":  "Bomba de Infusi髇 - SERENE",
                           "accessories":  "Cuenta con 5 jeringas"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 2",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 2",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "SERENE",
-                          "repositoryName":  "Bomba de Infusi贸n - SERENE",
+                          "repositoryName":  "Bomba de Infusi髇 - SERENE",
                           "accessories":  "Cuenta con 4 jeringas"
                       },
                       {
-                          "name":  "Placa de Frecuencia Card铆aca 1",
-                          "baseName":  "Placa de Frecuencia Card铆aca",
+                          "name":  "Placa de Frecuencia Card韆ca 1",
+                          "baseName":  "Placa de Frecuencia Card韆ca",
                           "model":  "DL3155BIO6",
-                          "repositoryName":  "Placa de Frecuencia Card铆aca - DL3155BIO6",
+                          "repositoryName":  "Placa de Frecuencia Card韆ca - DL3155BIO6",
                           "accessories":  {
 
                                           }
                       },
                       {
-                          "name":  "Placa de Frecuencia Card铆aca 2",
-                          "baseName":  "Placa de Frecuencia Card铆aca",
+                          "name":  "Placa de Frecuencia Card韆ca 2",
+                          "baseName":  "Placa de Frecuencia Card韆ca",
                           "model":  "DL3155BIO6",
-                          "repositoryName":  "Placa de Frecuencia Card铆aca - DL3155BIO6",
+                          "repositoryName":  "Placa de Frecuencia Card韆ca - DL3155BIO6",
                           "accessories":  {
 
                                           }
@@ -1230,53 +1230,53 @@
                                           }
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 3",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 3",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "550T2",
-                          "repositoryName":  "Bomba de Infusi贸n - 550T2",
+                          "repositoryName":  "Bomba de Infusi髇 - 550T2",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Venoclisis (1)"
                                           ]
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 4",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 4",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "550T2",
-                          "repositoryName":  "Bomba de Infusi贸n - 550T2",
+                          "repositoryName":  "Bomba de Infusi髇 - 550T2",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Venoclisis"
                                           ]
                       },
                       {
-                          "name":  "Placa de Resistencia Galv谩nica 1",
-                          "baseName":  "Placa de Resistencia Galv谩nica",
+                          "name":  "Placa de Resistencia Galv醤ica 1",
+                          "baseName":  "Placa de Resistencia Galv醤ica",
                           "model":  "DL3155BI08",
-                          "repositoryName":  "Placa de Resistencia Galv谩nica - DL3155BI08",
+                          "repositoryName":  "Placa de Resistencia Galv醤ica - DL3155BI08",
                           "accessories":  "Cable de resistencia galvanica (1)"
                       },
                       {
-                          "name":  "Placa de Resistencia Galv谩nica 2",
-                          "baseName":  "Placa de Resistencia Galv谩nica",
+                          "name":  "Placa de Resistencia Galv醤ica 2",
+                          "baseName":  "Placa de Resistencia Galv醤ica",
                           "model":  "DL3155BI08",
-                          "repositoryName":  "Placa de Resistencia Galv谩nica - DL3155BI08",
+                          "repositoryName":  "Placa de Resistencia Galv醤ica - DL3155BI08",
                           "accessories":  "Cable de resistencia galvanica (1)"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 5",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 5",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "550T2",
-                          "repositoryName":  "Bomba de Infusi贸n - 550T2",
+                          "repositoryName":  "Bomba de Infusi髇 - 550T2",
                           "accessories":  "No tiene"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 6",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 6",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "Sigmaspectrum",
-                          "repositoryName":  "Bomba de Infusi贸n - Sigmaspectrum",
+                          "repositoryName":  "Bomba de Infusi髇 - Sigmaspectrum",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Venoclisis"
                                           ]
                       },
@@ -1313,12 +1313,12 @@
                           "accessories":  "Sonda piezometrica (1)"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 7",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 7",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "Sigmaspectrum",
-                          "repositoryName":  "Bomba de Infusi贸n - Sigmaspectrum",
+                          "repositoryName":  "Bomba de Infusi髇 - Sigmaspectrum",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Venoclisis"
                                           ]
                       },
@@ -1349,10 +1349,10 @@
                           "model":  "PS-2220",
                           "repositoryName":  "Simulador de Paciente - PS-2220",
                           "accessories":  [
-                                              "Cable de alimentaci贸n",
+                                              "Cable de alimentaci髇",
                                               "Fuente de poder",
-                                              "M贸dulo cardiaco MC-2100 (73431661)",
-                                              "M贸dulo de SpO2 MSP-2100 (73422531)",
+                                              "M骴ulo cardiaco MC-2100 (73431661)",
+                                              "M骴ulo de SpO2 MSP-2100 (73422531)",
                                               "Finger sim (80%",
                                               "90% y 97%)"
                                           ]
@@ -1363,10 +1363,10 @@
                           "model":  "PS-2220",
                           "repositoryName":  "Simulador de Paciente - PS-2220",
                           "accessories":  [
-                                              "Cable de alimentaci贸n",
+                                              "Cable de alimentaci髇",
                                               "Fuente de poder",
-                                              "M贸dulo cardiaco MC-2100 (73431663)",
-                                              "M贸dulo de SpO2 MSP-2100 (73422533)",
+                                              "M骴ulo cardiaco MC-2100 (73431663)",
+                                              "M骴ulo de SpO2 MSP-2100 (73422533)",
                                               "Finger sim (80%",
                                               "90% y 97%)"
                                           ]
@@ -1381,10 +1381,10 @@
                                           }
                       },
                       {
-                          "name":  "Simulador Pulmonar Pedi谩trico",
-                          "baseName":  "Simulador Pulmonar Pedi谩trico",
+                          "name":  "Simulador Pulmonar Pedi醫rico",
+                          "baseName":  "Simulador Pulmonar Pedi醫rico",
                           "model":  "LS-2000I",
-                          "repositoryName":  "Simulador Pulmonar Pedi谩trico - LS-2000I",
+                          "repositoryName":  "Simulador Pulmonar Pedi醫rico - LS-2000I",
                           "accessories":  {
 
                                           }
@@ -1395,7 +1395,7 @@
                           "model":  "Auto",
                           "repositoryName":  "CPAP - Auto",
                           "accessories":  [
-                                              "Cable de alimenaci贸n de grado m茅dico",
+                                              "Cable de alimenaci髇 de grado m閐ico",
                                               "Maletin de transporte"
                                           ]
                       },
@@ -1426,7 +1426,7 @@
                           "repositoryName":  "Humidificador CPAP \u0026 APAP - SleepStyle 200 \u0026 H5i S9",
                           "accessories":  [
                                               "Maletin de transporte de transporte",
-                                              "Cable de alimenaci贸n(2)",
+                                              "Cable de alimenaci髇(2)",
                                               "canula (2)",
                                               "mascarilla",
                                               "transformador de voltaje (1)"
@@ -1464,85 +1464,85 @@
                                           ]
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 2",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 2",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "InfantStar",
-                          "repositoryName":  "Ventilador Mec谩nico - InfantStar",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - InfantStar",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 3",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 3",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "InfantStar",
-                          "repositoryName":  "Ventilador Mec谩nico - InfantStar",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - InfantStar",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 4",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 4",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "15215",
-                          "repositoryName":  "Ventilador Mec谩nico - 15215",
-                          "accessories":  "Cable de alimentaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - 15215",
+                          "accessories":  "Cable de alimentaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 5",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 5",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "7200 Series",
-                          "repositoryName":  "Ventilador Mec谩nico - 7200 Series",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - 7200 Series",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 6",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 6",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "7200 SERIE",
-                          "repositoryName":  "Ventilador Mec谩nico - 7200 SERIE",
+                          "repositoryName":  "Ventilador Mec醤ico - 7200 SERIE",
                           "accessories":  [
                                               "Mangueras de aire (2)",
                                               "Manguera de oxigeno (1)",
-                                              "Cable de alimenaci贸n de grado m茅dico (1)"
+                                              "Cable de alimenaci髇 de grado m閐ico (1)"
                                           ]
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 7",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 7",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "InfantStar",
-                          "repositoryName":  "Ventilador Mec谩nico - InfantStar",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - InfantStar",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Ventilador Mec谩nico 8",
-                          "baseName":  "Ventilador Mec谩nico",
+                          "name":  "Ventilador Mec醤ico 8",
+                          "baseName":  "Ventilador Mec醤ico",
                           "model":  "InfantStar",
-                          "repositoryName":  "Ventilador Mec谩nico - InfantStar",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Ventilador Mec醤ico - InfantStar",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 8",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 8",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "BeneFusion uSP",
-                          "repositoryName":  "Bomba de Infusi贸n - BeneFusion uSP",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Bomba de Infusi髇 - BeneFusion uSP",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 9",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 9",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "BeneFusion uSP",
-                          "repositoryName":  "Bomba de Infusi贸n - BeneFusion uSP",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Bomba de Infusi髇 - BeneFusion uSP",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 10",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 10",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "BeneFusion uVP",
-                          "repositoryName":  "Bomba de Infusi贸n - BeneFusion uVP",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Bomba de Infusi髇 - BeneFusion uVP",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
-                          "name":  "Bomba de Infusi贸n 11",
-                          "baseName":  "Bomba de Infusi贸n",
+                          "name":  "Bomba de Infusi髇 11",
+                          "baseName":  "Bomba de Infusi髇",
                           "model":  "BeneFusion uVP",
-                          "repositoryName":  "Bomba de Infusi贸n - BeneFusion uVP",
-                          "accessories":  "Cable de alimenaci贸n de grado m茅dico"
+                          "repositoryName":  "Bomba de Infusi髇 - BeneFusion uVP",
+                          "accessories":  "Cable de alimenaci髇 de grado m閐ico"
                       },
                       {
                           "name":  "Analizador de Flujo de GAS",
