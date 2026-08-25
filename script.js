@@ -34,7 +34,7 @@ const repositoryEquipment = [...new Map(
 ).values()];
 const resources = repositoryEquipment.flatMap(item => [
   {
-    title: `Guia rapida - ${item.name}`,
+    title: `Guía rápida - ${item.name}`,
     team: item.name,
     type: "Guia rapida",
     file: getDocumentPath(item.name, "Guia rapida")
@@ -229,21 +229,21 @@ document.querySelector("#suggestion-form").addEventListener("submit", async even
   };
 
   if (!isValidCuenta(payload.cuenta)) {
-    alert("Ingresa un numero de cuenta valido.");
+    alert("Ingresa un número de cuenta válido.");
     submitButton.disabled = false;
     submitButton.textContent = "Enviar pregunta";
     return;
   }
 
   if (!isValidInstitutionalEmail(payload.correo)) {
-    alert("Ingresa un correo institucional valido.");
+    alert("Ingresa un correo institucional válido.");
     submitButton.disabled = false;
     submitButton.textContent = "Enviar pregunta";
     return;
   }
 
   if (!isValidPhone(payload.telefono)) {
-    alert("Ingresa un numero de telefono valido.");
+    alert("Ingresa un número de teléfono válido.");
     submitButton.disabled = false;
     submitButton.textContent = "Enviar pregunta";
     return;
