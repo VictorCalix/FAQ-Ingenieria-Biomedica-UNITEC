@@ -1,11 +1,12 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Bitácora | Ingeniería Biomédica</title>
+  <title>BitÃ¡cora | IngenierÃ­a BiomÃ©dica</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="equipment-data.js"></script>
   <style>
     .private-page {
       width: min(760px, calc(100% - 32px));
@@ -295,7 +296,7 @@
       <img
         class="header-logo"
         src="assets/biomedica-blanco.png"
-        alt="Ingeniería Biomédica UNITEC"
+        alt="IngenierÃ­a BiomÃ©dica UNITEC"
         width="2696"
         height="393"
         decoding="async"
@@ -307,8 +308,8 @@
 
   <main class="private-page">
     <section class="private-card">
-      <h1>Bitácora</h1>
-      <span>Laboratorio de Ingeniería en Biomédica</span>
+      <h1>BitÃ¡cora</h1>
+      <span>Laboratorio de IngenierÃ­a en BiomÃ©dica</span>
 
       <form id="log-form" lang="es" novalidate autocomplete="on">
         <div class="form-grid">
@@ -318,7 +319,7 @@
             <small class="field-error" hidden></small>
           </label>
           <label>
-            Número de cuenta | TH
+            NÃºmero de cuenta | TH
             <input required name="cuenta" inputmode="numeric" autocomplete="username">
             <small class="field-error" hidden></small>
           </label>
@@ -378,7 +379,7 @@
             <input required name="terminos" type="checkbox">
             <span>
               Acepto los
-              <button class="terms-link" id="open-log-terms" type="button">términos y condiciones</button>
+              <button class="terms-link" id="open-log-terms" type="button">tÃ©rminos y condiciones</button>
             </span>
           </label>
         </div>
@@ -390,17 +391,17 @@
 
   <div class="overlay" id="log-terms" hidden>
     <section class="panel terms-panel" role="dialog" aria-modal="true" aria-labelledby="terms-title">
-      <button class="close" id="close-log-terms" type="button" aria-label="Cerrar">×</button>
-      <h2 id="terms-title">Términos y condiciones</h2>
+      <button class="close" id="close-log-terms" type="button" aria-label="Cerrar">Ã—</button>
+      <h2 id="terms-title">TÃ©rminos y condiciones</h2>
       <div class="terms-copy">
         <p>
-          Al registrar esta Bitácora, confirmo que los datos proporcionados son
+          Al registrar esta BitÃ¡cora, confirmo que los datos proporcionados son
           correctos y corresponden al uso real del equipo indicado.
         </p>
         <p>
-          Me comprometo a reportar de manera clara cualquier falla, daño,
-          irregularidad o consumo de insumos observado durante la práctica.
-          Comprendo que la información podrá utilizarse para el seguimiento,
+          Me comprometo a reportar de manera clara cualquier falla, daÃ±o,
+          irregularidad o consumo de insumos observado durante la prÃ¡ctica.
+          Comprendo que la informaciÃ³n podrÃ¡ utilizarse para el seguimiento,
           mantenimiento y control de los equipos del laboratorio.
         </p>
       </div>
@@ -409,7 +410,7 @@
 
   <div class="overlay" id="report-modal" hidden>
     <section class="panel report-panel" role="dialog" aria-modal="true" aria-labelledby="report-title">
-      <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">×</button>
+      <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">Ã—</button>
       <h2 id="report-title">Reporte semanal</h2>
       <p class="intro">Selecciona una semana calculada automaticamente desde las fechas de registros validados.</p>
 
@@ -452,10 +453,8 @@
     </section>
   </div>
 
-  <script type="module">
-    import { equipmentData } from "./equipment-data.js";
-
-    const dateInput = document.querySelector("#log-date");
+  <script>
+const dateInput = document.querySelector("#log-date");
     const accessoriesBox = document.querySelector("#accessories-box");
     const accessoriesList = document.querySelector("#accessories-list");
     const reportModal = document.querySelector("#report-modal");
@@ -749,8 +748,8 @@
 
       search.className = "select-search";
       search.type = "search";
-      search.placeholder = "Buscar…";
-      search.setAttribute("aria-label", "Buscar opción");
+      search.placeholder = "Buscarâ€¦";
+      search.setAttribute("aria-label", "Buscar opciÃ³n");
       noOptions.className = "no-options";
       noOptions.textContent = "Sin coincidencias";
       noOptions.hidden = true;
@@ -838,9 +837,9 @@
         if (!field.value.trim()) {
           message = "Completa este campo obligatorio.";
         } else if (field.name === "correo" && !isValidInstitutionalEmail(field.value.trim())) {
-          message = "Ingresa un correo institucional válido.";
+          message = "Ingresa un correo institucional vÃ¡lido.";
         } else if (field.name === "cuenta" && !isValidCuenta(field.value.trim())) {
-          message = "Ingresa un número de cuenta válido.";
+          message = "Ingresa un nÃºmero de cuenta vÃ¡lido.";
         }
         field.classList.toggle("invalid-field", Boolean(message));
         if (error) {
@@ -863,7 +862,7 @@
       }
       const terms = event.target.elements.terminos;
       if (!terms.checked) {
-        alert("Debes aceptar los términos y condiciones antes de registrar el uso.");
+        alert("Debes aceptar los tÃ©rminos y condiciones antes de registrar el uso.");
         terms.focus();
         return;
       }
@@ -880,10 +879,10 @@
         });
 
         if (!response.ok) {
-          throw new Error("No se pudo guardar la bitácora.");
+          throw new Error("No se pudo guardar la bitÃ¡cora.");
         }
       } catch (error) {
-        alert("No se pudo sincronizar con el Excel. Inténtalo de nuevo.");
+        alert("No se pudo sincronizar con el Excel. IntÃ©ntalo de nuevo.");
         submitButton.disabled = false;
         submitButton.textContent = "Registrar uso";
         return;
@@ -898,7 +897,7 @@
       accessoriesList.innerHTML = "";
       submitButton.disabled = false;
       submitButton.textContent = "Registrar uso";
-      alert("Bitácora registrada correctamente.");
+      alert("BitÃ¡cora registrada correctamente.");
     });
   </script>
 </body>
