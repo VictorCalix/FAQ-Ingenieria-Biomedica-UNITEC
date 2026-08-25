@@ -24,10 +24,38 @@ npm run build
 ```
 
 El build usa Vite y genera las paginas estaticas actuales. No usa la app React/Next anterior.
+Tambien copia `assets/documentos` a `dist/assets/documentos` para publicar PDFs.
+
+## Manuales y guias
+
+Coloca los PDFs en `assets/documentos` siguiendo este formato:
+
+```text
+<equipo-normalizado>-manual.pdf
+<equipo-normalizado>-guia-rapida.pdf
+```
+
+Ejemplo:
+
+```text
+analizador-de-desfibrilador-da-2006p-manual.pdf
+analizador-de-desfibrilador-da-2006p-guia-rapida.pdf
+```
+
+Para QR por equipo, usa una URL con el parametro `equipo`:
+
+```text
+/?equipo=analizador-de-desfibrilador-da-2006p
+```
+
+Esa URL abre el repositorio filtrado a ese equipo.
 
 ## Deploy
 
-En Cloudflare Pages usa:
+Para publicar sitio estatico + Worker API usa:
 
 - Build command: `npm run build`
+- Deploy command: `npm run deploy`
 - Output directory: `dist`
+
+`wrangler.jsonc` debe estar en el repositorio porque define `worker/index.ts` y los assets de `dist`.

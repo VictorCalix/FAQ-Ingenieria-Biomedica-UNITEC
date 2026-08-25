@@ -14,13 +14,39 @@ function getRepositoryKey(item) {
   ].join("|");
 }
 
+function getDocumentSlug(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("es")
+    .replace(/&/g, " y ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getDocumentPath(equipmentName, type) {
+  const suffix = type === "Manual" ? "manual" : "guia-rapida";
+  return `assets/documentos/${getDocumentSlug(equipmentName)}-${suffix}.pdf`;
+}
+
 const repositoryEquipment = [...new Map(
   equipmentData.repository.map(item => [getRepositoryKey(item), item])
 ).values()];
 const resources = repositoryEquipment.flatMap(item => [
-  { title: `Guia rapida - ${item.name}`, team: item.name, type: "Guia rapida", file: "#" },
-  { title: `Manual - ${item.name}`, team: item.name, type: "Manual", file: "#" }
+  {
+    title: `Guia rapida - ${item.name}`,
+    team: item.name,
+    type: "Guia rapida",
+    file: getDocumentPath(item.name, "Guia rapida")
+  },
+  {
+    title: `Manual - ${item.name}`,
+    team: item.name,
+    type: "Manual",
+    file: getDocumentPath(item.name, "Manual")
+  }
 ]);
+const resourceAvailability = new Map(resources.map(item => [item.file, null]));
 
 const team = document.querySelector("#team-filter");
 const type = document.querySelector("#type-filter");
@@ -42,8 +68,60 @@ function render() {
     (team.dataset.value === "Todos" || item.team === team.dataset.value) &&
     (type.dataset.value === "Todos" || item.type === type.dataset.value)
   );
-  list.innerHTML = items.map(item => `<article><span class="pdf">PDF</span><div><h3>${item.title}</h3><p>${item.team} - ${item.type}</p></div><a href="${item.file}" aria-label="Abrir ${item.title}">Abrir</a></article>`).join("");
+  list.innerHTML = items.map(item => {
+    const available = resourceAvailability.get(item.file);
+    const link = available === false
+      ? `<span class="resource-missing" aria-label="${item.title} no disponible">Pendiente</span>`
+      : `<a href="${item.file}" target="_blank" rel="noopener" aria-label="Abrir ${item.title}">Abrir</a>`;
+
+    return `<article><span class="pdf">PDF</span><div><h3>${item.title}</h3><p>${item.team} - ${item.type}</p></div>${link}</article>`;
+  }).join("");
   empty.hidden = items.length > 0;
+}
+
+async function updateResourceAvailability() {
+  await Promise.all(resources.map(async item => {
+    try {
+      const response = await fetch(item.file, { method: "HEAD" });
+      resourceAvailability.set(item.file, response.ok);
+    } catch {
+      resourceAvailability.set(item.file, false);
+    }
+  }));
+  render();
+}
+
+function setSelectValue(select, value) {
+  const trigger = select.querySelector(".select-trigger span");
+  const option = [...select.querySelectorAll("[role=option]")]
+    .find(item => item.dataset.value === value);
+
+  if (!option) return false;
+
+  select.dataset.value = value;
+  trigger.textContent = option.textContent;
+  select.querySelectorAll("[role=option]").forEach(item => {
+    item.setAttribute("aria-selected", String(item === option));
+  });
+  return true;
+}
+
+function applyQrEquipmentFilter() {
+  const params = new URLSearchParams(window.location.search);
+  const requestedEquipment = params.get("equipo");
+  if (!requestedEquipment) return;
+
+  const selected = repositoryEquipment.find(item =>
+    getDocumentSlug(item.name) === requestedEquipment ||
+    normalizeRepositoryKey(item.name) === normalizeRepositoryKey(requestedEquipment)
+  );
+
+  if (!selected) return;
+
+  setSelectValue(team, selected.name);
+  setSelectValue(type, "Todos");
+  render();
+  openModal("#repository");
 }
 
 function closeSelect(select) {
@@ -130,6 +208,8 @@ document.querySelector("#open-suggestion").addEventListener("click", () => openM
 document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", closeModal));
 document.querySelectorAll(".overlay").forEach(overlay => overlay.addEventListener("click", event => { if (event.target === overlay) closeModal(); }));
 document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
+applyQrEquipmentFilter();
+updateResourceAvailability();
 document.querySelector("#suggestion-form input[name=cuenta]").addEventListener("input", event => normalizeCuentaInput(event.target));
 document.querySelector("#suggestion-form input[name=telefono]").addEventListener("input", event => normalizePhoneInput(event.target));
 document.querySelector("#suggestion-form").addEventListener("submit", async event => {

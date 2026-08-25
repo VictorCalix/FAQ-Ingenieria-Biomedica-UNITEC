@@ -42,7 +42,6 @@ yarn-error.log*
 # Cloudflare/Wrangler local state
 /.wrangler/
 /.wrangler/**
-/wrangler.jsonc
 *.wrangler.log
 wrangler-debug.log*
 
