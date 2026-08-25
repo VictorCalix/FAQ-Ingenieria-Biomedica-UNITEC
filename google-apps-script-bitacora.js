@@ -8,7 +8,7 @@ const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
 const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-14";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
   // Agrega aqui numeros de cuenta o TH que no deben enviar sugerencias.
-  // Ejemplo: "12241087",
+  "22511204",
 ];
 
 const BITACORA_HEADERS = [
@@ -130,7 +130,7 @@ function handleReportAction(body) {
     return json(Object.assign({ ok: result.result !== "error" }, result));
   }
 
-  return json({ ok: false, error: "Accion de reporte invalida." });
+  return json({ ok: false, error: "Acción de reporte inválida." });
 }
 
 function obtenerSemanasDisponibles() {
@@ -243,7 +243,7 @@ function getAutoWeekForDate(value) {
   const date = coerceDate(value);
   if (!date) return null;
   const firstWeekDate = coerceDate(BITACORA_PRIMERA_SEMANA_FECHA);
-  if (!firstWeekDate) throw new Error("BITACORA_PRIMERA_SEMANA_FECHA no es una fecha valida.");
+  if (!firstWeekDate) throw new Error("BITACORA_PRIMERA_SEMANA_FECHA no es una fecha válida.");
 
   const firstWeekStart = getWeekStart(firstWeekDate);
   const start = getWeekStart(date);

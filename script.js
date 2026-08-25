@@ -261,7 +261,7 @@ document.querySelector("#suggestion-form").addEventListener("submit", async even
       throw new Error(result?.error || "No se pudo enviar la sugerencia.");
     }
   } catch (error) {
-    alert(error.message || "No se pudo sincronizar la sugerencia. Intentalo de nuevo.");
+    alert(error.message || "No se pudo sincronizar la sugerencia. Inténtalo de nuevo.");
     submitButton.disabled = false;
     submitButton.textContent = "Enviar pregunta";
     return;

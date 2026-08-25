@@ -2,7 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "faq-biomedica",
   "main": "worker/index.ts",
-  "compatibility_date": "2026-08-25",
+  "compatibility_date": "2026-05-22",
+  "vars": {
+    "BITACORA_WEBHOOK_URL": "https://script.google.com/macros/s/AKfycbxZue3jhXKwLuAiHBB3g2uH2dIxOc_FpVEDpQBgEJpBPD8Kb_xAm_6_J5iV6uD_maaU/exec",
+    "BITACORA_WEBHOOK_TOKEN": "BiomedFAQBitacoraDigitalByVictor",
+    "BITACORA_SHEET_NAME": "2026Q3",
+    "SUGERENCIAS_SHEET_NAME": "Sugerencias FAQ"
+  },
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist"

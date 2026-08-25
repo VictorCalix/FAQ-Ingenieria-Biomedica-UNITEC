@@ -14,12 +14,42 @@ const eslintConfig = defineConfig([
   ...tseslint.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   {
+    files: ["script.js"],
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node,
+        equipmentData: "readonly",
+      },
+    },
+  },
+  {
+    files: ["equipment-data.js"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
+  {
+    files: ["worker/**/*.ts"],
+    languageOptions: {
+      globals: {
         ...globals.serviceworker,
       },
+    },
+  },
+  {
+    files: ["google-apps-script-*.js"],
+    languageOptions: {
+      globals: {
+        ContentService: "readonly",
+        DriveApp: "readonly",
+        MimeType: "readonly",
+        Session: "readonly",
+        SpreadsheetApp: "readonly",
+        Utilities: "readonly",
+      },
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
     },
   },
 ]);
