@@ -24,3 +24,10 @@ npm run build
 ```
 
 El build usa Vite y genera las paginas estaticas actuales. No usa la app React/Next anterior.
+
+## Deploy
+
+En Cloudflare Pages usa:
+
+- Build command: `npm run build`
+- Output directory: `dist`

@@ -36,9 +36,15 @@ yarn-error.log*
 .vercel
 
 /dist/
-/.wrangler/
 /outputs/
 /work/
+
+# Cloudflare/Wrangler local state
+/.wrangler/
+/.wrangler/**
+/wrangler.jsonc
+*.wrangler.log
+wrangler-debug.log*
 
 # local files not needed for Cloudflare deploy
 /.vscode/
