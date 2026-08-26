@@ -125,6 +125,10 @@ function handleReportAction(body) {
     });
   }
 
+  if (action === "diagnosticarReporte") {
+    return json(Object.assign({ ok: true }, diagnosticarReporteDesdeSheet(sheet, sheetName)));
+  }
+
   if (action === "generarPdf") {
     const result = generarReportePdfDesdeSheet(sheet, body.semana || "");
     return json(Object.assign({ ok: result.result !== "error" }, result));
@@ -149,6 +153,14 @@ function generarReportePdf(semana) {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
   return generarReportePdfDesdeSheet(sheet, semana);
+}
+
+function diagnosticarReporte() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
+  const result = diagnosticarReporteDesdeSheet(sheet, DEFAULT_BITACORA_SHEET_NAME);
+  console.log(JSON.stringify(result, null, 2));
+  return result;
 }
 
 function obtenerSemanasDisponiblesDesdeSheet(sheet) {
@@ -200,6 +212,37 @@ function generarReportePdfDesdeSheet(sheet, semana) {
     totalFilas: filas.length,
     url: file.getUrl(),
     fileId: file.getId()
+  };
+}
+
+function diagnosticarReporteDesdeSheet(sheet, sheetName) {
+  const lastRow = sheet.getLastRow();
+  const headers = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0].map(header => String(header || "").trim());
+  const dateColumn = headers.indexOf("Fecha") + 1;
+  const validationColumn = headers.indexOf("Validado por Pasante") + 1;
+  const emailColumn = headers.indexOf("Correo institucional") + 1;
+  const reviewedRows = getReviewedBitacoraRows(sheet);
+  const weeks = obtenerSemanasDisponiblesDesdeSheet(sheet);
+  const sampleRowCount = Math.max(0, Math.min(Math.max(lastRow - 1, 0), 5));
+  const sampleRows = sampleRowCount
+    ? sheet.getRange(2, 1, sampleRowCount, sheet.getMaxColumns()).getValues()
+    : [];
+
+  return {
+    version: SCRIPT_VERSION,
+    sheetName: sheetName,
+    lastRow: lastRow,
+    headers: headers.filter(Boolean),
+    hasFechaHeader: dateColumn > 0,
+    hasValidadoHeader: validationColumn > 0,
+    hasCorreoHeader: emailColumn > 0,
+    reviewedRows: reviewedRows.length,
+    weeks: weeks,
+    samples: sampleRows.map(row => ({
+      fecha: dateColumn > 0 ? formatDebugValue(row[dateColumn - 1]) : "",
+      validado: validationColumn > 0 ? formatDebugValue(row[validationColumn - 1]) : "",
+      correo: emailColumn > 0 ? formatDebugValue(row[emailColumn - 1]) : ""
+    }))
   };
 }
 
@@ -321,6 +364,13 @@ function formatReportTime(value) {
   const text = String(value || "").trim();
   if (/^\d+(\.\d+)?$/.test(text)) return decimalDayToTime(Number(text));
   return text.replace(/^'/, "");
+}
+
+function formatDebugValue(value) {
+  if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) {
+    return Utilities.formatDate(value, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
+  }
+  return String(value || "").replace(/^'/, "");
 }
 
 function decimalDayToTime(value) {
