@@ -431,8 +431,8 @@
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Cuenta</th>
                 <th>Fecha</th>
+                <th>Correo</th>
                 <th>Hora inicio</th>
                 <th>Hora fin</th>
                 <th>Equipo</th>
@@ -603,8 +603,8 @@ const dateInput = document.querySelector("#log-date");
       reportPreviewBody.innerHTML = rows.map(row => `
         <tr>
           <td>${escapeHtml(row.nombre || "N/A")}</td>
-          <td>${escapeHtml(row.cuenta || "N/A")}</td>
           <td>${escapeHtml(row.fecha || "N/A")}</td>
+          <td>${escapeHtml(row.correo || "N/A")}</td>
           <td>${escapeHtml(row.horaInicio || "N/A")}</td>
           <td>${escapeHtml(row.horaFin || "N/A")}</td>
           <td>${escapeHtml(row.equipo || "N/A")}</td>

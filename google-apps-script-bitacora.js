@@ -1,11 +1,11 @@
 const WEBHOOK_TOKEN = "BiomedFAQBitacoraDigitalByVictor";
 const SPREADSHEET_ID = "1ol9Gx_nSO20OOPGlqvQpkCgXDlCWa082PN5qaj-hZrM";
-const SCRIPT_VERSION = "2026-08-14-header-map-checkbox-v4";
+const SCRIPT_VERSION = "2026-08-26-report-date-checkbox-privacy-v5";
 const DEFAULT_BITACORA_SHEET_NAME = "2026Q3";
 const DEFAULT_SUGERENCIAS_SHEET_NAME = "Sugerencias FAQ";
 const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
 // Define aqui una fecha dentro de la Semana 1 del periodo activo.
-const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-14";
+const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-20";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
   // Agrega aqui numeros de cuenta o TH que no deben enviar sugerencias.
   "22511204",
@@ -227,11 +227,10 @@ function mapBitacoraRowForReport(row) {
   return {
     marcaTemporal: formatReportValue(row["Marca temporal"]),
     nombre: formatReportValue(row["Nombre completo"]),
-    cuenta: formatReportValue(row["N\u00famero de cuenta | TH"]),
     fecha: formatReportValue(row["Fecha"]),
     correo: formatReportValue(row["Correo institucional"]),
-    horaInicio: formatReportValue(row["Hora de inicio"]),
-    horaFin: formatReportValue(row["Hora de fin"]),
+    horaInicio: formatReportTime(row["Hora de inicio"]),
+    horaFin: formatReportTime(row["Hora de fin"]),
     equipo: formatReportValue(row["Equipo"]),
     accesorios: formatReportValue(row["Accesorios"]),
     insumos: formatReportValue(row["Insumos"]),
@@ -270,8 +269,11 @@ function getWeekStart(date) {
 
 function coerceDate(value) {
   if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) return value;
+  if (typeof value === "number" && isFinite(value)) return excelSerialToDate(value);
   const text = String(value || "").trim();
   if (!text) return null;
+
+  if (/^\d+(\.\d+)?$/.test(text)) return excelSerialToDate(Number(text));
 
   const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (iso) return new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
@@ -283,15 +285,49 @@ function coerceDate(value) {
   return isNaN(parsed) ? null : parsed;
 }
 
+function excelSerialToDate(serial) {
+  if (!isFinite(serial) || serial <= 0) return null;
+  const utcDays = Math.floor(serial - 25569);
+  const utcValue = utcDays * 86400;
+  const date = new Date(utcValue * 1000);
+  return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+}
+
 function isTruthyCheckbox(value) {
-  return value === true || String(value || "").toLowerCase() === "true" || String(value || "").toLowerCase() === "s\u00ed" || String(value || "").toLowerCase() === "si";
+  const normalized = String(value || "").trim().toLowerCase();
+  return value === true || value === 1 || ["true", "s\u00ed", "si", "1", "x", "yes"].includes(normalized);
 }
 
 function formatReportValue(value) {
   if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) {
     return Utilities.formatDate(value, Session.getScriptTimeZone(), "dd/MM/yyyy");
   }
+  if (typeof value === "number" && isFinite(value) && value > 1000) {
+    const date = excelSerialToDate(value);
+    if (date) return Utilities.formatDate(date, Session.getScriptTimeZone(), "dd/MM/yyyy");
+  }
   return String(value || "").replace(/^'/, "");
+}
+
+function formatReportTime(value) {
+  if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) {
+    return Utilities.formatDate(value, Session.getScriptTimeZone(), "HH:mm");
+  }
+
+  if (typeof value === "number" && isFinite(value)) {
+    return decimalDayToTime(value);
+  }
+
+  const text = String(value || "").trim();
+  if (/^\d+(\.\d+)?$/.test(text)) return decimalDayToTime(Number(text));
+  return text.replace(/^'/, "");
+}
+
+function decimalDayToTime(value) {
+  const totalMinutes = Math.round((value % 1) * 24 * 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
 }
 
 function formatDateOnly(date) {
@@ -303,7 +339,6 @@ function buildReportHtml(semana, filas) {
     <tr>
       <td>${escapeHtml(fila.marcaTemporal)}</td>
       <td>${escapeHtml(fila.nombre)}</td>
-      <td>${escapeHtml(fila.cuenta)}</td>
       <td>${escapeHtml(fila.fecha)}</td>
       <td>${escapeHtml(fila.correo)}</td>
       <td>${escapeHtml(fila.horaInicio)}</td>
@@ -337,7 +372,6 @@ function buildReportHtml(semana, filas) {
       <tr>
         <th>Marca temporal</th>
         <th>Nombre completo</th>
-        <th>Número de cuenta | TH</th>
         <th>Fecha</th>
         <th>Correo institucional</th>
         <th>Hora inicio</th>
@@ -464,8 +498,7 @@ function syncBitacoraCheckboxes(sheet) {
 
   if (sheet.getMaxRows() > 1) {
     sheet.getRange(2, checkboxColumn, sheet.getMaxRows() - 1, 1)
-      .clearDataValidations()
-      .clearContent();
+      .clearDataValidations();
   }
 
   const lastDataRow = getLastBitacoraDataRow(sheet);
