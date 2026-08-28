@@ -42,6 +42,7 @@
     }
 
     .private-card input:not([type="checkbox"]),
+    .private-card select,
     .private-card textarea {
       border-radius: 12px;
       color: var(--ink);
@@ -51,7 +52,8 @@
       letter-spacing: 0;
     }
 
-    .private-card input:not([type="checkbox"]) {
+    .private-card input:not([type="checkbox"]),
+    .private-card select {
       min-height: 38px;
       padding: 0 12px;
     }
@@ -182,6 +184,33 @@
 
     .report-panel {
       width: min(900px, 100%);
+      scrollbar-color: #173b7299 transparent;
+      scrollbar-width: thin;
+    }
+
+    .report-panel::-webkit-scrollbar,
+    .report-table-wrap::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+      background: transparent;
+    }
+
+    .report-panel::-webkit-scrollbar-track,
+    .report-table-wrap::-webkit-scrollbar-track {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .report-panel::-webkit-scrollbar-thumb,
+    .report-table-wrap::-webkit-scrollbar-thumb {
+      background: #173b7299;
+      border: 0;
+      border-radius: 999px;
+    }
+
+    .report-panel::-webkit-scrollbar-corner,
+    .report-table-wrap::-webkit-scrollbar-corner {
+      background: transparent;
     }
 
     .report-controls {
@@ -228,6 +257,8 @@
       border: 1px solid var(--line);
       border-radius: 14px;
       background: white;
+      scrollbar-color: #173b7299 transparent;
+      scrollbar-width: thin;
     }
 
     .report-table {
@@ -346,6 +377,24 @@
             <input required name="hora_fin" type="time" autocomplete="off">
             <small class="field-error" hidden></small>
           </label>
+        </div>
+
+        <div class="filter-field activity-field">
+          <span class="filter-label">Tipo de actividad</span>
+          <div class="custom-select activity-select" data-name="tipo_actividad" data-value="">
+            <button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span>Selecciona una opción</span><i></i>
+            </button>
+            <div class="select-options" role="listbox" hidden>
+              <button type="button" role="option" data-value="Clase" aria-selected="false">Clase</button>
+              <button type="button" role="option" data-value="Laboratorio" aria-selected="false">Laboratorio</button>
+              <button type="button" role="option" data-value="Vinculación" aria-selected="false">Vinculación</button>
+              <button type="button" role="option" data-value="Investigación" aria-selected="false">Investigación</button>
+              <button type="button" role="option" data-value="Otro" aria-selected="false">Otro</button>
+            </div>
+            <input class="select-value" type="hidden" name="tipo_actividad" required>
+          </div>
+          <small class="field-error" hidden></small>
         </div>
 
         <div class="filter-field">
@@ -503,6 +552,7 @@ const dateInput = document.querySelector("#log-date");
       select.querySelector(".select-trigger").setAttribute("aria-expanded", "false");
       select.querySelector(".select-options").hidden = true;
       const search = select.querySelector(".select-search");
+      if (!search) return;
       search.value = "";
       select.querySelectorAll("[role=option]").forEach(option => option.hidden = false);
       select.querySelector(".no-options").hidden = true;
@@ -695,6 +745,18 @@ const dateInput = document.querySelector("#log-date");
       renderAccessories(selected);
     }
 
+    function updateSelectedActivity(select, value) {
+      const trigger = select.querySelector(".select-trigger span");
+
+      select.dataset.value = value;
+      select.querySelector(".select-value").value = value;
+      trigger.textContent = value || "Selecciona una opción";
+
+      select.querySelectorAll("[role=option]").forEach(option => {
+        option.setAttribute("aria-selected", String(option.dataset.value === value));
+      });
+    }
+
     function renderAccessories(equipmentNames) {
       const selected = Array.isArray(equipmentNames) ? equipmentNames : [equipmentNames].filter(Boolean);
 
@@ -758,7 +820,7 @@ const dateInput = document.querySelector("#log-date");
 
       trigger.addEventListener("click", event => {
         event.stopPropagation();
-        document.querySelectorAll(".log-select.open").forEach(open => {
+        document.querySelectorAll(".custom-select.open").forEach(open => {
           if (open !== select) closeSelect(open);
         });
         const opening = menu.hidden;
@@ -795,8 +857,34 @@ const dateInput = document.querySelector("#log-date");
       });
     });
 
+    document.querySelectorAll(".activity-select").forEach(select => {
+      const trigger = select.querySelector(".select-trigger");
+      const menu = select.querySelector(".select-options");
+
+      trigger.addEventListener("click", event => {
+        event.stopPropagation();
+        document.querySelectorAll(".custom-select.open").forEach(open => {
+          if (open !== select) closeSelect(open);
+        });
+        const opening = menu.hidden;
+        menu.hidden = !opening;
+        select.classList.toggle("open", opening);
+        trigger.setAttribute("aria-expanded", String(opening));
+      });
+
+      menu.querySelectorAll("[role=option]").forEach(option => {
+        option.addEventListener("click", event => {
+          event.stopPropagation();
+          updateSelectedActivity(select, option.dataset.value);
+          select.querySelector(".select-trigger").classList.remove("invalid-field");
+          select.closest(".filter-field").querySelector(".field-error").hidden = true;
+          closeSelect(select);
+        });
+      });
+    });
+
     document.addEventListener("click", () => {
-      document.querySelectorAll(".log-select.open").forEach(closeSelect);
+      document.querySelectorAll(".custom-select.open").forEach(closeSelect);
     });
 
     document.querySelectorAll("#log-form input[required]:not([type=checkbox])").forEach(field => {
@@ -819,6 +907,7 @@ const dateInput = document.querySelector("#log-date");
         correo: form.elements.correo.value.trim(),
         hora_inicio: form.elements.hora_inicio.value,
         hora_fin: form.elements.hora_fin.value,
+        tipo_actividad: form.elements.tipo_actividad.value,
         equipo: form.elements.equipo.value,
         accesorios: selectedAccessories.join(", "),
         insumos: form.elements.insumos.value.trim(),
@@ -832,7 +921,7 @@ const dateInput = document.querySelector("#log-date");
       let firstInvalid = null;
 
       requiredFields.forEach(field => {
-        const error = field.parentElement.querySelector(".field-error");
+        const error = field.closest("label, .filter-field").querySelector(".field-error");
         let message = "";
         if (!field.value.trim()) {
           message = "Completa este campo obligatorio.";
@@ -846,11 +935,16 @@ const dateInput = document.querySelector("#log-date");
           error.textContent = message;
           error.hidden = !message;
         }
+        const customSelect = field.closest(".custom-select");
+        if (customSelect) {
+          customSelect.querySelector(".select-trigger").classList.toggle("invalid-field", Boolean(message));
+        }
         if (message && !firstInvalid) firstInvalid = field;
       });
 
       if (firstInvalid) {
-        firstInvalid.focus();
+        const customSelect = firstInvalid.closest(".custom-select");
+        (customSelect?.querySelector(".select-trigger") || firstInvalid).focus();
         return;
       }
 
@@ -892,6 +986,9 @@ const dateInput = document.querySelector("#log-date");
       dateInput.value = localToday;
       document.querySelectorAll(".log-select").forEach(select => {
         updateSelectedEquipment(select, []);
+      });
+      document.querySelectorAll(".activity-select").forEach(select => {
+        updateSelectedActivity(select, "");
       });
       accessoriesBox.classList.remove("is-visible");
       accessoriesList.innerHTML = "";

@@ -29,29 +29,40 @@ function getDocumentPath(equipmentName, type) {
   return `assets/documentos/${getDocumentSlug(equipmentName)}-${suffix}.pdf`;
 }
 
+function getEquipmentImagePath(equipmentName) {
+  const images = {
+    "electrocardiografo-ecg-100g": "assets/documentos/Fotos de guias rapidas/equipo100G.png"
+  };
+
+  return images[getDocumentSlug(equipmentName)] || "";
+}
+
 const repositoryEquipment = [...new Map(
   equipmentData.repository.map(item => [getRepositoryKey(item), item])
 ).values()];
-const resources = repositoryEquipment.flatMap(item => [
-  {
-    title: `Guía rápida - ${item.name}`,
-    team: item.name,
-    type: "Guia rapida",
-    file: getDocumentPath(item.name, "Guia rapida")
-  },
-  {
-    title: `Manual - ${item.name}`,
-    team: item.name,
-    type: "Manual",
-    file: getDocumentPath(item.name, "Manual")
-  }
-]);
+const defaultResources = repositoryEquipment.map(item => ({
+  title: `Guía rápida - ${item.name}`,
+  team: item.name,
+  type: "Guia rapida",
+  file: getDocumentPath(item.name, "Guia rapida")
+}));
+const importedResources = typeof manualData !== "undefined" && Array.isArray(manualData) ? manualData : [];
+const resourceKey = item => [item.team, item.type, item.file].join("|");
+const resources = [...new Map(
+  [...defaultResources, ...importedResources].map(item => [resourceKey(item), item])
+).values()];
 const resourceAvailability = new Map(resources.map(item => [item.file, null]));
 
 const team = document.querySelector("#team-filter");
 const type = document.querySelector("#type-filter");
 const list = document.querySelector("#resource-list");
 const empty = document.querySelector("#empty-state");
+const faqSearchInput = document.querySelector("#faq-search-input");
+const faqEmpty = document.querySelector("#faq-empty");
+const faqItems = [...document.querySelectorAll(".questions details")].map(item => ({
+  element: item,
+  text: item.textContent
+}));
 
 repositoryEquipment.forEach(item => {
   const option = document.createElement("button");
@@ -63,6 +74,18 @@ repositoryEquipment.forEach(item => {
   team.querySelector(".select-options").append(option);
 });
 
+[...new Set(resources.map(item => item.type))].sort((a, b) => a.localeCompare(b, "es")).forEach(documentType => {
+  if ([...type.querySelectorAll("[role=option]")].some(option => option.dataset.value === documentType)) return;
+
+  const option = document.createElement("button");
+  option.type = "button";
+  option.role = "option";
+  option.dataset.value = documentType;
+  option.setAttribute("aria-selected", "false");
+  option.textContent = documentType;
+  type.querySelector(".select-options").append(option);
+});
+
 function render() {
   const items = resources.filter(item =>
     (team.dataset.value === "Todos" || item.team === team.dataset.value) &&
@@ -70,11 +93,15 @@ function render() {
   );
   list.innerHTML = items.map(item => {
     const available = resourceAvailability.get(item.file);
+    const image = getEquipmentImagePath(item.team);
+    const badge = image
+      ? `<span class="pdf resource-thumb"><img src="${image}" alt="" loading="lazy"></span>`
+      : `<span class="pdf">PDF</span>`;
     const link = available === false
       ? `<span class="resource-missing" aria-label="${item.title} no disponible">Pendiente</span>`
       : `<a href="${item.file}" target="_blank" rel="noopener" aria-label="Abrir ${item.title}">Abrir</a>`;
 
-    return `<article><span class="pdf">PDF</span><div><h3>${item.title}</h3><p>${item.team} - ${item.type}</p></div>${link}</article>`;
+    return `<article>${badge}<div><h3>${item.title}</h3><p>${item.team} - ${item.type}</p></div>${link}</article>`;
   }).join("");
   empty.hidden = items.length > 0;
 }
@@ -134,6 +161,71 @@ function closeSelect(select) {
   select.querySelector(".no-options").hidden = true;
 }
 
+function normalizeSearchText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("es")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getEditDistance(first, second) {
+  if (first === second) return 0;
+  if (!first.length) return second.length;
+  if (!second.length) return first.length;
+
+  const previous = Array.from({ length: second.length + 1 }, (_, index) => index);
+  const current = Array(second.length + 1);
+
+  for (let i = 1; i <= first.length; i++) {
+    current[0] = i;
+    for (let j = 1; j <= second.length; j++) {
+      const cost = first[i - 1] === second[j - 1] ? 0 : 1;
+      current[j] = Math.min(
+        current[j - 1] + 1,
+        previous[j] + 1,
+        previous[j - 1] + cost
+      );
+    }
+    previous.splice(0, previous.length, ...current);
+  }
+
+  return previous[second.length];
+}
+
+function isSimilarWord(query, word) {
+  if (query.length < 3 || word.length < 3) return false;
+  if (word.includes(query) || query.includes(word)) return true;
+
+  const limit = query.length <= 5 ? 1 : 2;
+  return getEditDistance(query, word) <= limit;
+}
+
+function matchesFaqQuery(text, query) {
+  const queryWords = normalizeSearchText(query).split(" ").filter(Boolean);
+  if (!queryWords.length) return true;
+
+  const itemWords = normalizeSearchText(text).split(" ").filter(Boolean);
+  return queryWords.every(queryWord =>
+    itemWords.some(itemWord => isSimilarWord(queryWord, itemWord))
+  );
+}
+
+function filterFaqItems() {
+  const query = faqSearchInput.value;
+  let matches = 0;
+
+  faqItems.forEach(item => {
+    const visible = matchesFaqQuery(item.text, query);
+    item.element.hidden = !visible;
+    if (visible) matches++;
+  });
+
+  faqEmpty.hidden = matches > 0;
+}
+
 document.querySelectorAll(".custom-select").forEach(select => {
   const trigger = select.querySelector(".select-trigger");
   const menu = select.querySelector(".select-options");
@@ -188,6 +280,7 @@ document.querySelectorAll(".custom-select").forEach(select => {
   });
 });
 document.addEventListener("click", () => document.querySelectorAll(".custom-select.open").forEach(closeSelect));
+faqSearchInput.addEventListener("input", filterFaqItems);
 render();
 
 let active;

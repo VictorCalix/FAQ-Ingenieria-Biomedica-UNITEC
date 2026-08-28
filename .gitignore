@@ -38,6 +38,7 @@ yarn-error.log*
 /dist/
 /outputs/
 /work/
+/tmp/
 
 # Cloudflare/Wrangler local state
 /.wrangler/
@@ -49,3 +50,19 @@ wrangler-debug.log*
 /.vscode/
 /public/
 /NO_SUBIR_A_GITHUB/
+
+# LaTeX/editor build artifacts
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.synctex.gz(busy)
+*.fls
+*.fdb_latexmk
+*.toc
+*.xdv
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+assets/documentos/procesamiento tex/

@@ -7,6 +7,7 @@
   <title>FAQ Biomédica | UNITEC</title>
   <link rel="stylesheet" href="styles.css">
   <script src="equipment-data.js" defer></script>
+  <script src="manual-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -24,6 +25,11 @@
       <p>Respuestas rápidas para la comunidad de Ingeniería Biomédica.</p>
     </div>
 
+    <div class="faq-search">
+      <span class="faq-search-icon" aria-hidden="true"></span>
+      <input id="faq-search-input" type="search" placeholder="Escribe una palabra o tema..." autocomplete="off">
+    </div>
+
     <section class="questions" aria-label="Preguntas frecuentes">
       <details><summary><span>¿Cómo puedo solicitar apoyo para utilizar un equipo?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Muy pronto encontrarás aquí el procedimiento completo y los contactos correspondientes.</div></details>
       <details><summary><span>¿Dónde encuentro las guías rápidas y los manuales?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Puedes abrir el repositorio desde la esquina superior derecha y filtrar los documentos por equipo o tipo.</div></details>
@@ -31,6 +37,8 @@
       <details><summary><span>¿Quién puede utilizar los equipos del laboratorio?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Esta respuesta se sustituirá por la información oficial que nos compartas.</div></details>
       <details><summary><span>¿Qué normas debo seguir dentro del laboratorio?</span><span class="toggle" aria-hidden="true"></span></summary><div class="answer">Esta respuesta se sustituirá por la información oficial que nos compartas.</div></details>
     </section>
+
+    <p class="faq-empty" id="faq-empty" hidden>No hay preguntas parecidas a tu busqueda.</p>
 
     <button class="suggest-button" id="open-suggestion"><span>¿No encontraste tu duda?</span>Sugerir una pregunta <b>➜</b></button>
   </main>

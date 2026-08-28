@@ -4,6 +4,9 @@ const SCRIPT_VERSION = "2026-08-26-report-date-checkbox-privacy-v5";
 const DEFAULT_BITACORA_SHEET_NAME = "2026Q3";
 const DEFAULT_SUGERENCIAS_SHEET_NAME = "Sugerencias FAQ";
 const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
+const REPORT_EXPIRATION_MINUTES = 5;
+const REPORT_CLEANUP_TRIGGER_HANDLER = "cleanupExpiredReports";
+const REPORT_FILE_PROPERTY_PREFIX = "reportFile:";
 // Define aqui una fecha dentro de la Semana 1 del periodo activo.
 const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-20";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
@@ -19,6 +22,7 @@ const BITACORA_HEADERS = [
   "Correo institucional",
   "Hora de inicio",
   "Hora de fin",
+  "Tipo de actividad",
   "Equipo",
   "Accesorios",
   "Insumos",
@@ -94,6 +98,7 @@ function doPost(event) {
     "Correo institucional": fields.correo || "",
     "Hora de inicio": fields.hora_inicio || "",
     "Hora de fin": fields.hora_fin || "",
+    "Tipo de actividad": fields.tipo_actividad || "",
     "Equipo": fields.equipo || "",
     "Accesorios": fields.accesorios || "",
     "Insumos": fields.insumos || "",
@@ -106,6 +111,18 @@ function doPost(event) {
 }
 
 function handleReportAction(body) {
+  try {
+    return handleReportActionUnsafe(body);
+  } catch (error) {
+    return json({
+      ok: false,
+      result: "error",
+      error: "Error en Apps Script: " + getErrorMessage(error)
+    });
+  }
+}
+
+function handleReportActionUnsafe(body) {
   const sheetName = body.sheetName || DEFAULT_BITACORA_SHEET_NAME;
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = getOrCreateSheet(spreadsheet, sheetName, BITACORA_HEADERS);
@@ -123,10 +140,6 @@ function handleReportAction(body) {
       ok: true,
       filas: obtenerFilasPorSemanaDesdeSheet(sheet, body.semana || "")
     });
-  }
-
-  if (action === "diagnosticarReporte") {
-    return json(Object.assign({ ok: true }, diagnosticarReporteDesdeSheet(sheet, sheetName)));
   }
 
   if (action === "generarPdf") {
@@ -155,20 +168,12 @@ function generarReportePdf(semana) {
   return generarReportePdfDesdeSheet(sheet, semana);
 }
 
-function diagnosticarReporte() {
-  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
-  const result = diagnosticarReporteDesdeSheet(sheet, DEFAULT_BITACORA_SHEET_NAME);
-  console.log(JSON.stringify(result, null, 2));
-  return result;
-}
-
 function obtenerSemanasDisponiblesDesdeSheet(sheet) {
   const rows = getReviewedBitacoraRows(sheet);
   const weeks = {};
 
   rows.forEach(row => {
-    const week = getAutoWeekForDate(row.fecha);
+    const week = getAutoWeekForDate(row["Fecha"]);
     if (week) weeks[week.value] = week;
   });
 
@@ -180,13 +185,14 @@ function obtenerSemanasDisponiblesDesdeSheet(sheet) {
 function obtenerFilasPorSemanaDesdeSheet(sheet, semana) {
   return getReviewedBitacoraRows(sheet)
     .filter(row => {
-      const week = getAutoWeekForDate(row.fecha);
+      const week = getAutoWeekForDate(row["Fecha"]);
       return week && week.value === semana;
     })
     .map(mapBitacoraRowForReport);
 }
 
 function generarReportePdfDesdeSheet(sheet, semana) {
+  cleanupExpiredReports();
   const filas = obtenerFilasPorSemanaDesdeSheet(sheet, semana);
 
   if (!semana) {
@@ -205,45 +211,26 @@ function generarReportePdfDesdeSheet(sheet, semana) {
     .setName(fileName);
   const folder = getOrCreateReportsFolder();
   const file = folder.createFile(blob);
-  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  const sharingWarning = trySetReportSharing(file);
+  scheduleReportDeletion(file);
 
   return {
     result: "ok",
     totalFilas: filas.length,
     url: file.getUrl(),
-    fileId: file.getId()
+    fileId: file.getId(),
+    expiresAt: new Date(Date.now() + REPORT_EXPIRATION_MINUTES * 60 * 1000).toISOString(),
+    sharingWarning: sharingWarning
   };
 }
 
-function diagnosticarReporteDesdeSheet(sheet, sheetName) {
-  const lastRow = sheet.getLastRow();
-  const headers = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0].map(header => String(header || "").trim());
-  const dateColumn = headers.indexOf("Fecha") + 1;
-  const validationColumn = headers.indexOf("Validado por Pasante") + 1;
-  const emailColumn = headers.indexOf("Correo institucional") + 1;
-  const reviewedRows = getReviewedBitacoraRows(sheet);
-  const weeks = obtenerSemanasDisponiblesDesdeSheet(sheet);
-  const sampleRowCount = Math.max(0, Math.min(Math.max(lastRow - 1, 0), 5));
-  const sampleRows = sampleRowCount
-    ? sheet.getRange(2, 1, sampleRowCount, sheet.getMaxColumns()).getValues()
-    : [];
-
-  return {
-    version: SCRIPT_VERSION,
-    sheetName: sheetName,
-    lastRow: lastRow,
-    headers: headers.filter(Boolean),
-    hasFechaHeader: dateColumn > 0,
-    hasValidadoHeader: validationColumn > 0,
-    hasCorreoHeader: emailColumn > 0,
-    reviewedRows: reviewedRows.length,
-    weeks: weeks,
-    samples: sampleRows.map(row => ({
-      fecha: dateColumn > 0 ? formatDebugValue(row[dateColumn - 1]) : "",
-      validado: validationColumn > 0 ? formatDebugValue(row[validationColumn - 1]) : "",
-      correo: emailColumn > 0 ? formatDebugValue(row[emailColumn - 1]) : ""
-    }))
-  };
+function trySetReportSharing(file) {
+  try {
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    return "";
+  } catch (error) {
+    return "El PDF se creó, pero Drive no permitió compartirlo públicamente: " + getErrorMessage(error);
+  }
 }
 
 function getReviewedBitacoraRows(sheet) {
@@ -366,13 +353,6 @@ function formatReportTime(value) {
   return text.replace(/^'/, "");
 }
 
-function formatDebugValue(value) {
-  if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) {
-    return Utilities.formatDate(value, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
-  }
-  return String(value || "").replace(/^'/, "");
-}
-
 function decimalDayToTime(value) {
   const totalMinutes = Math.round((value % 1) * 24 * 60);
   const hours = Math.floor(totalMinutes / 60);
@@ -443,6 +423,64 @@ function getOrCreateReportsFolder() {
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(REPORTS_FOLDER_NAME);
 }
 
+function scheduleReportDeletion(file) {
+  const expiresAt = Date.now() + REPORT_EXPIRATION_MINUTES * 60 * 1000;
+  PropertiesService.getScriptProperties().setProperty(
+    REPORT_FILE_PROPERTY_PREFIX + file.getId(),
+    String(expiresAt)
+  );
+  ensureReportCleanupTrigger();
+}
+
+function ensureReportCleanupTrigger() {
+  const hasTrigger = ScriptApp.getProjectTriggers()
+    .some(trigger => trigger.getHandlerFunction() === REPORT_CLEANUP_TRIGGER_HANDLER);
+
+  if (!hasTrigger) {
+    ScriptApp.newTrigger(REPORT_CLEANUP_TRIGGER_HANDLER)
+      .timeBased()
+      .after(REPORT_EXPIRATION_MINUTES * 60 * 1000)
+      .create();
+  }
+}
+
+function cleanupExpiredReports() {
+  const properties = PropertiesService.getScriptProperties();
+  const allProperties = properties.getProperties();
+  const now = Date.now();
+  let hasPendingReports = false;
+
+  Object.keys(allProperties).forEach(key => {
+    if (!key.startsWith(REPORT_FILE_PROPERTY_PREFIX)) return;
+
+    const expiresAt = Number(allProperties[key]);
+    if (!expiresAt || expiresAt > now) {
+      hasPendingReports = true;
+      return;
+    }
+
+    const fileId = key.slice(REPORT_FILE_PROPERTY_PREFIX.length);
+    try {
+      DriveApp.getFileById(fileId).setTrashed(true);
+    } catch (error) {
+      // If the file was already removed or access changed, forget the stale record.
+    }
+    properties.deleteProperty(key);
+  });
+
+  clearReportCleanupTriggers();
+
+  if (hasPendingReports) {
+    ensureReportCleanupTrigger();
+  }
+}
+
+function clearReportCleanupTriggers() {
+  ScriptApp.getProjectTriggers()
+    .filter(trigger => trigger.getHandlerFunction() === REPORT_CLEANUP_TRIGGER_HANDLER)
+    .forEach(trigger => ScriptApp.deleteTrigger(trigger));
+}
+
 function normalizeFileName(value) {
   return String(value || "")
     .replace(/[\\/:*?"<>|]/g, "-")
@@ -458,6 +496,11 @@ function escapeHtml(value) {
     "\"": "&quot;",
     "'": "&#039;"
   }[char]));
+}
+
+function getErrorMessage(error) {
+  if (error && error.message) return String(error.message);
+  return String(error || "Error desconocido.");
 }
 
 function doGet() {

@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+% La tabla de accesorios usa bordes completos intencionalmente.
+% chktex-file 44
+
+\definecolor{darkblue}{RGB}{18,52,110}
+\definecolor{lightblue}{RGB}{235,244,251}
+\definecolor{placeholderline}{RGB}{184,205,211}
+\definecolor{placeholderfill}{RGB}{248,250,249}
+
+\newcommand{\seccionbanda}[1]{%
+  \vspace{0.6em}
+  \noindent\colorbox{darkblue}{\parbox{\dimexpr\linewidth-2\fboxsep}{%
+    \centering\color{white}\bfseries #1}}\par\vspace{0.6em}
+}
+
+\newcommand{\filacolumnas}[2]{%
+  \noindent\begin{tabular}{@{}p{0.55\linewidth}@{\hspace{0.05\linewidth}}>{\centering\arraybackslash}p{0.40\linewidth}@{}}
+    #1 & #2
+  \end{tabular}\par\vspace{0.8em}
+}
+
+\newcommand{\marcoimg}[1]{%
+  \fcolorbox{white}{white}{#1}%
+}
+
+\newcommand{\imagenfaltante}[2]{%
+  \fcolorbox{placeholderline}{placeholderfill}{%
+    \parbox[c][#2][c]{#1}{\centering\scriptsize\color{placeholderline}Imagen pendiente}%
+  }%
+}
+
+\newcommand{\imagensegura}[3]{%
+  \IfFileExists{#3}{%
+    \includegraphics[width=#1,height=#2,keepaspectratio]{#3}%
+  }{%
+    \imagenfaltante{#1}{#2}%
+  }%
+}
+
+\newcommand{\equipoimg}[1]{%
+  \imagensegura{4cm}{3cm}{#1}%
+}
+
+\newcommand{\partesimg}[1]{%
+  \imagensegura{7cm}{5cm}{#1}%
+}
+
+\newcommand{\accesorioimg}[1]{%
+  \imagensegura{3cm}{2cm}{#1}%
+}
+
+%\date{28/8/26}
+%\author{Victor Calix}
+
+\begin{document}
+
+\begin{center}
+  {\color{darkblue}\Huge\bfseries Guía Rápida\par}
+  \vspace{0.8em}
+\end{center}
+
+% ---------- DATOS GENERALES ----------
+\seccionbanda{DATOS GENERALES}
+\filacolumnas{
+  \begin{tabular}{@{}p{4cm}p{0.4cm}p{6cm}@{}}
+  Nombre del equipo & : & \colorbox{lightblue}{\parbox{6cm}{Electrocardiógrafo}}\\[0.6em]
+  Marca & : & \colorbox{lightblue}{\parbox{6cm}{CONTEC}}\\[0.6em]
+  Modelo & : & \colorbox{lightblue}{\parbox{6cm}{100G}}\\[0.6em]
+  \end{tabular}
+}{
+  \marcoimg{\parbox{4cm}{\centering\equipoimg{Fotos de guias rapidas/equipo100G.png}}}
+}
+
+% ---------- I-10 BIOMED DATA ----------
+\seccionbanda{I-10 BIOMED DATA}
+\filacolumnas{
+  \begin{tabular}{@{}p{4cm}p{0.4cm}p{6cm}@{}}
+  Ubicación del equipo & : & \colorbox{lightblue}{\parbox{6cm}{Estante \#4}}\\[0.6em]
+  Ubicación de accesorios & : & \colorbox{lightblue}{\parbox{6cm}{Armario A}}\\[0.6em]
+  \end{tabular}
+}{
+  \phantom{x}
+}
+% ---------- DESCRIPCIÓN DEL EQUIPO ----------
+\seccionbanda{DESCRIPCIÓN DEL EQUIPO}
+\filacolumnas{
+  \begin{tabular}{@{}p{4cm}p{0.4cm}p{12.1cm}l@{}}
+  Función & : & \colorbox{lightblue}{\parbox{12.1cm}{ Captura, amplifica, visualiza, analiza y registra señales eléctricas del corazón de hasta 12 derivaciones, en 3 canales simultáneos.}}\\[0.6em] \\
+
+  Principio de operación & : & \colorbox{lightblue}{\parbox{\linewidth}{ Adquiere señales eléctricas cardíacas mediante electrodos; las señales son amplificadas y convertidas de analógicas a digitales.}}\\[0.6em] \\
+  \end{tabular}
+
+}{
+  \phantom{x}
+}
+
+% ---------- PARTES DEL EQUIPO ----------
+\seccionbanda{PARTES DEL EQUIPO}
+
+\begin{center}
+\marcoimg{\parbox{7cm}{\centering\partesimg{Fotos de guias rapidas/Partes100G.png}}}\\[0.3em]
+\textit{Vista frontal - Monitor ECG - CONTEC - 100G}
+\end{center}
+
+\newpage
+\vspace{0.8em}
+\begin{multicols}{2}
+\begin{enumerate}[label=\arabic*.,itemsep=2pt]
+\item Indicador de arranque
+\item Indicador de estado de energía
+\item Menú
+\item Modo
+\item Calibrar
+\item Imprimir
+\item Dirección arriba
+\item Dirección derecha
+\item Menú del sistema y confirmación
+\item Dirección abajo
+\item Dirección izquierda
+\item Filtro
+\item Velocidad
+\item Ajuste de sensibilidad
+\item Encender/Apagar
+\item Pantalla
+\item Impresora
+\end{enumerate}
+\end{multicols}
+
+% ---------- ACCESORIOS ----------
+\seccionbanda{ACCESORIOS}
+\renewcommand{\arraystretch}{1.8}
+\begin{longtable}{|p{7.5cm}|>{\centering\arraybackslash}p{5cm}|}
+\hline
+Cable de alimentación de grado médico &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/CableGradoMedico.png}}}
+  \\ \hline
+Cable de tierra &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/CableATierra.png}}}
+  \\ \hline
+Cable de paciente &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/CablePaciente.png}}}
+  \\ \hline
+Electrodos de pinza &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/ElectrodosPinza.png}}}
+  \\ \hline
+Papel de impresión &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/RolloPapelTermico.png}}}
+  \\ \hline
+Electrodos de succión &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/ElectrodosVentosa.png}}}
+  \\ \hline
+Manual &
+  \marcoimg{\parbox{4.5cm}{\centering\accesorioimg{Fotos de guias rapidas/Accesorios Generales/ManualUsuario.png}}}
+  \\ \hline
+\end{longtable}
+\renewcommand{\arraystretch}{1}
+
+\vspace{0.5em}
+\footnotesize{*Imágenes con fines ilustrativos, procure utilizar los accesorios correspondientemente etiquetados para el equipo.}
+\normalsize
+
+\newpage
+% ---------- VERIFICACIÓN DE ELEMENTOS ----------
+\seccionbanda{VERIFICACIÓN DE ELEMENTOS}
+\noindent\colorbox{lightblue}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+\begin{itemize}[label=$\square$, itemsep=4pt]
+\item Equipo en buen estado físico
+\item Cable de paciente en buen estado
+\item Electrodos funcionales y limpios
+\item Gel conductor disponible
+\item Papel térmico instalado
+\item Alimentación eléctrica segura o batería cargada
+\item Derivaciones correctamente identificadas y conectadas
+\end{itemize}
+}}\par
+
+% ---------- MONTAJE ----------
+\seccionbanda{MONTAJE}
+\noindent\colorbox{lightblue}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+\begin{itemize}[label=$\square$, itemsep=4pt]
+\item Verificar estado físico del equipo.
+\item Conectar a red eléctrica.
+\item Encender equipo y confirmar autochequeo correcto.
+\item Confirmar en pantalla estado de derivaciones ``NORM''.
+\item Colocar electrodos de extremidades (RA, LA, RL, LL).
+\item Verificar que los electrodos no estén en contacto entre sí.
+\item Colocar electrodos precordiales (V1--V6).
+\end{itemize}
+}}\par
+
+% ---------- DESMONTAJE ----------
+\seccionbanda{DESMONTAJE}
+\noindent\colorbox{lightblue}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+\begin{itemize}[label=$\square$, itemsep=4pt]
+\item Retiro de electrodos.
+\item Desconexión de accesorios.
+\item Limpieza de material reutilizable.
+\item Orden de cables, al enrollarlos, procura seguir la forma de la fibra para evitar quebrarla
+\item Apagar el equipo.
+\item Dejar todo en su lugar.
+\end{itemize}
+}}\par
+
+\end{document}
+

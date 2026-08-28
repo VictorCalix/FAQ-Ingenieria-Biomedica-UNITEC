@@ -105,7 +105,7 @@ async function submitReportRequest(request: Request, env: Env): Promise<Response
   }
 
   const action = String(body.action || "");
-  const allowedActions = new Set(["listarSemanas", "obtenerFilas", "generarPdf", "diagnosticarReporte"]);
+  const allowedActions = new Set(["listarSemanas", "obtenerFilas", "generarPdf"]);
   if (!allowedActions.has(action)) {
     return jsonResponse({ ok: false, error: "Acción de reporte inválida." }, 400);
   }
