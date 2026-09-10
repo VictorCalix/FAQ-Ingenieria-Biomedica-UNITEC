@@ -1,3 +1,5 @@
+/* global manualData */
+
 function normalizeRepositoryKey(value) {
   return String(value || "")
     .normalize("NFD")
@@ -24,32 +26,57 @@ function getDocumentSlug(value) {
     .replace(/^-+|-+$/g, "");
 }
 
-function getDocumentPath(equipmentName, type) {
-  const suffix = type === "Manual" ? "manual" : "guia-rapida";
-  return `assets/documentos/${getDocumentSlug(equipmentName)}-${suffix}.pdf`;
+const equipmentPreviewImages = new Map();
+
+function toAssetPath(pathName) {
+  return pathName.split("/").map(part => encodeURIComponent(part)).join("/");
+}
+
+function getDirectoryPath(pathName) {
+  return pathName.split("/").slice(0, -1).join("/");
+}
+
+function normalizeAssetPath(pathName) {
+  const parts = [];
+  pathName.split("/").forEach(part => {
+    if (!part || part === ".") return;
+    if (part === "..") {
+      parts.pop();
+      return;
+    }
+    parts.push(part);
+  });
+  return parts.join("/");
+}
+
+function getTexCandidates(item) {
+  const slug = getDocumentSlug(item.team);
+  const candidates = [
+    `assets/documentos/guias-rapidas/${slug}/${slug}-guia-rapida.tex`,
+    `assets/documentos/guias-rapidas/${slug}/!${slug}-guia-rapida.tex`
+  ];
+
+  if (item.type === "Guia rapida" && item.file.endsWith(".pdf")) {
+    const texPath = decodeURI(item.file).replace(/\.pdf$/i, ".tex");
+    const texDir = getDirectoryPath(texPath);
+    const texName = texPath.split("/").at(-1);
+    candidates.unshift(texPath, `${texDir}/!${texName}`);
+  }
+
+  return [...new Set(candidates)];
 }
 
 function getEquipmentImagePath(equipmentName) {
-  const images = {
-    "electrocardiografo-ecg-100g": "assets/documentos/Fotos de guias rapidas/equipo100G.png"
-  };
-
-  return images[getDocumentSlug(equipmentName)] || "";
+  return equipmentPreviewImages.get(equipmentName) || "";
 }
 
 const repositoryEquipment = [...new Map(
   equipmentData.repository.map(item => [getRepositoryKey(item), item])
 ).values()];
-const defaultResources = repositoryEquipment.map(item => ({
-  title: `Guía rápida - ${item.name}`,
-  team: item.name,
-  type: "Guia rapida",
-  file: getDocumentPath(item.name, "Guia rapida")
-}));
 const importedResources = typeof manualData !== "undefined" && Array.isArray(manualData) ? manualData : [];
 const resourceKey = item => [item.team, item.type, item.file].join("|");
 const resources = [...new Map(
-  [...defaultResources, ...importedResources].map(item => [resourceKey(item), item])
+  importedResources.map(item => [resourceKey(item), item])
 ).values()];
 const resourceAvailability = new Map(resources.map(item => [item.file, null]));
 
@@ -115,6 +142,38 @@ async function updateResourceAvailability() {
       resourceAvailability.set(item.file, false);
     }
   }));
+  render();
+}
+
+async function updateEquipmentPreviewImages() {
+  const resourceByTeam = new Map();
+  resources.forEach(item => {
+    if (!resourceByTeam.has(item.team) || item.type === "Guia rapida") {
+      resourceByTeam.set(item.team, item);
+    }
+  });
+
+  await Promise.all(repositoryEquipment.map(async equipment => {
+    const item = resourceByTeam.get(equipment.name) || { team: equipment.name, type: "", file: "" };
+
+    for (const texPath of getTexCandidates(item)) {
+      try {
+        const response = await fetch(toAssetPath(texPath));
+        if (!response.ok) continue;
+
+        const source = await response.text();
+        const imageMatch = source.match(/\\equipoimg\{([^{}]+)\}/);
+        if (!imageMatch) continue;
+
+        const imagePath = normalizeAssetPath(`${getDirectoryPath(texPath)}/${imageMatch[1]}`);
+        equipmentPreviewImages.set(equipment.name, toAssetPath(imagePath));
+        break;
+      } catch {
+        // The guide may not have a detailed LaTeX source yet.
+      }
+    }
+  }));
+
   render();
 }
 
@@ -303,6 +362,7 @@ document.querySelectorAll(".overlay").forEach(overlay => overlay.addEventListene
 document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
 applyQrEquipmentFilter();
 updateResourceAvailability();
+updateEquipmentPreviewImages();
 document.querySelector("#suggestion-form input[name=cuenta]").addEventListener("input", event => normalizeCuentaInput(event.target));
 document.querySelector("#suggestion-form input[name=telefono]").addEventListener("input", event => normalizePhoneInput(event.target));
 document.querySelector("#suggestion-form").addEventListener("submit", async event => {

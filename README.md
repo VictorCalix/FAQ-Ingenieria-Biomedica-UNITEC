@@ -28,7 +28,7 @@ Tambien copia `assets/documentos` a `dist/assets/documentos` para publicar PDFs.
 
 ## Manuales y guias
 
-Coloca los PDFs en `assets/documentos` siguiendo este formato:
+Coloca los manuales en `assets/documentos/manuales` y las guias rapidas en `assets/documentos/guias-rapidas/<equipo>/`, una carpeta por equipo, siguiendo este formato:
 
 ```text
 <equipo-normalizado>-manual.pdf

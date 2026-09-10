@@ -182,6 +182,19 @@
       width: 16px;
     }
 
+    .activity-other-field {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .activity-other-field.is-visible {
+      display: block;
+    }
+
+    .activity-other-field input {
+      margin-top: 0;
+    }
+
     .report-panel {
       width: min(900px, 100%);
       scrollbar-color: #173b7299 transparent;
@@ -309,6 +322,232 @@
       display: inline-flex;
     }
 
+    body.revision-view #open-report-modal,
+    body.revision-view #bitacora-form-page {
+      display: none;
+    }
+
+    body:not(.revision-view) #revision-page {
+      display: none;
+    }
+
+    .revision-page {
+      width: min(1180px, calc(100% - 32px));
+    }
+
+    .revision-card {
+      padding: 34px;
+    }
+
+    .revision-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .revision-head h1 {
+      margin-top: 0;
+    }
+
+    .revision-tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: var(--ice);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .revision-layout {
+      display: grid;
+      grid-template-columns: minmax(260px, .85fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    .revision-access {
+      width: min(430px, 100%);
+      margin: 30px auto 0;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--ice);
+      padding: 22px;
+    }
+
+    .revision-access[hidden],
+    .revision-protected[hidden] {
+      display: none;
+    }
+
+    .revision-access form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .revision-block {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 20px;
+    }
+
+    .revision-block + .revision-block {
+      margin-top: 18px;
+    }
+
+    .revision-block h2 {
+      margin: 0 0 6px;
+      color: var(--blue);
+      font: 24px Georgia, serif;
+    }
+
+    .revision-copy {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .revision-list {
+      display: grid;
+      gap: 10px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .revision-item {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--ice);
+      padding: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .revision-item[aria-selected="true"] {
+      border-color: var(--blue);
+      background: #eef7fb;
+      box-shadow: 0 0 0 2px #173b7218;
+    }
+
+    .revision-item strong,
+    .revision-item span {
+      display: block;
+    }
+
+    .revision-item strong {
+      color: var(--blue);
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .revision-item span {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .revision-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .summary-field {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--ice);
+      padding: 12px;
+    }
+
+    .summary-field.wide {
+      grid-column: 1 / -1;
+    }
+
+    .summary-field span {
+      display: block;
+      margin-bottom: 5px;
+      color: #465a72;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .summary-field strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+
+    .revision-form {
+      display: grid;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .review-equipment-notes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .review-note-block {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--ice);
+      padding: 13px;
+    }
+
+    .review-note-title {
+      margin: 0 0 9px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .revision-status {
+      min-height: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .revision-status.is-error {
+      color: #a33737;
+    }
+
+    .revision-status.is-ok {
+      color: var(--blue);
+    }
+
+    .revision-empty {
+      display: none;
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .revision-empty.is-visible {
+      display: block;
+    }
+
     @media (max-width: 620px) {
       .private-card {
         padding: 32px 22px;
@@ -316,6 +555,23 @@
 
       .private-card h1 {
         font-size: 40px;
+      }
+
+      .revision-card {
+        padding: 26px 18px;
+      }
+
+      .revision-head,
+      .revision-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .revision-head {
+        display: grid;
+      }
+
+      .revision-summary {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -337,7 +593,7 @@
     <button class="repo-button" id="open-report-modal" type="button">Generar PDF</button>
   </header>
 
-  <main class="private-page">
+  <main class="private-page" id="bitacora-form-page">
     <section class="private-card">
       <h1>Bitácora</h1>
       <span>Laboratorio de Ingeniería Biomédica</span>
@@ -394,6 +650,15 @@
             </div>
             <input class="select-value" type="hidden" name="tipo_actividad" required>
           </div>
+          <label class="activity-other-field" id="activity-other-field">
+            <span class="filter-label">Especifica el tipo de actividad</span>
+            <input
+              id="activity-other-input"
+              name="tipo_actividad_otro"
+              placeholder="Escribe el tipo de actividad"
+              autocomplete="off"
+            >
+          </label>
           <small class="field-error" hidden></small>
         </div>
 
@@ -438,6 +703,146 @@
     </section>
   </main>
 
+  <main class="private-page revision-page" id="revision-page">
+    <section class="private-card revision-card">
+      <div class="revision-head">
+        <div>
+          <h1>Revisión</h1>
+          <span>Reservas pendientes de bitácora</span>
+        </div>
+        <span class="revision-tag" id="revision-count">Cargando...</span>
+      </div>
+
+      <section class="revision-access" id="revision-access">
+        <form id="revision-access-form">
+          <label>
+            Contraseña
+            <input required id="revision-password" name="password" type="password" autocomplete="current-password">
+          </label>
+          <button class="submit" type="submit">Entrar</button>
+          <span class="revision-status" id="revision-access-status">Acceso restringido.</span>
+        </form>
+      </section>
+
+      <div class="revision-protected" id="revision-protected" hidden>
+      <div class="revision-layout">
+        <aside class="revision-block">
+          <h2>Pendientes</h2>
+          <p class="revision-copy">Selecciona un registro para guardar su primera o segunda revisión.</p>
+          <div class="revision-list" id="revision-list"></div>
+          <p class="revision-empty" id="revision-empty">No hay reservas pendientes de revisión.</p>
+        </aside>
+
+        <section class="revision-block">
+          <h2>Detalle</h2>
+          <p class="revision-copy" id="revision-helper">Selecciona una reserva pendiente.</p>
+
+          <div class="revision-summary" id="revision-summary" hidden>
+            <div class="summary-field">
+              <span>Responsable</span>
+              <strong id="review-name"></strong>
+            </div>
+            <div class="summary-field">
+              <span>Cuenta | TH</span>
+              <strong id="review-account"></strong>
+            </div>
+            <div class="summary-field">
+              <span>Fecha</span>
+              <strong id="review-date"></strong>
+            </div>
+            <div class="summary-field">
+              <span>Horario</span>
+              <strong id="review-time"></strong>
+            </div>
+            <div class="summary-field">
+              <span>Actividad</span>
+              <strong id="review-activity"></strong>
+            </div>
+            <div class="summary-field">
+              <span>Insumos</span>
+              <strong id="review-supplies"></strong>
+            </div>
+            <div class="summary-field wide">
+              <span>Equipo</span>
+              <strong id="review-equipment"></strong>
+            </div>
+            <div class="summary-field wide">
+              <span>Accesorios</span>
+              <strong id="review-accessories"></strong>
+            </div>
+            <div class="summary-field wide">
+              <span>Observaciones de reserva</span>
+              <strong id="review-reservation-notes"></strong>
+            </div>
+            <div class="summary-field wide" id="first-review-summary" hidden>
+              <span>Primera revisión</span>
+              <strong id="first-review-notes"></strong>
+            </div>
+          </div>
+
+          <form class="revision-form" id="revision-form" hidden>
+            <div class="summary-field wide">
+              <span>Revisión a guardar</span>
+              <strong id="review-stage"></strong>
+            </div>
+            <div class="form-grid">
+              <label>
+                Encargado de revisión
+                <select required name="encargadoRevision">
+                  <option value="">Seleccione...</option>
+                  <option value="Cesia Elisabeth Alfaro Hernandez">Cesia Elisabeth Alfaro Hernandez</option>
+                  <option value="Victor Manuel Calix Salgado">Victor Manuel Calix Salgado</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Fecha de revisión
+              <input required readonly name="fechaRevision">
+            </label>
+            <label>
+              Observaciones de la revisión
+              <textarea required name="observacionesRevisionGeneral" rows="4" placeholder="Resumen general de la revisión."></textarea>
+            </label>
+            <label>
+              Detalle por equipo e insumos
+              <div class="review-equipment-notes" id="review-equipment-notes"></div>
+            </label>
+            <button class="submit" id="save-revision" type="submit">Guardar revisión</button>
+            <span class="revision-status" id="revision-status">Listo para revisar.</span>
+          </form>
+        </section>
+      </div>
+
+      <section class="revision-block">
+        <h2>Observación adicional</h2>
+        <p class="revision-copy">Para hallazgos generales que no pertenecen a una reserva específica.</p>
+        <form class="revision-form" id="general-observation-form">
+          <div class="form-grid">
+            <label>
+              Semana
+              <input required name="semana" placeholder="Ej. Semana 4">
+            </label>
+            <label>
+              Encargado
+              <select required name="encargado">
+                <option value="">Seleccione...</option>
+                <option value="Cesia Elisabeth Alfaro Hernandez">Cesia Elisabeth Alfaro Hernandez</option>
+                <option value="Victor Manuel Calix Salgado">Victor Manuel Calix Salgado</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Observación
+            <textarea required name="texto" rows="4"></textarea>
+          </label>
+          <button class="submit" id="save-general-observation" type="submit">Guardar observación</button>
+          <span class="revision-status" id="general-observation-status">No afecta la reserva seleccionada.</span>
+        </form>
+      </section>
+      </div>
+    </section>
+  </main>
+
   <div class="overlay" id="log-terms" hidden>
     <section class="panel terms-panel" role="dialog" aria-modal="true" aria-labelledby="terms-title">
       <button class="close" id="close-log-terms" type="button" aria-label="Cerrar">×</button>
@@ -460,17 +865,17 @@
   <div class="overlay" id="report-modal" hidden>
     <section class="panel report-panel" role="dialog" aria-modal="true" aria-labelledby="report-title">
       <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">×</button>
-      <h2 id="report-title">Reporte semanal</h2>
-      <p class="intro">Selecciona una semana calculada automáticamente desde las fechas de registros validados.</p>
+      <h2 id="report-title">Reporte de bitácora</h2>
+      <p class="intro">Selecciona una semana calculada automáticamente desde las fechas de registros validados o todo el trimestre.</p>
 
       <div class="report-controls">
         <label>
-          Semana
+          Periodo
           <select id="report-week">
             <option value="">Cargando semanas...</option>
           </select>
         </label>
-        <span class="report-status" id="report-status">Selecciona una semana.</span>
+        <span class="report-status" id="report-status">Selecciona un periodo.</span>
       </div>
 
       <div class="report-preview" id="report-preview">
@@ -506,6 +911,8 @@
 const dateInput = document.querySelector("#log-date");
     const accessoriesBox = document.querySelector("#accessories-box");
     const accessoriesList = document.querySelector("#accessories-list");
+    const activityOtherField = document.querySelector("#activity-other-field");
+    const activityOtherInput = document.querySelector("#activity-other-input");
     const reportModal = document.querySelector("#report-modal");
     const reportWeekSelect = document.querySelector("#report-week");
     const reportStatus = document.querySelector("#report-status");
@@ -514,12 +921,51 @@ const dateInput = document.querySelector("#log-date");
     const reportPreviewCount = document.querySelector("#report-preview-count");
     const generateReportButton = document.querySelector("#generate-report-pdf");
     const reportPdfLink = document.querySelector("#report-pdf-link");
+    const allTrimesterReportValue = "__TODO_EL_TRIMESTRE__";
+    const revisionList = document.querySelector("#revision-list");
+    const revisionEmpty = document.querySelector("#revision-empty");
+    const revisionCount = document.querySelector("#revision-count");
+    const revisionAccess = document.querySelector("#revision-access");
+    const revisionAccessForm = document.querySelector("#revision-access-form");
+    const revisionAccessStatus = document.querySelector("#revision-access-status");
+    const revisionProtected = document.querySelector("#revision-protected");
+    const revisionHelper = document.querySelector("#revision-helper");
+    const revisionSummary = document.querySelector("#revision-summary");
+    const revisionForm = document.querySelector("#revision-form");
+    const revisionStatus = document.querySelector("#revision-status");
+    const reviewEquipmentNotes = document.querySelector("#review-equipment-notes");
+    const generalObservationForm = document.querySelector("#general-observation-form");
+    const generalObservationStatus = document.querySelector("#general-observation-status");
+    const isRevisionView = new URLSearchParams(window.location.search).get("page") === "revision" || window.location.hash === "#revision";
+    const revisionPasswordStorageKey = "bitacoraRevisionPassword";
+    const revisionAccessPassword = "Becados&IngReyna";
+    let pendingReviews = [];
+    let selectedReview = null;
+    let revisionPassword = sessionStorage.getItem(revisionPasswordStorageKey) || "";
     const equipmentByName = new Map(equipmentData.equipment.map(item => [item.name, item]));
     const today = new Date();
     const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     dateInput.value = localToday;
+
+    if (isRevisionView) {
+      document.body.classList.add("revision-view");
+      document.title = "Revisión | Ingeniería Biomédica";
+      revisionForm.elements.fechaRevision.value = formatLocalDateForDisplay(new Date());
+      revisionCount.textContent = "Restringido";
+      if (revisionPassword === revisionAccessPassword) {
+        unlockRevisionView();
+        loadPendingReviews().catch(error => {
+          revisionCount.textContent = "Error";
+          revisionHelper.textContent = error.message;
+          setRevisionStatus(error.message, "error");
+        });
+      } else {
+        revisionPassword = "";
+        sessionStorage.removeItem(revisionPasswordStorageKey);
+      }
+    }
 
     const termsModal = document.querySelector("#log-terms");
     document.querySelector("#open-log-terms").addEventListener("click", () => {
@@ -593,6 +1039,256 @@ const dateInput = document.querySelector("#log-date");
       return result;
     }
 
+    async function revisionRequest(action, data = {}) {
+      const response = await fetch("/api/bitacora/revision", {
+        method: "POST",
+        headers: { "content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ action, password: revisionPassword, ...data })
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "No se pudo procesar la revisión.");
+      }
+
+      return result;
+    }
+
+    function unlockRevisionView() {
+      revisionAccess.hidden = true;
+      revisionProtected.hidden = false;
+    }
+
+    function lockRevisionView(message = "Acceso restringido.") {
+      revisionPassword = "";
+      sessionStorage.removeItem(revisionPasswordStorageKey);
+      revisionAccess.hidden = false;
+      revisionProtected.hidden = true;
+      revisionCount.textContent = "Restringido";
+      revisionAccessStatus.textContent = message;
+      revisionAccessStatus.className = message === "Acceso restringido." ? "revision-status" : "revision-status is-error";
+      document.querySelector("#revision-password").value = "";
+      document.querySelector("#revision-password").focus();
+      hideSelectedReview();
+    }
+
+    revisionAccessForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      const passwordInput = document.querySelector("#revision-password");
+      const submitButton = revisionAccessForm.querySelector(".submit");
+      revisionPassword = passwordInput.value.trim();
+      revisionAccessStatus.textContent = "Verificando...";
+      revisionAccessStatus.className = "revision-status";
+      submitButton.disabled = true;
+
+      if (revisionPassword !== revisionAccessPassword) {
+        lockRevisionView("Contraseña de revisión inválida.");
+        submitButton.disabled = false;
+        return;
+      }
+
+      sessionStorage.setItem(revisionPasswordStorageKey, revisionPassword);
+      unlockRevisionView();
+      revisionAccessStatus.textContent = "Acceso autorizado.";
+      revisionAccessStatus.className = "revision-status is-ok";
+      loadPendingReviews().catch(error => {
+        revisionCount.textContent = "Error";
+        revisionHelper.textContent = error.message;
+        setRevisionStatus(error.message, "error");
+      });
+      submitButton.disabled = false;
+    });
+
+    function formatLocalDateForDisplay(date) {
+      return [
+        String(date.getDate()).padStart(2, "0"),
+        String(date.getMonth() + 1).padStart(2, "0"),
+        date.getFullYear()
+      ].join("/");
+    }
+
+    function setRevisionStatus(message, type = "") {
+      revisionStatus.textContent = message;
+      revisionStatus.className = `revision-status${type ? ` is-${type}` : ""}`;
+    }
+
+    function setGeneralObservationStatus(message, type = "") {
+      generalObservationStatus.textContent = message;
+      generalObservationStatus.className = `revision-status${type ? ` is-${type}` : ""}`;
+    }
+
+    async function loadPendingReviews() {
+      revisionList.innerHTML = "";
+      revisionEmpty.classList.remove("is-visible");
+      revisionCount.textContent = "Cargando...";
+      revisionHelper.textContent = "Cargando reservas pendientes...";
+      hideSelectedReview();
+
+      const result = await revisionRequest("listarPendientesRevision");
+      renderPendingReviews(result.pendientes || []);
+    }
+
+    function renderPendingReviews(rows) {
+      pendingReviews = rows;
+      revisionList.innerHTML = "";
+      revisionCount.textContent = `${rows.length} pendiente${rows.length === 1 ? "" : "s"}`;
+
+      if (!rows.length) {
+        revisionEmpty.classList.add("is-visible");
+        revisionHelper.textContent = "No hay reservas pendientes.";
+        return;
+      }
+
+      rows.forEach(row => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "revision-item";
+        button.dataset.id = row.id;
+        button.setAttribute("aria-selected", "false");
+        button.innerHTML = `
+          <strong>${escapeHtml(row.nombreResponsable || "Sin nombre")}</strong>
+          <span>${escapeHtml(row.revisionLabel || "Revisión pendiente")}</span>
+          <span>${escapeHtml(row.fechaReserva || "Sin fecha")} · ${escapeHtml(row.horaInicio || "N/A")} a ${escapeHtml(row.horaFin || "N/A")}</span>
+          <span>${escapeHtml(row.equipo || "Sin equipo registrado")}</span>
+        `;
+        button.addEventListener("click", () => selectPendingReview(row.id));
+        revisionList.append(button);
+      });
+
+      revisionHelper.textContent = "Selecciona una reserva pendiente.";
+      setRevisionStatus("Listo para revisar.");
+    }
+
+    function selectPendingReview(id) {
+      selectedReview = pendingReviews.find(row => row.id === id) || null;
+      revisionList.querySelectorAll(".revision-item").forEach(item => {
+        item.setAttribute("aria-selected", String(item.dataset.id === id));
+      });
+
+      if (!selectedReview) {
+        hideSelectedReview();
+        return;
+      }
+
+      document.querySelector("#review-name").textContent = selectedReview.nombreResponsable || "N/A";
+      document.querySelector("#review-account").textContent = selectedReview.numeroCuenta || "N/A";
+      document.querySelector("#review-date").textContent = selectedReview.fechaReserva || "N/A";
+      document.querySelector("#review-time").textContent = `${selectedReview.horaInicio || "N/A"} a ${selectedReview.horaFin || "N/A"}`;
+      document.querySelector("#review-activity").textContent = selectedReview.actividad || "N/A";
+      document.querySelector("#review-supplies").textContent = selectedReview.insumos || "N/A";
+      document.querySelector("#review-equipment").textContent = selectedReview.equipo || "N/A";
+      document.querySelector("#review-accessories").textContent = selectedReview.accesorios || "N/A";
+      document.querySelector("#review-reservation-notes").textContent = selectedReview.observacionesReserva || "N/A";
+      const firstReviewSummary = document.querySelector("#first-review-summary");
+      const firstReviewNotes = [
+        selectedReview.primeraRevisionEncargado ? `Encargado: ${selectedReview.primeraRevisionEncargado}` : "",
+        selectedReview.primeraRevisionFecha ? `Fecha: ${selectedReview.primeraRevisionFecha}` : "",
+        selectedReview.primeraRevisionObservaciones || ""
+      ].filter(Boolean).join("\n\n");
+      firstReviewSummary.hidden = selectedReview.revisionNumber !== 2;
+      document.querySelector("#first-review-notes").textContent = firstReviewNotes || "N/A";
+      document.querySelector("#review-stage").textContent = selectedReview.revisionLabel || "Revisión pendiente";
+      revisionForm.elements.fechaRevision.value = formatLocalDateForDisplay(new Date());
+      renderReviewEquipmentNotes(selectedReview.equipo);
+      revisionSummary.hidden = false;
+      revisionForm.hidden = false;
+      revisionHelper.textContent = "Completa la revisión y guarda el registro.";
+      setRevisionStatus("Listo para guardar.");
+    }
+
+    function hideSelectedReview() {
+      selectedReview = null;
+      revisionSummary.hidden = true;
+      revisionForm.hidden = true;
+      document.querySelector("#first-review-summary").hidden = true;
+      reviewEquipmentNotes.innerHTML = "";
+    }
+
+    function splitReviewEquipment(text) {
+      const parts = String(text || "")
+        .split(/\n|\|/)
+        .map(item => item.trim())
+        .filter(Boolean)
+        .filter(item => item.toUpperCase() !== "N/A");
+      return parts.length ? parts : ["General"];
+    }
+
+    function renderReviewEquipmentNotes(equipmentText) {
+      const equipment = splitReviewEquipment(equipmentText);
+      const blocks = [...equipment, "Insumos"];
+      reviewEquipmentNotes.innerHTML = blocks.map(name => `
+        <section class="review-note-block" data-equipment="${escapeHtml(name)}">
+          <p class="review-note-title">${escapeHtml(name)}</p>
+          <textarea class="review-note-input" rows="3" placeholder="Estado, faltantes, daños, discrepancias u observaciones."></textarea>
+        </section>
+      `).join("");
+    }
+
+    revisionForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!selectedReview) return;
+
+      const saveButton = document.querySelector("#save-revision");
+      saveButton.disabled = true;
+      setRevisionStatus("Guardando revisión...");
+
+      const notes = [...reviewEquipmentNotes.querySelectorAll(".review-note-block")]
+        .map(block => {
+          const title = block.dataset.equipment || "General";
+          const text = block.querySelector(".review-note-input").value.trim() || "Sin observaciones";
+          return `${title}:\n${text}`;
+        })
+        .join("\n\n");
+      const generalNotes = revisionForm.elements.observacionesRevisionGeneral.value.trim();
+      const fullNotes = [
+        `Observación general:\n${generalNotes}`,
+        notes
+      ].filter(Boolean).join("\n\n");
+
+      try {
+        await revisionRequest("guardarRevision", {
+          id: selectedReview.id,
+          revision: {
+            revisionNumber: selectedReview.revisionNumber,
+            encargadoRevision: revisionForm.elements.encargadoRevision.value,
+            fechaRevision: revisionForm.elements.fechaRevision.value,
+            observacionesRevision: fullNotes
+          }
+        });
+        revisionForm.reset();
+        revisionForm.elements.fechaRevision.value = formatLocalDateForDisplay(new Date());
+        setRevisionStatus("Revisión guardada correctamente.", "ok");
+        await loadPendingReviews();
+      } catch (error) {
+        setRevisionStatus(error.message, "error");
+      } finally {
+        saveButton.disabled = false;
+      }
+    });
+
+    generalObservationForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      const saveButton = document.querySelector("#save-general-observation");
+      saveButton.disabled = true;
+      setGeneralObservationStatus("Guardando observación...");
+
+      try {
+        await revisionRequest("guardarObservacionGeneral", {
+          observacion: {
+            semana: generalObservationForm.elements.semana.value.trim(),
+            encargado: generalObservationForm.elements.encargado.value,
+            texto: generalObservationForm.elements.texto.value.trim()
+          }
+        });
+        generalObservationForm.reset();
+        setGeneralObservationStatus("Observación guardada correctamente.", "ok");
+      } catch (error) {
+        setGeneralObservationStatus(error.message, "error");
+      } finally {
+        saveButton.disabled = false;
+      }
+    });
+
     async function loadReportWeeks() {
       reportWeekSelect.innerHTML = '<option value="">Cargando semanas...</option>';
       reportWeekSelect.disabled = true;
@@ -614,8 +1310,9 @@ const dateInput = document.querySelector("#log-date");
 
         reportWeekSelect.append(new Option("Selecciona una semana...", ""));
         weeks.forEach(week => reportWeekSelect.append(new Option(week, week)));
+        reportWeekSelect.append(new Option("Todo el trimestre", allTrimesterReportValue));
         reportWeekSelect.disabled = false;
-        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"}.`);
+        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"} y reporte trimestral.`);
       } catch (error) {
         reportWeekSelect.innerHTML = '<option value="">Error al cargar</option>';
         setReportStatus(error.message, "error");
@@ -628,11 +1325,11 @@ const dateInput = document.querySelector("#log-date");
       generateReportButton.disabled = true;
 
       if (!week) {
-        setReportStatus("Selecciona una semana.");
+        setReportStatus("Selecciona un periodo.");
         return;
       }
 
-      setReportStatus("Cargando registros de la semana...");
+      setReportStatus(week === allTrimesterReportValue ? "Cargando registros del trimestre..." : "Cargando registros de la semana...");
 
       try {
         const result = await reportRequest("obtenerFilas", { semana: week });
@@ -646,7 +1343,7 @@ const dateInput = document.querySelector("#log-date");
       reportPreviewBody.innerHTML = "";
 
       if (!rows.length) {
-        setReportStatus("No hay registros validados para esa semana.");
+        setReportStatus("No hay registros validados para ese periodo.");
         return;
       }
 
@@ -747,10 +1444,18 @@ const dateInput = document.querySelector("#log-date");
 
     function updateSelectedActivity(select, value) {
       const trigger = select.querySelector(".select-trigger span");
+      const hiddenInput = select.querySelector(".select-value");
+      const isOther = value === "Otro";
 
       select.dataset.value = value;
-      select.querySelector(".select-value").value = value;
+      hiddenInput.value = isOther ? activityOtherInput.value.trim() : value;
       trigger.textContent = value || "Selecciona una opción";
+      activityOtherField.classList.toggle("is-visible", isOther);
+      activityOtherInput.required = isOther;
+      if (!isOther) {
+        activityOtherInput.value = "";
+        activityOtherInput.classList.remove("invalid-field");
+      }
 
       select.querySelectorAll("[role=option]").forEach(option => {
         option.setAttribute("aria-selected", String(option.dataset.value === value));
@@ -879,6 +1584,7 @@ const dateInput = document.querySelector("#log-date");
           select.querySelector(".select-trigger").classList.remove("invalid-field");
           select.closest(".filter-field").querySelector(".field-error").hidden = true;
           closeSelect(select);
+          if (option.dataset.value === "Otro") activityOtherInput.focus();
         });
       });
     });
@@ -894,6 +1600,15 @@ const dateInput = document.querySelector("#log-date");
         const error = field.parentElement.querySelector(".field-error");
         if (error) error.hidden = true;
       });
+    });
+
+    activityOtherInput.addEventListener("input", () => {
+      const select = document.querySelector(".activity-select");
+      if (select.dataset.value !== "Otro") return;
+      select.querySelector(".select-value").value = activityOtherInput.value.trim();
+      activityOtherInput.classList.remove("invalid-field");
+      const error = select.closest(".filter-field").querySelector(".field-error");
+      if (error) error.hidden = true;
     });
 
     function getFormPayload(form) {
@@ -923,7 +1638,9 @@ const dateInput = document.querySelector("#log-date");
       requiredFields.forEach(field => {
         const error = field.closest("label, .filter-field").querySelector(".field-error");
         let message = "";
-        if (!field.value.trim()) {
+        const activitySelect = field.closest(".activity-select");
+        const isManualActivityValue = field.name === "tipo_actividad" && activitySelect?.dataset.value === "Otro";
+        if (!isManualActivityValue && !field.value.trim()) {
           message = "Completa este campo obligatorio.";
         } else if (field.name === "correo" && !isValidInstitutionalEmail(field.value.trim())) {
           message = "Ingresa un correo institucional válido.";
@@ -941,6 +1658,19 @@ const dateInput = document.querySelector("#log-date");
         }
         if (message && !firstInvalid) firstInvalid = field;
       });
+
+      const activitySelect = event.target.querySelector(".activity-select");
+      if (activitySelect.dataset.value === "Otro" && !activityOtherInput.value.trim()) {
+        const error = activitySelect.closest(".filter-field").querySelector(".field-error");
+        const message = "Escribe el tipo de actividad.";
+        activitySelect.querySelector(".select-trigger").classList.remove("invalid-field");
+        activityOtherInput.classList.add("invalid-field");
+        if (error) {
+          error.textContent = message;
+          error.hidden = false;
+        }
+        if (!firstInvalid) firstInvalid = activityOtherInput;
+      }
 
       if (firstInvalid) {
         const customSelect = firstInvalid.closest(".custom-select");

@@ -2,7 +2,9 @@
 
 Coloca aqui los PDFs de manuales y guias rapidas.
 
-El sitio los detecta por nombre usando este formato:
+Los manuales viven en `manuales/`. Las guias rapidas viven en `guias-rapidas/<equipo>/`, una carpeta por equipo.
+
+El sitio detecta las guias rapidas por nombre usando este formato:
 
 ```text
 <nombre-del-equipo-normalizado>-manual.pdf

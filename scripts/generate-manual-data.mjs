@@ -2,7 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 
-const root = path.resolve("assets/documentos/manuales");
+const manualsRoot = path.resolve("assets/documentos/manuales");
+const documentsRoot = path.resolve("assets/documentos");
+const quickGuidesRoot = path.join(documentsRoot, "guias-rapidas");
 const equipmentSource = fs.readFileSync("equipment-data.js", "utf8");
 const context = {};
 vm.createContext(context);
@@ -32,11 +34,15 @@ function slug(value) {
     .replace(/^-+|-+$/g, "");
 }
 
-function walk(dir) {
+function isUnvalidatedFile(filePath) {
+  return /^[!?]/.test(path.basename(filePath));
+}
+
+function walk(dir, predicate = () => true) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) return walk(full);
-    return entry.isFile() && entry.name.toLocaleLowerCase("es").endsWith(".pdf") ? [full] : [];
+    if (entry.isDirectory()) return walk(full, predicate);
+    return entry.isFile() && entry.name.toLocaleLowerCase("es").endsWith(".pdf") && predicate(full) ? [full] : [];
   });
 }
 
@@ -83,6 +89,7 @@ function cleanTitle(name) {
 }
 
 const equipment = context.equipmentData.repository;
+const equipmentBySlug = new Map(equipment.map(item => [slug(item.name), item]));
 const folderEquipmentMap = new Map([
   ["analizador de electrocirugia", "Analizador de Unidad Electroquirúrgica - ESU-2300"],
   ["esterilizador", "Autoclave - SA-232"],
@@ -94,8 +101,8 @@ const folderEquipmentMap = new Map([
   ["simulador de pulmones", "Simulador Pulmonar - LS-2000A"]
 ]);
 const equipmentByName = new Map(equipment.map(item => [item.name, item]));
-const manualData = walk(root).map(file => {
-  const relative = path.relative(".", file).split(path.sep).join("/");
+
+function getSelectedEquipment(file, relative, root) {
   const relativeFromRoot = path.relative(root, file).split(path.sep);
   const normalizedFolders = relativeFromRoot.slice(0, -1).map(normalize);
   const mappedFolder = [...folderEquipmentMap]
@@ -104,18 +111,44 @@ const manualData = walk(root).map(file => {
   const ranked = equipment
     .map(item => ({ item, score: scoreEquipment(item, relative) }))
     .sort((a, b) => b.score - a.score);
-  const selected = mappedFolder ? { item: equipmentByName.get(mappedFolder), score: 999 } : ranked[0];
+  const mappedEquipment = mappedFolder ? equipmentByName.get(mappedFolder) : null;
+  return mappedEquipment ? { item: mappedEquipment, score: 999 } : ranked[0];
+}
+
+const manualResources = walk(manualsRoot, file => !isUnvalidatedFile(file)).map(file => {
+  const relative = path.relative(".", file).split(path.sep).join("/");
+  const selected = getSelectedEquipment(file, relative, manualsRoot);
 
   return {
     title: cleanTitle(file),
-    team: selected?.score >= 40 ? selected.item.name : path.basename(path.dirname(file)),
+    team: selected?.score >= 40 && selected.item ? selected.item.name : path.basename(path.dirname(file)),
     type: getType(file),
     file: encodeURI(relative).replace(/#/g, "%23")
   };
-}).sort((a, b) => a.team.localeCompare(b.team, "es") || a.type.localeCompare(b.type, "es") || a.title.localeCompare(b.title, "es"));
+});
+
+const quickGuideResources = fs.existsSync(quickGuidesRoot) ? walk(quickGuidesRoot, file => {
+  const name = path.basename(file).toLocaleLowerCase("es");
+  return !isUnvalidatedFile(file) && name.endsWith("-guia-rapida.pdf");
+}).map(file => {
+  const relative = path.relative(".", file).split(path.sep).join("/");
+  const fileSlug = slug(path.basename(file, ".pdf").replace(/-guia-rapida$/i, ""));
+  const selected = equipmentBySlug.get(fileSlug) || getSelectedEquipment(file, relative, documentsRoot)?.item;
+  const team = selected?.name || cleanTitle(file).replace(/\s+guia rapida$/i, "");
+
+  return {
+    title: `Guia rapida - ${team}`,
+    team,
+    type: "Guia rapida",
+    file: encodeURI(relative).replace(/#/g, "%23")
+  };
+}) : [];
+
+const manualData = [...manualResources, ...quickGuideResources]
+  .sort((a, b) => a.team.localeCompare(b.team, "es") || a.type.localeCompare(b.type, "es") || a.title.localeCompare(b.title, "es"));
 
 fs.writeFileSync(
   "manual-data.js",
-  `const manualData = ${JSON.stringify(manualData, null, 2)};\n`,
+  `/* eslint-disable @typescript-eslint/no-unused-vars */\nconst manualData = ${JSON.stringify(manualData, null, 2)};\n`,
   "utf8"
 );

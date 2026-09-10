@@ -7,6 +7,8 @@ const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
 const REPORT_EXPIRATION_MINUTES = 5;
 const REPORT_CLEANUP_TRIGGER_HANDLER = "cleanupExpiredReports";
 const REPORT_FILE_PROPERTY_PREFIX = "reportFile:";
+const ALL_TRIMESTER_REPORT_VALUE = "__TODO_EL_TRIMESTRE__";
+const ALL_TRIMESTER_REPORT_LABEL = "Todo el trimestre";
 // Define aqui una fecha dentro de la Semana 1 del periodo activo.
 const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-20";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
@@ -27,7 +29,19 @@ const BITACORA_HEADERS = [
   "Accesorios",
   "Insumos",
   "Observaciones",
-  "Validado por Pasante"
+  "Primera revisi\u00f3n - Encargado",
+  "Primera revisi\u00f3n - Fecha",
+  "Primera revisi\u00f3n - Observaciones",
+  "Primera revisi\u00f3n - Marca temporal",
+  "Segunda revisi\u00f3n - Encargado",
+  "Segunda revisi\u00f3n - Fecha",
+  "Segunda revisi\u00f3n - Observaciones",
+  "Segunda revisi\u00f3n - Marca temporal"
+];
+
+const BITACORA_OBSOLETE_HEADERS = [
+  "Validado por Pasante",
+  "Semana de revisi\u00f3n"
 ];
 
 const SUGERENCIAS_HEADERS = [
@@ -37,6 +51,13 @@ const SUGERENCIAS_HEADERS = [
   "N\u00famero de tel\u00e9fono",
   "Correo institucional",
   "Pregunta"
+];
+
+const OBSERVACIONES_GENERALES_HEADERS = [
+  "Marca temporal",
+  "Semana",
+  "Encargado",
+  "Observaci\u00f3n"
 ];
 
 function doPost(event) {
@@ -102,10 +123,8 @@ function doPost(event) {
     "Equipo": fields.equipo || "",
     "Accesorios": fields.accesorios || "",
     "Insumos": fields.insumos || "",
-    "Observaciones": fields.observaciones || "",
-    "Validado por Pasante": false
+    "Observaciones": fields.observaciones || ""
   });
-  syncBitacoraCheckboxes(sheet);
 
   return json({ ok: true });
 }
@@ -147,6 +166,21 @@ function handleReportActionUnsafe(body) {
     return json(Object.assign({ ok: result.result !== "error" }, result));
   }
 
+  if (action === "listarPendientesRevision") {
+    return json({
+      ok: true,
+      pendientes: obtenerPendientesRevisionDesdeSheet(sheet)
+    });
+  }
+
+  if (action === "guardarRevision") {
+    return json(guardarRevisionDesdeSheet(sheet, body.id || "", body.revision || {}));
+  }
+
+  if (action === "guardarObservacionGeneral") {
+    return json(guardarObservacionGeneral(body.observacion || {}));
+  }
+
   return json({ ok: false, error: "Acción de reporte inválida." });
 }
 
@@ -168,6 +202,18 @@ function generarReportePdf(semana) {
   return generarReportePdfDesdeSheet(sheet, semana);
 }
 
+function obtenerPendientesRevision() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
+  return obtenerPendientesRevisionDesdeSheet(sheet);
+}
+
+function guardarRevision(id, data) {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
+  return guardarRevisionDesdeSheet(sheet, id, data || {});
+}
+
 function obtenerSemanasDisponiblesDesdeSheet(sheet) {
   const rows = getReviewedBitacoraRows(sheet);
   const weeks = {};
@@ -183,11 +229,11 @@ function obtenerSemanasDisponiblesDesdeSheet(sheet) {
 }
 
 function obtenerFilasPorSemanaDesdeSheet(sheet, semana) {
-  return getReviewedBitacoraRows(sheet)
-    .filter(row => {
+  const rows = getReviewedBitacoraRows(sheet);
+  return (semana === ALL_TRIMESTER_REPORT_VALUE ? rows : rows.filter(row => {
       const week = getAutoWeekForDate(row["Fecha"]);
       return week && week.value === semana;
-    })
+    }))
     .map(mapBitacoraRowForReport);
 }
 
@@ -196,15 +242,16 @@ function generarReportePdfDesdeSheet(sheet, semana) {
   const filas = obtenerFilasPorSemanaDesdeSheet(sheet, semana);
 
   if (!semana) {
-    return { result: "error", error: "Selecciona una semana." };
+    return { result: "error", error: "Selecciona un periodo." };
   }
 
   if (!filas.length) {
-    return { result: "error", error: "No hay filas validadas para esa semana." };
+    return { result: "error", error: "No hay filas validadas para ese periodo." };
   }
 
-  const html = buildReportHtml(semana, filas);
-  const safeWeekName = normalizeFileName(semana);
+  const reportLabel = semana === ALL_TRIMESTER_REPORT_VALUE ? ALL_TRIMESTER_REPORT_LABEL : semana;
+  const html = buildReportHtml(reportLabel, filas);
+  const safeWeekName = normalizeFileName(reportLabel);
   const fileName = "Reporte Bitacora " + safeWeekName + ".pdf";
   const blob = Utilities.newBlob(html, "text/html", fileName.replace(/\.pdf$/, ".html"))
     .getAs(MimeType.PDF)
@@ -243,7 +290,7 @@ function getReviewedBitacoraRows(sheet) {
   return values
     .map(row => mapRowByHeaders(headers, row))
     .filter(row => String(row["Nombre completo"] || "").trim())
-    .filter(row => isTruthyCheckbox(row["Validado por Pasante"]));
+    .filter(hasFirstReview);
 }
 
 function mapRowByHeaders(headers, row) {
@@ -266,6 +313,151 @@ function mapBitacoraRowForReport(row) {
     insumos: formatReportValue(row["Insumos"]),
     observaciones: formatReportValue(row["Observaciones"])
   };
+}
+
+function obtenerPendientesRevisionDesdeSheet(sheet) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return [];
+
+  const headers = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0].map(String);
+  const values = sheet.getRange(2, 1, lastRow - 1, sheet.getMaxColumns()).getValues();
+
+  return values
+    .map((row, index) => Object.assign(mapRowByHeaders(headers, row), { __rowNumber: index + 2 }))
+    .filter(row => String(row["Nombre completo"] || "").trim())
+    .filter(row => getNextReviewNumber(row))
+    .map(mapBitacoraRowForRevision);
+}
+
+function mapBitacoraRowForRevision(row) {
+  const rowNumber = row.__rowNumber;
+  const reviewNumber = getNextReviewNumber(row);
+
+  return {
+    id: "row:" + rowNumber,
+    rowNumber: rowNumber,
+    revisionNumber: reviewNumber,
+    revisionLabel: reviewNumber === 1 ? "Primera revisi\u00f3n" : "Segunda revisi\u00f3n",
+    marcaTemporal: formatReportValue(row["Marca temporal"]),
+    nombreResponsable: formatReportValue(row["Nombre completo"]),
+    numeroCuenta: formatReportValue(row["N\u00famero de cuenta | TH"]),
+    fechaReserva: formatReportValue(row["Fecha"]),
+    correo: formatReportValue(row["Correo institucional"]),
+    horaInicio: formatReportTime(row["Hora de inicio"]),
+    horaFin: formatReportTime(row["Hora de fin"]),
+    actividad: formatReportValue(row["Tipo de actividad"]),
+    equipo: normalizeMultilineValue(row["Equipo"]),
+    accesorios: normalizeMultilineValue(row["Accesorios"]),
+    insumos: normalizeMultilineValue(row["Insumos"]),
+    cantidadInsumos: "",
+    accesoriosOtros: "",
+    observacionesReserva: normalizeMultilineValue(row["Observaciones"]),
+    primeraRevisionEncargado: formatReportValue(row["Primera revisi\u00f3n - Encargado"]),
+    primeraRevisionFecha: formatReportValue(row["Primera revisi\u00f3n - Fecha"]),
+    primeraRevisionObservaciones: normalizeMultilineValue(row["Primera revisi\u00f3n - Observaciones"])
+  };
+}
+
+function hasFirstReview(row) {
+  return Boolean(
+    formatReportValue(row["Primera revisi\u00f3n - Encargado"]).trim()
+    || formatReportValue(row["Primera revisi\u00f3n - Fecha"]).trim()
+    || formatReportValue(row["Primera revisi\u00f3n - Marca temporal"]).trim()
+    || normalizeMultilineValue(row["Primera revisi\u00f3n - Observaciones"]).trim()
+  );
+}
+
+function hasSecondReview(row) {
+  return Boolean(
+    formatReportValue(row["Segunda revisi\u00f3n - Encargado"]).trim()
+    || formatReportValue(row["Segunda revisi\u00f3n - Fecha"]).trim()
+    || formatReportValue(row["Segunda revisi\u00f3n - Marca temporal"]).trim()
+    || normalizeMultilineValue(row["Segunda revisi\u00f3n - Observaciones"]).trim()
+  );
+}
+
+function getNextReviewNumber(row) {
+  if (!hasFirstReview(row)) return 1;
+  if (!hasSecondReview(row)) return 2;
+  return 0;
+}
+
+function guardarRevisionDesdeSheet(sheet, id, data) {
+  const rowNumber = getRevisionRowNumber(id);
+  if (!rowNumber || rowNumber < 2 || rowNumber > sheet.getLastRow()) {
+    return { ok: false, result: "error", error: "Registro de revisi\u00f3n inv\u00e1lido." };
+  }
+
+  const headers = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0].map(header => String(header || "").trim());
+  const row = mapRowByHeaders(headers, sheet.getRange(rowNumber, 1, 1, sheet.getMaxColumns()).getValues()[0]);
+  if (!String(row["Nombre completo"] || "").trim()) {
+    return { ok: false, result: "error", error: "El registro seleccionado est\u00e1 vac\u00edo." };
+  }
+
+  const reviewNumber = Number(data.revisionNumber || getNextReviewNumber(row));
+  if (![1, 2].includes(reviewNumber)) {
+    return { ok: false, result: "error", error: "Este registro ya tiene primera y segunda revisi\u00f3n." };
+  }
+
+  if (reviewNumber === 1 && hasFirstReview(row)) {
+    return { ok: false, result: "error", error: "Este registro ya tiene primera revisi\u00f3n." };
+  }
+
+  if (reviewNumber === 2 && !hasFirstReview(row)) {
+    return { ok: false, result: "error", error: "Primero guarda la primera revisi\u00f3n." };
+  }
+
+  if (reviewNumber === 2 && hasSecondReview(row)) {
+    return { ok: false, result: "error", error: "Este registro ya tiene segunda revisi\u00f3n." };
+  }
+
+  const prefix = reviewNumber === 1 ? "Primera revisi\u00f3n" : "Segunda revisi\u00f3n";
+  setCellByHeader(sheet, headers, rowNumber, prefix + " - Encargado", data.encargadoRevision || "");
+  setCellByHeader(sheet, headers, rowNumber, prefix + " - Fecha", data.fechaRevision || formatDateOnly(new Date()));
+  setCellByHeader(sheet, headers, rowNumber, prefix + " - Observaciones", data.observacionesRevision || "");
+  setCellByHeader(sheet, headers, rowNumber, prefix + " - Marca temporal", new Date());
+
+  return { ok: true, result: "ok" };
+}
+
+function guardarObservacionGeneral(data) {
+  const semana = String(data.semana || "").trim();
+  const encargado = String(data.encargado || "").trim();
+  const texto = String(data.texto || "").trim();
+
+  if (!semana || !encargado || !texto) {
+    return { ok: false, result: "error", error: "Completa semana, encargado y observaci\u00f3n." };
+  }
+
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = getOrCreateSheet(spreadsheet, "ObservacionesGenerales", OBSERVACIONES_GENERALES_HEADERS);
+  appendMappedRow(sheet, {
+    "Marca temporal": new Date(),
+    "Semana": semana,
+    "Encargado": encargado,
+    "Observaci\u00f3n": texto
+  });
+
+  return { ok: true, result: "ok" };
+}
+
+function getRevisionRowNumber(id) {
+  const match = String(id || "").match(/^row:(\d+)$/);
+  return match ? Number(match[1]) : 0;
+}
+
+function setCellByHeader(sheet, headers, rowNumber, header, value) {
+  const column = headers.indexOf(header) + 1;
+  if (column <= 0) throw new Error("No se encontr\u00f3 la columna: " + header);
+  sheet.getRange(rowNumber, column).setValue(value);
+}
+
+function normalizeMultilineValue(value) {
+  return formatReportValue(value)
+    .split("|")
+    .map(part => part.trim())
+    .filter(Boolean)
+    .join("\n");
 }
 
 function getAutoWeekForDate(value) {
@@ -321,11 +513,6 @@ function excelSerialToDate(serial) {
   const utcValue = utcDays * 86400;
   const date = new Date(utcValue * 1000);
   return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-}
-
-function isTruthyCheckbox(value) {
-  const normalized = String(value || "").trim().toLowerCase();
-  return value === true || value === 1 || ["true", "s\u00ed", "si", "1", "x", "yes"].includes(normalized);
 }
 
 function formatReportValue(value) {
@@ -517,7 +704,6 @@ function setupBitacoraSheet() {
   const sheet = getOrCreateSheet(spreadsheet, DEFAULT_BITACORA_SHEET_NAME, BITACORA_HEADERS);
   setHeaders(sheet, BITACORA_HEADERS);
   sheet.autoResizeColumns(1, BITACORA_HEADERS.length);
-  syncBitacoraCheckboxes(sheet);
 }
 
 function setupSugerenciasSheet() {
@@ -527,9 +713,17 @@ function setupSugerenciasSheet() {
   sheet.autoResizeColumns(1, SUGERENCIAS_HEADERS.length);
 }
 
+function setupObservacionesGeneralesSheet() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = getOrCreateSheet(spreadsheet, "ObservacionesGenerales", OBSERVACIONES_GENERALES_HEADERS);
+  setHeaders(sheet, OBSERVACIONES_GENERALES_HEADERS);
+  sheet.autoResizeColumns(1, OBSERVACIONES_GENERALES_HEADERS.length);
+}
+
 function setupSheets() {
   setupBitacoraSheet();
   setupSugerenciasSheet();
+  setupObservacionesGeneralesSheet();
 }
 
 function getOrCreateSheet(spreadsheet, sheetName, headers) {
@@ -539,8 +733,26 @@ function getOrCreateSheet(spreadsheet, sheetName, headers) {
     sheet = spreadsheet.insertSheet(sheetName);
   }
 
+  if (headers === BITACORA_HEADERS) {
+    removeObsoleteBitacoraColumns(sheet);
+  }
   setHeaders(sheet, headers);
   return sheet;
+}
+
+function removeObsoleteBitacoraColumns(sheet) {
+  const lastColumn = sheet.getLastColumn();
+  if (lastColumn < 1) return;
+
+  const currentHeaders = sheet.getRange(1, 1, 1, sheet.getMaxColumns())
+    .getValues()[0]
+    .map(header => String(header || "").trim());
+
+  BITACORA_OBSOLETE_HEADERS
+    .map(header => currentHeaders.indexOf(header) + 1)
+    .filter(column => column > 0)
+    .sort((a, b) => b - a)
+    .forEach(column => sheet.deleteColumn(column));
 }
 
 function setHeaders(sheet, headers) {
@@ -583,23 +795,6 @@ function ensureColumnCount(sheet, requiredColumns) {
   if (currentColumns < requiredColumns) {
     sheet.insertColumnsAfter(currentColumns, requiredColumns - currentColumns);
   }
-}
-
-function syncBitacoraCheckboxes(sheet) {
-  ensureColumnCount(sheet, BITACORA_HEADERS.length);
-  const checkboxColumn = BITACORA_HEADERS.indexOf("Validado por Pasante") + 1;
-
-  if (sheet.getMaxRows() > 1) {
-    sheet.getRange(2, checkboxColumn, sheet.getMaxRows() - 1, 1)
-      .clearDataValidations();
-  }
-
-  const lastDataRow = getLastBitacoraDataRow(sheet);
-  if (lastDataRow < 2) {
-    return;
-  }
-
-  sheet.getRange(2, checkboxColumn, lastDataRow - 1, 1).insertCheckboxes();
 }
 
 function getLastBitacoraDataRow(sheet) {
