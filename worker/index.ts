@@ -155,26 +155,26 @@ async function submitReportRequest(request: Request, env: Env): Promise<Response
 
 async function submitRevisionRequest(request: Request, env: Env): Promise<Response> {
   if (!env.BITACORA_WEBHOOK_URL) {
-    return jsonResponse({ ok: false, error: "BITACORA_WEBHOOK_URL no estÃ¡ configurado." }, 500);
+    return jsonResponse({ ok: false, error: "BITACORA_WEBHOOK_URL no está configurado." }, 500);
   }
 
   let body: Record<string, unknown>;
   try {
     body = await request.json() as Record<string, unknown>;
   } catch {
-    return jsonResponse({ ok: false, error: "El cuerpo de la solicitud no es JSON vÃ¡lido." }, 400);
+    return jsonResponse({ ok: false, error: "El cuerpo de la solicitud no es JSON válido." }, 400);
   }
 
   const action = String(body.action || "");
   const allowedActions = new Set(["listarPendientesRevision", "guardarRevision", "guardarObservacionGeneral"]);
   if (!allowedActions.has(action)) {
-    return jsonResponse({ ok: false, error: "AcciÃ³n de revisiÃ³n invÃ¡lida." }, 400);
+    return jsonResponse({ ok: false, error: "Acción de revisión inválida." }, 400);
   }
 
   const accessPassword = String(body.password || "");
   const expectedPassword = env.BITACORA_REVISION_PASSWORD || DEFAULT_REVISION_PASSWORD;
   if (accessPassword !== expectedPassword) {
-    return jsonResponse({ ok: false, error: "ContraseÃ±a de revisiÃ³n invÃ¡lida." }, 401);
+    return jsonResponse({ ok: false, error: "Contraseña de revisión inválida." }, 401);
   }
 
   const payload = {
@@ -201,14 +201,14 @@ async function submitRevisionRequest(request: Request, env: Env): Promise<Respon
 
   if (!upstream.ok) {
     const error = await upstream.text();
-    return jsonResponse({ ok: false, error: error || "No se pudo procesar la revisiÃ³n." }, 502);
+    return jsonResponse({ ok: false, error: error || "No se pudo procesar la revisión." }, 502);
   }
 
   const upstreamBody = await upstream.json().catch(() => null) as { ok?: boolean; error?: string } | null;
   if (!upstreamBody?.ok) {
     return jsonResponse({
       ok: false,
-      error: upstreamBody?.error || "No se pudo procesar la revisiÃ³n.",
+      error: upstreamBody?.error || "No se pudo procesar la revisión.",
     }, 403);
   }
 
