@@ -66,13 +66,15 @@ function normalizeHeader(value) {
 
 function titleCase(value) {
   const smallWords = new Set(["de", "del", "la", "las", "el", "los", "y", "con"]);
+  const acronyms = new Set(["AMBP", "APAP", "CPAP", "ECG", "EEG", "EMG", "NIBP", "TENS", "VPAP", "X"]);
   return String(value || "")
     .split(/(\s+|\/|-)/)
     .map((part, index) => {
       if (/^\s+$|^\/$|^-$/.test(part)) return part;
-      if (/^[A-Z0-9]{2,}$/.test(part) && part.length <= 6) return part;
       const lower = part.toLocaleLowerCase("es");
       if (index > 0 && smallWords.has(lower)) return lower;
+      const upper = part.toLocaleUpperCase("es");
+      if (acronyms.has(upper)) return upper;
       return lower.replace(/^[a-záéíóúñü]/, char => char.toLocaleUpperCase("es"));
     })
     .join("");

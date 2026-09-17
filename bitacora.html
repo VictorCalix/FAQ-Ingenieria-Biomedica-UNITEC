@@ -413,6 +413,34 @@
       line-height: 1.5;
     }
 
+    .revision-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 14px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--ice);
+    }
+
+    .revision-tab {
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: 700 12px/1.2 Inter, Arial, sans-serif;
+      padding: 9px 10px;
+      text-align: center;
+    }
+
+    .revision-tab[aria-selected="true"] {
+      background: #fff;
+      color: var(--blue);
+      box-shadow: 0 1px 6px #173b7214;
+    }
+
     .revision-list {
       display: grid;
       gap: 10px;
@@ -729,6 +757,10 @@
         <aside class="revision-block">
           <h2>Pendientes</h2>
           <p class="revision-copy">Selecciona un registro para guardar su primera o segunda revisión.</p>
+          <div class="revision-tabs" role="tablist" aria-label="Tipo de revisión pendiente">
+            <button class="revision-tab" type="button" data-review-tab="1" role="tab" aria-selected="true">Primera revisión</button>
+            <button class="revision-tab" type="button" data-review-tab="2" role="tab" aria-selected="false">Segunda revisión</button>
+          </div>
           <div class="revision-list" id="revision-list"></div>
           <p class="revision-empty" id="revision-empty">No hay reservas pendientes de revisión.</p>
         </aside>
@@ -791,7 +823,7 @@
                 <select required name="encargadoRevision">
                   <option value="">Selecciona…</option>
                   <option value="Cesia Elisabeth Alfaro Hernández">Cesia Elisabeth Alfaro Hernández</option>
-                  <option value="Víctor Manuel Cálix Salgado">Víctor Manuel Cálix Salgado</option>
+                  <option value="Victor Manuel Calix Salgado">Victor Manuel Calix Salgado</option>
                 </select>
               </label>
             </div>
@@ -866,7 +898,7 @@
     <section class="panel report-panel" role="dialog" aria-modal="true" aria-labelledby="report-title">
       <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">×</button>
       <h2 id="report-title">Reporte de bitácora</h2>
-      <p class="intro">Selecciona una semana calculada automáticamente a partir de las fechas de registros validados o todo el trimestre.</p>
+      <p class="intro">Selecciona una semana calculada automáticamente a partir de las fechas de registros con primera revisión o todo el trimestre.</p>
 
       <div class="report-controls">
         <label>
@@ -934,6 +966,7 @@ const dateInput = document.querySelector("#log-date");
     const revisionForm = document.querySelector("#revision-form");
     const revisionStatus = document.querySelector("#revision-status");
     const reviewEquipmentNotes = document.querySelector("#review-equipment-notes");
+    const revisionTabs = [...document.querySelectorAll(".revision-tab")];
     const generalObservationForm = document.querySelector("#general-observation-form");
     const generalObservationStatus = document.querySelector("#general-observation-status");
     const isRevisionView = new URLSearchParams(window.location.search).get("page") === "revision" || window.location.hash === "#revision";
@@ -941,6 +974,7 @@ const dateInput = document.querySelector("#log-date");
     const revisionAccessPassword = "Becados&IngReyna";
     let pendingReviews = [];
     let selectedReview = null;
+    let activeReviewTab = 1;
     let revisionPassword = sessionStorage.getItem(revisionPasswordStorageKey) || "";
     const equipmentOptions = buildEquipmentOptions(equipmentData.equipment);
     const equipmentByValue = new Map(equipmentOptions.map(option => [option.value, option.item]));
@@ -1131,12 +1165,38 @@ const dateInput = document.querySelector("#log-date");
 
     function renderPendingReviews(rows) {
       pendingReviews = rows;
+      updateRevisionTabs();
+      renderActivePendingReviews();
+    }
+
+    function updateRevisionTabs() {
+      const firstCount = pendingReviews.filter(row => Number(row.revisionNumber) === 1).length;
+      const secondCount = pendingReviews.filter(row => Number(row.revisionNumber) === 2).length;
+      const counts = { 1: firstCount, 2: secondCount };
+      revisionCount.textContent = `${pendingReviews.length} pendiente${pendingReviews.length === 1 ? "" : "s"}`;
+
+      revisionTabs.forEach(tab => {
+        const tabNumber = Number(tab.dataset.reviewTab || 1);
+        const label = tabNumber === 1 ? "Primera revisión" : "Segunda revisión";
+        tab.textContent = `${label} (${counts[tabNumber] || 0})`;
+        tab.setAttribute("aria-selected", String(tabNumber === activeReviewTab));
+      });
+    }
+
+    function renderActivePendingReviews() {
+      const rows = pendingReviews.filter(row => Number(row.revisionNumber) === activeReviewTab);
       revisionList.innerHTML = "";
-      revisionCount.textContent = `${rows.length} pendiente${rows.length === 1 ? "" : "s"}`;
+      revisionEmpty.classList.remove("is-visible");
 
       if (!rows.length) {
         revisionEmpty.classList.add("is-visible");
-        revisionHelper.textContent = "No hay reservas pendientes.";
+        revisionEmpty.textContent = activeReviewTab === 1
+          ? "No hay reservas pendientes de primera revisión."
+          : "No hay reservas pendientes de segunda revisión.";
+        revisionHelper.textContent = activeReviewTab === 1
+          ? "No hay reservas nuevas pendientes de primera revisión."
+          : "No hay reservas pendientes de segunda revisión.";
+        setRevisionStatus("Listo para revisar.");
         return;
       }
 
@@ -1159,6 +1219,15 @@ const dateInput = document.querySelector("#log-date");
       revisionHelper.textContent = "Selecciona una reserva pendiente.";
       setRevisionStatus("Listo para revisar.");
     }
+
+    revisionTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        activeReviewTab = Number(tab.dataset.reviewTab || 1);
+        hideSelectedReview();
+        updateRevisionTabs();
+        renderActivePendingReviews();
+      });
+    });
 
     function selectPendingReview(id) {
       selectedReview = pendingReviews.find(row => row.id === id) || null;
@@ -1296,7 +1365,7 @@ const dateInput = document.querySelector("#log-date");
       generateReportButton.disabled = true;
       reportPreview.classList.remove("is-visible");
       reportPdfLink.classList.remove("is-visible");
-      setReportStatus("Cargando semanas validadas…");
+      setReportStatus("Cargando semanas con primera revisión…");
 
       try {
         const result = await reportRequest("listarSemanas");
@@ -1304,8 +1373,8 @@ const dateInput = document.querySelector("#log-date");
         reportWeekSelect.innerHTML = "";
 
         if (!weeks.length) {
-          reportWeekSelect.innerHTML = '<option value="">No hay semanas con registros validados</option>';
-          setReportStatus("Todavía no hay registros validados para generar reporte.");
+          reportWeekSelect.innerHTML = '<option value="">No hay semanas con primera revisión</option>';
+          setReportStatus("Todavía no hay registros con primera revisión para generar reporte.");
           return;
         }
 
@@ -1344,7 +1413,7 @@ const dateInput = document.querySelector("#log-date");
       reportPreviewBody.innerHTML = "";
 
       if (!rows.length) {
-        setReportStatus("No hay registros validados para ese período.");
+        setReportStatus("No hay registros con primera revisión para ese período.");
         return;
       }
 
@@ -1362,7 +1431,7 @@ const dateInput = document.querySelector("#log-date");
         </tr>
       `).join("");
 
-      reportPreviewCount.textContent = `${rows.length} registro${rows.length === 1 ? "" : "s"} validado${rows.length === 1 ? "" : "s"}`;
+      reportPreviewCount.textContent = `${rows.length} registro${rows.length === 1 ? "" : "s"} con primera revisión`;
       reportPreview.classList.add("is-visible");
       generateReportButton.disabled = false;
       setReportStatus("Listo para generar el PDF.", "ok");
@@ -1559,7 +1628,7 @@ const dateInput = document.querySelector("#log-date");
         const list = accessories.length
           ? accessories.map(item => `
               <label>
-                <input type="checkbox" name="accesorios" value="${escapeHtml(`${equipmentName}: ${normalizeVisibleText(item)}`)}">
+                <input type="checkbox" name="accesorios" value="${escapeHtml(normalizeVisibleText(item))}" data-equipment="${escapeHtml(equipmentName)}" data-accessory="${escapeHtml(normalizeVisibleText(item))}">
                 <span>${escapeHtml(normalizeVisibleText(item))}</span>
               </label>
             `).join("")
@@ -1693,10 +1762,26 @@ const dateInput = document.querySelector("#log-date");
       if (error) error.hidden = true;
     });
 
-    function getFormPayload(form) {
-      const selectedAccessories = [...form.querySelectorAll("input[name=accesorios]:checked")]
-        .map(input => input.value);
+    function formatSelectedAccessories(form) {
+      const grouped = new Map();
 
+      form.querySelectorAll("input[name=accesorios]:checked").forEach(input => {
+        const equipment = input.dataset.equipment || "";
+        const accessory = input.dataset.accessory || input.value;
+        if (!accessory) return;
+        if (!grouped.has(equipment)) grouped.set(equipment, []);
+        const accessories = grouped.get(equipment);
+        if (!accessories.includes(accessory)) accessories.push(accessory);
+      });
+
+      return [...grouped]
+        .map(([equipment, accessories]) => equipment
+          ? `${equipment}: ${accessories.join(", ")}`
+          : accessories.join(", "))
+        .join("; ");
+    }
+
+    function getFormPayload(form) {
       return {
         nombre: form.elements.nombre.value.trim(),
         cuenta: form.elements.cuenta.value.trim(),
@@ -1706,7 +1791,7 @@ const dateInput = document.querySelector("#log-date");
         hora_fin: form.elements.hora_fin.value,
         tipo_actividad: form.elements.tipo_actividad.value,
         equipo: form.elements.equipo.value,
-        accesorios: selectedAccessories.join(", "),
+        accesorios: formatSelectedAccessories(form),
         insumos: form.elements.insumos.value.trim(),
         observaciones: form.elements.observaciones.value.trim()
       };

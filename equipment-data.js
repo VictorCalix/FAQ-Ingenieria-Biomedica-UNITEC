@@ -22,8 +22,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Analizador DE AGENTE Anestésico - AA-8000",
-      "baseName": "Analizador DE AGENTE Anestésico",
+      "name": "Analizador de Agente Anestésico - AA-8000",
+      "baseName": "Analizador de Agente Anestésico",
       "brand": "BC BIOMEDICAL",
       "model": "AA-8000",
       "locations": [
@@ -39,8 +39,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE Biomecánica - Xsens Awinda",
-      "baseName": "Analizador DE Biomecánica",
+      "name": "Analizador de Biomecánica - Xsens Awinda",
+      "baseName": "Analizador de Biomecánica",
       "brand": "MOVELLA",
       "model": "Xsens Awinda",
       "locations": [
@@ -64,8 +64,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE BOMBA DE Infusión - IPA-3400",
-      "baseName": "Analizador DE BOMBA DE Infusión",
+      "name": "Analizador de Bomba de Infusión - IPA-3400",
+      "baseName": "Analizador de Bomba de Infusión",
       "brand": "BC BIOMEDICAL",
       "model": "IPA-3400",
       "locations": [
@@ -83,8 +83,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE Calidad DEL AIRE Interior - 7545",
-      "baseName": "Analizador DE Calidad DEL AIRE Interior",
+      "name": "Analizador de Calidad del Aire Interior - 7545",
+      "baseName": "Analizador de Calidad del Aire Interior",
       "brand": "TSI",
       "model": "7545",
       "locations": [
@@ -100,8 +100,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE Desfibrilador - DA-2006P",
-      "baseName": "Analizador DE Desfibrilador",
+      "name": "Analizador de Desfibrilador - DA-2006P",
+      "baseName": "Analizador de Desfibrilador",
       "brand": "BC BIOMEDICAL",
       "model": "DA-2006P",
       "locations": [
@@ -115,8 +115,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE DOSIS DE Área - RaySafe 452",
-      "baseName": "Analizador DE DOSIS DE Área",
+      "name": "Analizador de Dosis de Área - RaySafe 452",
+      "baseName": "Analizador de Dosis de Área",
       "brand": "FLUKE BIOMEDICAL",
       "model": "RaySafe 452",
       "locations": [
@@ -133,8 +133,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE FLUJO DE GAS - VT650",
-      "baseName": "Analizador DE FLUJO DE GAS",
+      "name": "Analizador de Flujo de Gas - VT650",
+      "baseName": "Analizador de Flujo de Gas",
       "brand": "FLUKE BIOMEDICAL",
       "model": "VT650",
       "locations": [
@@ -156,8 +156,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE Incubadora - INCU II",
-      "baseName": "Analizador DE Incubadora",
+      "name": "Analizador de Incubadora - INCU II",
+      "baseName": "Analizador de Incubadora",
       "brand": "FLUKE BIOMEDICAL",
       "model": "INCU II",
       "locations": [
@@ -188,8 +188,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Analizador DE RAYOS X - X2",
-      "baseName": "Analizador DE RAYOS X",
+      "name": "Analizador de Rayos X - X2",
+      "baseName": "Analizador de Rayos X",
       "brand": "RAYSAFE",
       "model": "X2",
       "locations": [
@@ -210,8 +210,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE Seguridad Eléctrica - SA-2010",
-      "baseName": "Analizador DE Seguridad Eléctrica",
+      "name": "Analizador de Seguridad Eléctrica - SA-2010",
+      "baseName": "Analizador de Seguridad Eléctrica",
       "brand": "BC BIOMEDICAL",
       "model": "SA-2010",
       "locations": [
@@ -226,8 +226,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Analizador DE UNIDAD Electroquirúrgica - ESU-2300",
-      "baseName": "Analizador DE UNIDAD Electroquirúrgica",
+      "name": "Analizador de Unidad Electroquirúrgica - ESU-2300",
+      "baseName": "Analizador de Unidad Electroquirúrgica",
       "brand": "BC BIOMEDICAL",
       "model": "ESU-2300",
       "locations": [
@@ -247,8 +247,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Analizador DE Ventilación - Certifier FA plus",
-      "baseName": "Analizador DE Ventilación",
+      "name": "Analizador de Ventilación - Certifier FA plus",
+      "baseName": "Analizador de Ventilación",
       "brand": "TSI",
       "model": "Certifier FA plus",
       "locations": [
@@ -331,8 +331,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BASE CON FUENTE DE Alimentación - DL3155AL2RM",
-      "baseName": "BASE CON FUENTE DE Alimentación",
+      "name": "Base con Fuente de Alimentación - DL3155AL2RM",
+      "baseName": "Base con Fuente de Alimentación",
       "brand": "DE LORENZO",
       "model": "DL3155AL2RM",
       "locations": [
@@ -350,8 +350,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BOMBA DE Infusión - 550T2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión - 550T2",
+      "baseName": "Bomba de Infusión",
       "brand": "SAMTRONIC",
       "model": "550T2",
       "locations": [
@@ -368,8 +368,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BOMBA DE Infusión - BeneFusion uSP",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión - BeneFusion uSP",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uSP",
       "locations": [
@@ -384,8 +384,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BOMBA DE Infusión - BeneFusion uVP",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión - BeneFusion uVP",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uVP",
       "locations": [
@@ -400,8 +400,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BOMBA DE Infusión - SERENE",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión - SERENE",
+      "baseName": "Bomba de Infusión",
       "brand": "DRE",
       "model": "SERENE",
       "locations": [
@@ -417,8 +417,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "BOMBA DE Infusión - Sigmaspectrum",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión - Sigmaspectrum",
+      "baseName": "Bomba de Infusión",
       "brand": "SIGMA",
       "model": "Sigmaspectrum",
       "locations": [
@@ -682,8 +682,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "HOLTER ECG - TLC 5007",
-      "baseName": "HOLTER ECG",
+      "name": "Holter ECG - TLC 5007",
+      "baseName": "Holter ECG",
       "brand": "CONTEC",
       "model": "TLC 5007",
       "locations": [
@@ -703,8 +703,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "HOLTER ECG - TLC5007",
-      "baseName": "HOLTER ECG",
+      "name": "Holter ECG - TLC5007",
+      "baseName": "Holter ECG",
       "brand": "CONTEC",
       "model": "TLC5007",
       "locations": [
@@ -797,8 +797,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Impresora DE Ultrasonido - UP-X898MD",
-      "baseName": "Impresora DE Ultrasonido",
+      "name": "Impresora de Ultrasonido - UP-X898MD",
+      "baseName": "Impresora de Ultrasonido",
       "brand": "SONY",
       "model": "UP-X898MD",
       "locations": [
@@ -853,8 +853,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Máquina DE Anestesia - S6100",
-      "baseName": "Máquina DE Anestesia",
+      "name": "Máquina de Anestesia - S6100",
+      "baseName": "Máquina de Anestesia",
       "brand": "NANJING SUPERSTAR",
       "model": "S6100",
       "locations": [
@@ -872,8 +872,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Medidor DE Potencia - STARLITE",
-      "baseName": "Medidor DE Potencia",
+      "name": "Medidor de Potencia - STARLITE",
+      "baseName": "Medidor de Potencia",
       "brand": "OPHIR",
       "model": "STARLITE",
       "locations": [
@@ -891,8 +891,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Monitor DE Máquina DE Anestesia - SP-J12H",
-      "baseName": "Monitor DE Máquina DE Anestesia",
+      "name": "Monitor de Máquina de Anestesia - SP-J12H",
+      "baseName": "Monitor de Máquina de Anestesia",
       "brand": "SUPERSTAR MED",
       "model": "SP-J12H",
       "locations": [
@@ -912,8 +912,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Monitor DE SIGNOS Vitales - C50",
-      "baseName": "Monitor DE SIGNOS Vitales",
+      "name": "Monitor de Signos Vitales - C50",
+      "baseName": "Monitor de Signos Vitales",
       "brand": "COMEN",
       "model": "C50",
       "locations": [
@@ -936,8 +936,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Monitor DE SIGNOS Vitales - X12",
-      "baseName": "Monitor DE SIGNOS Vitales",
+      "name": "Monitor de Signos Vitales - X12",
+      "baseName": "Monitor de Signos Vitales",
       "brand": "EDAN",
       "model": "X12",
       "locations": [
@@ -959,8 +959,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "Monitor FETAL - CMS800G",
-      "baseName": "Monitor FETAL",
+      "name": "Monitor Fetal - CMS800G",
+      "baseName": "Monitor Fetal",
       "brand": "CONTEC",
       "model": "CMS800G",
       "locations": [
@@ -1023,8 +1023,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE Audiómetro - DL3155BIO6",
-      "baseName": "PLACA DE Audiómetro",
+      "name": "Placa de Audiómetro - DL3155BIO6",
+      "baseName": "Placa de Audiómetro",
       "brand": "DE LORENZO",
       "model": "DL3155BIO6",
       "locations": [
@@ -1037,8 +1037,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Audiómetro - DL3155BIO9",
-      "baseName": "PLACA DE Audiómetro",
+      "name": "Placa de Audiómetro - DL3155BIO9",
+      "baseName": "Placa de Audiómetro",
       "brand": "DE LORENZO",
       "model": "DL3155BIO9",
       "locations": [
@@ -1049,8 +1049,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Electroestimulación - DL3155BIO12",
-      "baseName": "PLACA DE Electroestimulación",
+      "name": "Placa de Electroestimulación - DL3155BIO12",
+      "baseName": "Placa de Electroestimulación",
       "brand": "DE LORENZO",
       "model": "DL3155BIO12",
       "locations": [
@@ -1061,8 +1061,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Frecuencia Cardíaca - DL3155BIO6",
-      "baseName": "PLACA DE Frecuencia Cardíaca",
+      "name": "Placa de Frecuencia Cardíaca - DL3155BIO6",
+      "baseName": "Placa de Frecuencia Cardíaca",
       "brand": "DE LORENZO",
       "model": "DL3155BIO6",
       "locations": [
@@ -1075,8 +1075,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE Ionoforesis - DL3155BIO14",
-      "baseName": "PLACA DE Ionoforesis",
+      "name": "Placa de Ionoforesis - DL3155BIO14",
+      "baseName": "Placa de Ionoforesis",
       "brand": "DE LORENZO",
       "model": "DL3155BIO14",
       "locations": [
@@ -1091,8 +1091,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE Magnetoterapia - DL3155BIO11",
-      "baseName": "PLACA DE Magnetoterapia",
+      "name": "Placa de Magnetoterapia - DL3155BIO11",
+      "baseName": "Placa de Magnetoterapia",
       "brand": "DE LORENZO",
       "model": "DL3155BIO11",
       "locations": [
@@ -1103,8 +1103,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Monitoreo DE Presión - DL3155BIO16",
-      "baseName": "PLACA DE Monitoreo DE Presión",
+      "name": "Placa de Monitoreo de Presión - DL3155BIO16",
+      "baseName": "Placa de Monitoreo de Presión",
       "brand": "DE LORENZO",
       "model": "DL3155BIO16",
       "locations": [
@@ -1120,8 +1120,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE Resistencia Galvánica - DL3155BI08",
-      "baseName": "PLACA DE Resistencia Galvánica",
+      "name": "Placa de Resistencia Galvánica - DL3155BI08",
+      "baseName": "Placa de Resistencia Galvánica",
       "brand": "DE LORENZO",
       "model": "DL3155BI08",
       "locations": [
@@ -1134,8 +1134,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Temperatura y Respiración - DL3155BIO7",
-      "baseName": "PLACA DE Temperatura y Respiración",
+      "name": "Placa de Temperatura y Respiración - DL3155BIO7",
+      "baseName": "Placa de Temperatura y Respiración",
       "brand": "DE LORENZO",
       "model": "DL3155BIO7",
       "locations": [
@@ -1151,8 +1151,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE TENS - DL3155BIO10",
-      "baseName": "PLACA DE TENS",
+      "name": "Placa de TENS - DL3155BIO10",
+      "baseName": "Placa de TENS",
       "brand": "DE LORENZO",
       "model": "DL3155BIO10",
       "locations": [
@@ -1163,8 +1163,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "PLACA DE Terapia DE Ultrasonido - DL3155BIO15",
-      "baseName": "PLACA DE Terapia DE Ultrasonido",
+      "name": "Placa de Terapia de Ultrasonido - DL3155BIO15",
+      "baseName": "Placa de Terapia de Ultrasonido",
       "brand": "DE LORENZO",
       "model": "DL3155BIO15",
       "locations": [
@@ -1179,8 +1179,8 @@ const equipmentData = {
       ]
     },
     {
-      "name": "PLACA DE Terapia Láser - DL3155BIO13",
-      "baseName": "PLACA DE Terapia Láser",
+      "name": "Placa de Terapia Láser - DL3155BIO13",
+      "baseName": "Placa de Terapia Láser",
       "brand": "DE LORENZO",
       "model": "DL3155BIO13",
       "locations": [
@@ -1191,8 +1191,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Simulador DE NIBP - NIBP-1010",
-      "baseName": "Simulador DE NIBP",
+      "name": "Simulador de NIBP - NIBP-1010",
+      "baseName": "Simulador de NIBP",
       "brand": "BC BIOMEDICAL",
       "model": "NIBP-1010",
       "locations": [
@@ -1206,8 +1206,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "Simulador DE Paciente - PS-2220",
-      "baseName": "Simulador DE Paciente",
+      "name": "Simulador de Paciente - PS-2220",
+      "baseName": "Simulador de Paciente",
       "brand": "BC BIOMEDICAL",
       "model": "PS-2220",
       "locations": [
@@ -1294,8 +1294,8 @@ const equipmentData = {
       "observations": []
     },
     {
-      "name": "UNIDAD DE Electrocirugía - ForceFX",
-      "baseName": "UNIDAD DE Electrocirugía",
+      "name": "Unidad de Electrocirugía - ForceFX",
+      "baseName": "Unidad de Electrocirugía",
       "brand": "VALLEYLAB",
       "model": "ForceFX",
       "locations": [
@@ -1468,13 +1468,13 @@ const equipmentData = {
       "observations": "Falta Tubo Extension NIBP"
     },
     {
-      "name": "Analizador DE AGENTE Anestésico 1",
-      "baseName": "Analizador DE AGENTE Anestésico",
+      "name": "Analizador de Agente Anestésico 1",
+      "baseName": "Analizador de Agente Anestésico",
       "brand": "BC BIOMEDICAL",
       "model": "AA-8000",
       "serialNumber": "73601115",
       "inventory": "18018",
-      "repositoryName": "Analizador DE AGENTE Anestésico - AA-8000",
+      "repositoryName": "Analizador de Agente Anestésico - AA-8000",
       "location": "ARMARIO B",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1487,13 +1487,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Biomecánica 1",
-      "baseName": "Analizador DE Biomecánica",
+      "name": "Analizador de Biomecánica 1",
+      "baseName": "Analizador de Biomecánica",
       "brand": "MOVELLA",
       "model": "Xsens Awinda",
       "serialNumber": "1201128",
       "inventory": "35971",
-      "repositoryName": "Analizador DE Biomecánica - Xsens Awinda",
+      "repositoryName": "Analizador de Biomecánica - Xsens Awinda",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "Sensores inersiales (6)",
@@ -1514,13 +1514,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE BOMBA DE Infusión 1",
-      "baseName": "Analizador DE BOMBA DE Infusión",
+      "name": "Analizador de Bomba de Infusión 1",
+      "baseName": "Analizador de Bomba de Infusión",
       "brand": "BC BIOMEDICAL",
       "model": "IPA-3400",
       "serialNumber": "73161049",
       "inventory": "18021",
-      "repositoryName": "Analizador DE BOMBA DE Infusión - IPA-3400",
+      "repositoryName": "Analizador de Bomba de Infusión - IPA-3400",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1535,13 +1535,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Calidad DEL AIRE Interior 1",
-      "baseName": "Analizador DE Calidad DEL AIRE Interior",
+      "name": "Analizador de Calidad del Aire Interior 1",
+      "baseName": "Analizador de Calidad del Aire Interior",
       "brand": "TSI",
       "model": "7545",
       "serialNumber": "T75452319008",
       "inventory": "31771",
-      "repositoryName": "Analizador DE Calidad DEL AIRE Interior - 7545",
+      "repositoryName": "Analizador de Calidad del Aire Interior - 7545",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "Cable USB",
@@ -1554,13 +1554,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Desfibrilador 1",
-      "baseName": "Analizador DE Desfibrilador",
+      "name": "Analizador de Desfibrilador 1",
+      "baseName": "Analizador de Desfibrilador",
       "brand": "BC BIOMEDICAL",
       "model": "DA-2006P",
       "serialNumber": "(21)73962656",
       "inventory": "18015",
-      "repositoryName": "Analizador DE Desfibrilador - DA-2006P",
+      "repositoryName": "Analizador de Desfibrilador - DA-2006P",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Protector de paletas (2)",
@@ -1571,13 +1571,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE DOSIS DE Área 1",
-      "baseName": "Analizador DE DOSIS DE Área",
+      "name": "Analizador de Dosis de Área 1",
+      "baseName": "Analizador de Dosis de Área",
       "brand": "FLUKE BIOMEDICAL",
       "model": "RaySafe 452",
       "serialNumber": "270617",
       "inventory": "17770",
-      "repositoryName": "Analizador DE DOSIS DE Área - RaySafe 452",
+      "repositoryName": "Analizador de Dosis de Área - RaySafe 452",
       "location": "ARMARIO B",
       "accessories": [
         "Cable USB a USB",
@@ -1591,13 +1591,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE FLUJO DE GAS 1",
-      "baseName": "Analizador DE FLUJO DE GAS",
+      "name": "Analizador de Flujo de Gas 1",
+      "baseName": "Analizador de Flujo de Gas",
       "brand": "FLUKE BIOMEDICAL",
       "model": "VT650",
       "serialNumber": "6997797",
       "inventory": "39423",
-      "repositoryName": "Analizador DE FLUJO DE GAS - VT650",
+      "repositoryName": "Analizador de Flujo de Gas - VT650",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Straight connetor 22M - 22 M/15F (2)",
@@ -1616,13 +1616,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Incubadora 1",
-      "baseName": "Analizador DE Incubadora",
+      "name": "Analizador de Incubadora 1",
+      "baseName": "Analizador de Incubadora",
       "brand": "FLUKE BIOMEDICAL",
       "model": "INCU II",
       "serialNumber": "45260022",
       "inventory": "17769",
-      "repositoryName": "Analizador DE Incubadora - INCU II",
+      "repositoryName": "Analizador de Incubadora - INCU II",
       "location": "ARMARIO A",
       "accessories": [
         "Cable de alimentacion (1)",
@@ -1649,13 +1649,13 @@ const equipmentData = {
       "observations": "Falta cable de USB"
     },
     {
-      "name": "Analizador DE RAYOS X 1",
-      "baseName": "Analizador DE RAYOS X",
+      "name": "Analizador de Rayos X 1",
+      "baseName": "Analizador de Rayos X",
       "brand": "RAYSAFE",
       "model": "X2",
       "serialNumber": "282657",
       "inventory": "18524",
-      "repositoryName": "Analizador DE RAYOS X - X2",
+      "repositoryName": "Analizador de Rayos X - X2",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "Modulo (1)",
@@ -1673,13 +1673,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Seguridad Eléctrica 1",
-      "baseName": "Analizador DE Seguridad Eléctrica",
+      "name": "Analizador de Seguridad Eléctrica 1",
+      "baseName": "Analizador de Seguridad Eléctrica",
       "brand": "BC BIOMEDICAL",
       "model": "SA-2010",
       "serialNumber": "7337R1015",
       "inventory": "18016",
-      "repositoryName": "Analizador DE Seguridad Eléctrica - SA-2010",
+      "repositoryName": "Analizador de Seguridad Eléctrica - SA-2010",
       "location": "ARMARIO B",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1691,13 +1691,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE Seguridad Eléctrica 2",
-      "baseName": "Analizador DE Seguridad Eléctrica",
+      "name": "Analizador de Seguridad Eléctrica 2",
+      "baseName": "Analizador de Seguridad Eléctrica",
       "brand": "BC BIOMEDICAL",
       "model": "SA-2010",
       "serialNumber": "7337R1013",
       "inventory": "18017",
-      "repositoryName": "Analizador DE Seguridad Eléctrica - SA-2010",
+      "repositoryName": "Analizador de Seguridad Eléctrica - SA-2010",
       "location": "ARMARIO B",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1709,13 +1709,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Analizador DE UNIDAD Electroquirúrgica 1",
-      "baseName": "Analizador DE UNIDAD Electroquirúrgica",
+      "name": "Analizador de Unidad Electroquirúrgica 1",
+      "baseName": "Analizador de Unidad Electroquirúrgica",
       "brand": "BC BIOMEDICAL",
       "model": "ESU-2300",
       "serialNumber": "73771789",
       "inventory": "18020",
-      "repositoryName": "Analizador DE UNIDAD Electroquirúrgica - ESU-2300",
+      "repositoryName": "Analizador de Unidad Electroquirúrgica - ESU-2300",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Cable de alimenación de grado médico (1)",
@@ -1730,13 +1730,13 @@ const equipmentData = {
       "observations": "Electrodo de retorno tiene la punta cortada"
     },
     {
-      "name": "Analizador DE Ventilación 1",
-      "baseName": "Analizador DE Ventilación",
+      "name": "Analizador de Ventilación 1",
+      "baseName": "Analizador de Ventilación",
       "brand": "TSI",
       "model": "Certifier FA plus",
       "serialNumber": "40881933012",
       "inventory": "18019",
-      "repositoryName": "Analizador DE Ventilación - Certifier FA plus",
+      "repositoryName": "Analizador de Ventilación - Certifier FA plus",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "cable de alimentacion (1)",
@@ -1820,13 +1820,13 @@ const equipmentData = {
       "observations": "Tablet se encuentra en jefatura académica"
     },
     {
-      "name": "BASE CON FUENTE DE Alimentación 1",
-      "baseName": "BASE CON FUENTE DE Alimentación",
+      "name": "Base con Fuente de Alimentación 1",
+      "baseName": "Base con Fuente de Alimentación",
       "brand": "DE LORENZO",
       "model": "DL3155AL2RM",
       "serialNumber": "19-00276.14",
       "inventory": "18192",
-      "repositoryName": "BASE CON FUENTE DE Alimentación - DL3155AL2RM",
+      "repositoryName": "Base con Fuente de Alimentación - DL3155AL2RM",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Cable de alimentacion (1)",
@@ -1838,13 +1838,13 @@ const equipmentData = {
       "observations": "Cable de alimentación se destinó para analizador hematológico"
     },
     {
-      "name": "BASE CON FUENTE DE Alimentación 2",
-      "baseName": "BASE CON FUENTE DE Alimentación",
+      "name": "Base con Fuente de Alimentación 2",
+      "baseName": "Base con Fuente de Alimentación",
       "brand": "DE LORENZO",
       "model": "DL3155AL2RM",
       "serialNumber": "19-00276.15",
       "inventory": "18198",
-      "repositoryName": "BASE CON FUENTE DE Alimentación - DL3155AL2RM",
+      "repositoryName": "Base con Fuente de Alimentación - DL3155AL2RM",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Sondas de osciloscopio (3)",
@@ -1855,13 +1855,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "BOMBA DE Infusión 1",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 1",
+      "baseName": "Bomba de Infusión",
       "brand": "DRE",
       "model": "SERENE",
       "serialNumber": "200364",
       "inventory": "25007",
-      "repositoryName": "BOMBA DE Infusión - SERENE",
+      "repositoryName": "Bomba de Infusión - SERENE",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cuenta con 5 jeringas"
@@ -1871,13 +1871,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "BOMBA DE Infusión 2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 2",
+      "baseName": "Bomba de Infusión",
       "brand": "DRE",
       "model": "SERENE",
       "serialNumber": "200366",
       "inventory": "25006",
-      "repositoryName": "BOMBA DE Infusión - SERENE",
+      "repositoryName": "Bomba de Infusión - SERENE",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cuenta con 4 jeringas"
@@ -1887,13 +1887,13 @@ const equipmentData = {
       "observations": "No tiene cable de alimentacion"
     },
     {
-      "name": "BOMBA DE Infusión 1",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 1",
+      "baseName": "Bomba de Infusión",
       "brand": "SAMTRONIC",
       "model": "550T2",
       "serialNumber": "76131R/08",
       "inventory": "",
-      "repositoryName": "BOMBA DE Infusión - 550T2",
+      "repositoryName": "Bomba de Infusión - 550T2",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1904,13 +1904,13 @@ const equipmentData = {
       "observations": "No tiene codigo FUNDAEMPRESA"
     },
     {
-      "name": "BOMBA DE Infusión 2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 2",
+      "baseName": "Bomba de Infusión",
       "brand": "SAMTRONIC",
       "model": "550T2",
       "serialNumber": "76127R/08",
       "inventory": "",
-      "repositoryName": "BOMBA DE Infusión - 550T2",
+      "repositoryName": "Bomba de Infusión - 550T2",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1921,13 +1921,13 @@ const equipmentData = {
       "observations": "No tiene codigo FUNDAEMPRESA"
     },
     {
-      "name": "BOMBA DE Infusión 3",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 3",
+      "baseName": "Bomba de Infusión",
       "brand": "SAMTRONIC",
       "model": "550T2",
       "serialNumber": "76123R/08",
       "inventory": "",
-      "repositoryName": "BOMBA DE Infusión - 550T2",
+      "repositoryName": "Bomba de Infusión - 550T2",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [],
       "status": "Buen estado",
@@ -1935,13 +1935,13 @@ const equipmentData = {
       "observations": "No tiene codigo FUNDAEMPRESA"
     },
     {
-      "name": "BOMBA DE Infusión 1",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 1",
+      "baseName": "Bomba de Infusión",
       "brand": "SIGMA",
       "model": "Sigmaspectrum",
       "serialNumber": "MAC100409D448374",
       "inventory": "",
-      "repositoryName": "BOMBA DE Infusión - Sigmaspectrum",
+      "repositoryName": "Bomba de Infusión - Sigmaspectrum",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1952,13 +1952,13 @@ const equipmentData = {
       "observations": "venoclisis no encontrado, mal estado"
     },
     {
-      "name": "BOMBA DE Infusión 2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 2",
+      "baseName": "Bomba de Infusión",
       "brand": "SIGMA",
       "model": "Sigmaspectrum",
       "serialNumber": "MAC00409D4A5B5D",
       "inventory": "",
-      "repositoryName": "BOMBA DE Infusión - Sigmaspectrum",
+      "repositoryName": "Bomba de Infusión - Sigmaspectrum",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -1969,13 +1969,13 @@ const equipmentData = {
       "observations": "No tiene codigo FUNDAEMPRESA, venoclisis no encontrado"
     },
     {
-      "name": "BOMBA DE Infusión 1",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 1",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uSP",
       "serialNumber": "SM3-5C073381",
       "inventory": "40409",
-      "repositoryName": "BOMBA DE Infusión - BeneFusion uSP",
+      "repositoryName": "Bomba de Infusión - BeneFusion uSP",
       "location": "ESTANTERIA (6) 22597",
       "accessories": [
         "Cable de alimenación de grado médico"
@@ -1985,13 +1985,13 @@ const equipmentData = {
       "observations": "Se sometio a mantenimiento preventivo 24/7/26"
     },
     {
-      "name": "BOMBA DE Infusión 2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 2",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uSP",
       "serialNumber": "SM3-5C073380",
       "inventory": "40410",
-      "repositoryName": "BOMBA DE Infusión - BeneFusion uSP",
+      "repositoryName": "Bomba de Infusión - BeneFusion uSP",
       "location": "ESTANTERIA (6) 22597",
       "accessories": [
         "Cable de alimenación de grado médico"
@@ -2001,13 +2001,13 @@ const equipmentData = {
       "observations": "Se sometio a mantenimiento preventivo 24/7/26"
     },
     {
-      "name": "BOMBA DE Infusión 1",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 1",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uVP",
       "serialNumber": "SM1-5C055608",
       "inventory": "40407",
-      "repositoryName": "BOMBA DE Infusión - BeneFusion uVP",
+      "repositoryName": "Bomba de Infusión - BeneFusion uVP",
       "location": "ESTANTERIA (6) 22597",
       "accessories": [
         "Cable de alimenación de grado médico"
@@ -2017,13 +2017,13 @@ const equipmentData = {
       "observations": "Se sometio a mantenimiento preventivo 24/7/26"
     },
     {
-      "name": "BOMBA DE Infusión 2",
-      "baseName": "BOMBA DE Infusión",
+      "name": "Bomba de Infusión 2",
+      "baseName": "Bomba de Infusión",
       "brand": "MINDRAY",
       "model": "BeneFusion uVP",
       "serialNumber": "SM1-5C055598",
       "inventory": "40408",
-      "repositoryName": "BOMBA DE Infusión - BeneFusion uVP",
+      "repositoryName": "Bomba de Infusión - BeneFusion uVP",
       "location": "ESTANTERIA (6) 22597",
       "accessories": [
         "Cable de alimenación de grado médico"
@@ -2298,13 +2298,13 @@ const equipmentData = {
       "observations": "Equipo Donado"
     },
     {
-      "name": "HOLTER ECG 1",
-      "baseName": "HOLTER ECG",
+      "name": "Holter ECG 1",
+      "baseName": "Holter ECG",
       "brand": "CONTEC",
       "model": "TLC 5007",
       "serialNumber": "24010100433",
       "inventory": "36161",
-      "repositoryName": "HOLTER ECG - TLC 5007",
+      "repositoryName": "Holter ECG - TLC 5007",
       "location": "ARMARIO A",
       "accessories": [
         "Bolso de transporte",
@@ -2319,13 +2319,13 @@ const equipmentData = {
       "observations": "Un paquete abierto con 4 electrodos"
     },
     {
-      "name": "HOLTER ECG 1",
-      "baseName": "HOLTER ECG",
+      "name": "Holter ECG 1",
+      "baseName": "Holter ECG",
       "brand": "CONTEC",
       "model": "TLC5007",
       "serialNumber": "24010100434",
       "inventory": "36160",
-      "repositoryName": "HOLTER ECG - TLC5007",
+      "repositoryName": "Holter ECG - TLC5007",
       "location": "ARMARIO A",
       "accessories": [
         "Bolso de transporte",
@@ -2413,13 +2413,13 @@ const equipmentData = {
       "observations": "Equipo donado, sucio"
     },
     {
-      "name": "Impresora DE Ultrasonido 1",
-      "baseName": "Impresora DE Ultrasonido",
+      "name": "Impresora de Ultrasonido 1",
+      "baseName": "Impresora de Ultrasonido",
       "brand": "SONY",
       "model": "UP-X898MD",
       "serialNumber": "7206139",
       "inventory": "",
-      "repositoryName": "Impresora DE Ultrasonido - UP-X898MD",
+      "repositoryName": "Impresora de Ultrasonido - UP-X898MD",
       "location": "ESTANTERIA (3) 22594",
       "accessories": [
         "Cable de transmision de datos",
@@ -2473,13 +2473,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Máquina DE Anestesia 1",
-      "baseName": "Máquina DE Anestesia",
+      "name": "Máquina de Anestesia 1",
+      "baseName": "Máquina de Anestesia",
       "brand": "NANJING SUPERSTAR",
       "model": "S6100",
       "serialNumber": "M720423C",
       "inventory": "31936",
-      "repositoryName": "Máquina DE Anestesia - S6100",
+      "repositoryName": "Máquina de Anestesia - S6100",
       "location": "ESQUINA IZQ LAB",
       "accessories": [
         "Mangueras de oxigeno (2)",
@@ -2494,13 +2494,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Medidor DE Potencia 1",
-      "baseName": "Medidor DE Potencia",
+      "name": "Medidor de Potencia 1",
+      "baseName": "Medidor de Potencia",
       "brand": "OPHIR",
       "model": "STARLITE",
       "serialNumber": "965063",
       "inventory": "19461",
-      "repositoryName": "Medidor DE Potencia - STARLITE",
+      "repositoryName": "Medidor de Potencia - STARLITE",
       "location": "ARMARIO A",
       "accessories": [
         "Maletín de transporte",
@@ -2513,13 +2513,13 @@ const equipmentData = {
       "observations": "Falta un adaptador"
     },
     {
-      "name": "Monitor DE Máquina DE Anestesia 1",
-      "baseName": "Monitor DE Máquina DE Anestesia",
+      "name": "Monitor de Máquina de Anestesia 1",
+      "baseName": "Monitor de Máquina de Anestesia",
       "brand": "SUPERSTAR MED",
       "model": "SP-J12H",
       "serialNumber": "J668922K",
       "inventory": "",
-      "repositoryName": "Monitor DE Máquina DE Anestesia - SP-J12H",
+      "repositoryName": "Monitor de Máquina de Anestesia - SP-J12H",
       "location": "ESQUINA IZQ LAB",
       "accessories": [
         "Sensor de Oxigeno (1)",
@@ -2534,13 +2534,13 @@ const equipmentData = {
       "observations": "No tiene codigo FUNDAEMPRESA"
     },
     {
-      "name": "Monitor DE SIGNOS Vitales 1",
-      "baseName": "Monitor DE SIGNOS Vitales",
+      "name": "Monitor de Signos Vitales 1",
+      "baseName": "Monitor de Signos Vitales",
       "brand": "EDAN",
       "model": "X12",
       "serialNumber": "261594-M23610860002",
       "inventory": "31656",
-      "repositoryName": "Monitor DE SIGNOS Vitales - X12",
+      "repositoryName": "Monitor de Signos Vitales - X12",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Cable de NIBP (1)",
@@ -2557,13 +2557,13 @@ const equipmentData = {
       "observations": "Paquete de electrodos no se encuentra en la caja"
     },
     {
-      "name": "Monitor DE SIGNOS Vitales 2",
-      "baseName": "Monitor DE SIGNOS Vitales",
+      "name": "Monitor de Signos Vitales 2",
+      "baseName": "Monitor de Signos Vitales",
       "brand": "EDAN",
       "model": "X12",
       "serialNumber": "261594-M23610860001",
       "inventory": "31655",
-      "repositoryName": "Monitor DE SIGNOS Vitales - X12",
+      "repositoryName": "Monitor de Signos Vitales - X12",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Cable de NIBP (1)",
@@ -2580,13 +2580,13 @@ const equipmentData = {
       "observations": "Paquete de electrodos no se encuentra en la caja"
     },
     {
-      "name": "Monitor DE SIGNOS Vitales 1",
-      "baseName": "Monitor DE SIGNOS Vitales",
+      "name": "Monitor de Signos Vitales 1",
+      "baseName": "Monitor de Signos Vitales",
       "brand": "COMEN",
       "model": "C50",
       "serialNumber": "KD160922002",
       "inventory": "25003",
-      "repositoryName": "Monitor DE SIGNOS Vitales - C50",
+      "repositoryName": "Monitor de Signos Vitales - C50",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Cable de alimenación de grado médico",
@@ -2604,13 +2604,13 @@ const equipmentData = {
       "observations": "la silicona del asa de transporte ha perdido su integridad estructural, se necesita confirmar si hace falta adaptador en extremo de la manguera de brazalete para su uso"
     },
     {
-      "name": "Monitor FETAL 1",
-      "baseName": "Monitor FETAL",
+      "name": "Monitor Fetal 1",
+      "baseName": "Monitor Fetal",
       "brand": "CONTEC",
       "model": "CMS800G",
       "serialNumber": "24050600014",
       "inventory": "",
-      "repositoryName": "Monitor FETAL - CMS800G",
+      "repositoryName": "Monitor Fetal - CMS800G",
       "location": "ESTANTERIA (5) 22596",
       "accessories": [
         "Dos cables de alimentacion (EUROPEO/AMERICANO)",
@@ -2668,13 +2668,13 @@ const equipmentData = {
       "observations": "falta codigo FUNDAEMPRESA, se le está despegando la goma antiderrapante de la base, uno de sus accesorios de tapadera fisurado"
     },
     {
-      "name": "PLACA DE Audiómetro 1",
-      "baseName": "PLACA DE Audiómetro",
+      "name": "Placa de Audiómetro 1",
+      "baseName": "Placa de Audiómetro",
       "brand": "DE LORENZO",
       "model": "DL3155BIO6",
       "serialNumber": "07-22863.17",
       "inventory": "18132",
-      "repositoryName": "PLACA DE Audiómetro - DL3155BIO6",
+      "repositoryName": "Placa de Audiómetro - DL3155BIO6",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Audifonos (1)"
@@ -2684,13 +2684,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Audiómetro 1",
-      "baseName": "PLACA DE Audiómetro",
+      "name": "Placa de Audiómetro 1",
+      "baseName": "Placa de Audiómetro",
       "brand": "DE LORENZO",
       "model": "DL3155BIO9",
       "serialNumber": "19-00534.2",
       "inventory": "18133",
-      "repositoryName": "PLACA DE Audiómetro - DL3155BIO9",
+      "repositoryName": "Placa de Audiómetro - DL3155BIO9",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [],
       "status": "Buen estado",
@@ -2698,13 +2698,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Electroestimulación 1",
-      "baseName": "PLACA DE Electroestimulación",
+      "name": "Placa de Electroestimulación 1",
+      "baseName": "Placa de Electroestimulación",
       "brand": "DE LORENZO",
       "model": "DL3155BIO12",
       "serialNumber": "19-00534.2",
       "inventory": "18164",
-      "repositoryName": "PLACA DE Electroestimulación - DL3155BIO12",
+      "repositoryName": "Placa de Electroestimulación - DL3155BIO12",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [],
       "status": "Buen estado",
@@ -2712,13 +2712,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Electroestimulación 2",
-      "baseName": "PLACA DE Electroestimulación",
+      "name": "Placa de Electroestimulación 2",
+      "baseName": "Placa de Electroestimulación",
       "brand": "DE LORENZO",
       "model": "DL3155BIO12",
       "serialNumber": "19-01249.1",
       "inventory": "18163",
-      "repositoryName": "PLACA DE Electroestimulación - DL3155BIO12",
+      "repositoryName": "Placa de Electroestimulación - DL3155BIO12",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [],
       "status": "Buen estado",
@@ -2726,13 +2726,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Frecuencia Cardíaca 1",
-      "baseName": "PLACA DE Frecuencia Cardíaca",
+      "name": "Placa de Frecuencia Cardíaca 1",
+      "baseName": "Placa de Frecuencia Cardíaca",
       "brand": "DE LORENZO",
       "model": "DL3155BIO6",
       "serialNumber": "19-01254.7",
       "inventory": "18169",
-      "repositoryName": "PLACA DE Frecuencia Cardíaca - DL3155BIO6",
+      "repositoryName": "Placa de Frecuencia Cardíaca - DL3155BIO6",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2740,13 +2740,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Frecuencia Cardíaca 2",
-      "baseName": "PLACA DE Frecuencia Cardíaca",
+      "name": "Placa de Frecuencia Cardíaca 2",
+      "baseName": "Placa de Frecuencia Cardíaca",
       "brand": "DE LORENZO",
       "model": "DL3155BIO6",
       "serialNumber": "19-01254.8",
       "inventory": "18172",
-      "repositoryName": "PLACA DE Frecuencia Cardíaca - DL3155BIO6",
+      "repositoryName": "Placa de Frecuencia Cardíaca - DL3155BIO6",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2754,13 +2754,13 @@ const equipmentData = {
       "observations": "Protector transparente fisurado"
     },
     {
-      "name": "PLACA DE Ionoforesis 1",
-      "baseName": "PLACA DE Ionoforesis",
+      "name": "Placa de Ionoforesis 1",
+      "baseName": "Placa de Ionoforesis",
       "brand": "DE LORENZO",
       "model": "DL3155BIO14",
       "serialNumber": "10-01251.7",
       "inventory": "18160",
-      "repositoryName": "PLACA DE Ionoforesis - DL3155BIO14",
+      "repositoryName": "Placa de Ionoforesis - DL3155BIO14",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Cable de bornera (1)"
@@ -2770,13 +2770,13 @@ const equipmentData = {
       "observations": "Faltan Electrodos"
     },
     {
-      "name": "PLACA DE Ionoforesis 2",
-      "baseName": "PLACA DE Ionoforesis",
+      "name": "Placa de Ionoforesis 2",
+      "baseName": "Placa de Ionoforesis",
       "brand": "DE LORENZO",
       "model": "DL3155BIO14",
       "serialNumber": "19-01251.6",
       "inventory": "18157",
-      "repositoryName": "PLACA DE Ionoforesis - DL3155BIO14",
+      "repositoryName": "Placa de Ionoforesis - DL3155BIO14",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Cable de bornera (1)"
@@ -2786,13 +2786,13 @@ const equipmentData = {
       "observations": "Faltan Electrodos"
     },
     {
-      "name": "PLACA DE Magnetoterapia 1",
-      "baseName": "PLACA DE Magnetoterapia",
+      "name": "Placa de Magnetoterapia 1",
+      "baseName": "Placa de Magnetoterapia",
       "brand": "DE LORENZO",
       "model": "DL3155BIO11",
       "serialNumber": "19-01248.6",
       "inventory": "18143",
-      "repositoryName": "PLACA DE Magnetoterapia - DL3155BIO11",
+      "repositoryName": "Placa de Magnetoterapia - DL3155BIO11",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2800,13 +2800,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Magnetoterapia 2",
-      "baseName": "PLACA DE Magnetoterapia",
+      "name": "Placa de Magnetoterapia 2",
+      "baseName": "Placa de Magnetoterapia",
       "brand": "DE LORENZO",
       "model": "DL3155BIO11",
       "serialNumber": "19-01248.5",
       "inventory": "18142",
-      "repositoryName": "PLACA DE Magnetoterapia - DL3155BIO11",
+      "repositoryName": "Placa de Magnetoterapia - DL3155BIO11",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2814,13 +2814,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Monitoreo DE Presión 1",
-      "baseName": "PLACA DE Monitoreo DE Presión",
+      "name": "Placa de Monitoreo de Presión 1",
+      "baseName": "Placa de Monitoreo de Presión",
       "brand": "DE LORENZO",
       "model": "DL3155BIO16",
       "serialNumber": "19-01252.9",
       "inventory": "18154",
-      "repositoryName": "PLACA DE Monitoreo DE Presión - DL3155BIO16",
+      "repositoryName": "Placa de Monitoreo de Presión - DL3155BIO16",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Brazelete de presion (1)"
@@ -2830,13 +2830,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Monitoreo DE Presión 2",
-      "baseName": "PLACA DE Monitoreo DE Presión",
+      "name": "Placa de Monitoreo de Presión 2",
+      "baseName": "Placa de Monitoreo de Presión",
       "brand": "DE LORENZO",
       "model": "DL3155BIO16",
       "serialNumber": "19-01252.6",
       "inventory": "18155",
-      "repositoryName": "PLACA DE Monitoreo DE Presión - DL3155BIO16",
+      "repositoryName": "Placa de Monitoreo de Presión - DL3155BIO16",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Brazalete de presion (1)"
@@ -2846,13 +2846,13 @@ const equipmentData = {
       "observations": "Tiene un componente electronico suelto"
     },
     {
-      "name": "PLACA DE Resistencia Galvánica 1",
-      "baseName": "PLACA DE Resistencia Galvánica",
+      "name": "Placa de Resistencia Galvánica 1",
+      "baseName": "Placa de Resistencia Galvánica",
       "brand": "DE LORENZO",
       "model": "DL3155BI08",
       "serialNumber": "19-01469.4",
       "inventory": "18149",
-      "repositoryName": "PLACA DE Resistencia Galvánica - DL3155BI08",
+      "repositoryName": "Placa de Resistencia Galvánica - DL3155BI08",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Cable de resistencia galvanica (1)"
@@ -2862,13 +2862,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Resistencia Galvánica 2",
-      "baseName": "PLACA DE Resistencia Galvánica",
+      "name": "Placa de Resistencia Galvánica 2",
+      "baseName": "Placa de Resistencia Galvánica",
       "brand": "DE LORENZO",
       "model": "DL3155BI08",
       "serialNumber": "19-01469.3",
       "inventory": "18151",
-      "repositoryName": "PLACA DE Resistencia Galvánica - DL3155BI08",
+      "repositoryName": "Placa de Resistencia Galvánica - DL3155BI08",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Cable de resistencia galvanica (1)"
@@ -2878,13 +2878,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Temperatura y Respiración 1",
-      "baseName": "PLACA DE Temperatura y Respiración",
+      "name": "Placa de Temperatura y Respiración 1",
+      "baseName": "Placa de Temperatura y Respiración",
       "brand": "DE LORENZO",
       "model": "DL3155BIO7",
       "serialNumber": "19-00532.8",
       "inventory": "18168",
-      "repositoryName": "PLACA DE Temperatura y Respiración - DL3155BIO7",
+      "repositoryName": "Placa de Temperatura y Respiración - DL3155BIO7",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Cables de temperatura (2)"
@@ -2894,13 +2894,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Temperatura y Respiración 2",
-      "baseName": "PLACA DE Temperatura y Respiración",
+      "name": "Placa de Temperatura y Respiración 2",
+      "baseName": "Placa de Temperatura y Respiración",
       "brand": "DE LORENZO",
       "model": "DL3155BIO7",
       "serialNumber": "19-00532.3",
       "inventory": "18167",
-      "repositoryName": "PLACA DE Temperatura y Respiración - DL3155BIO7",
+      "repositoryName": "Placa de Temperatura y Respiración - DL3155BIO7",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [
         "Cable de temperatura (2)"
@@ -2910,13 +2910,13 @@ const equipmentData = {
       "observations": "Se le está despegando el sticker del nombre"
     },
     {
-      "name": "PLACA DE TENS 1",
-      "baseName": "PLACA DE TENS",
+      "name": "Placa de TENS 1",
+      "baseName": "Placa de TENS",
       "brand": "DE LORENZO",
       "model": "DL3155BIO10",
       "serialNumber": "19-01466.6",
       "inventory": "18148",
-      "repositoryName": "PLACA DE TENS - DL3155BIO10",
+      "repositoryName": "Placa de TENS - DL3155BIO10",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2924,13 +2924,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE TENS 2",
-      "baseName": "PLACA DE TENS",
+      "name": "Placa de TENS 2",
+      "baseName": "Placa de TENS",
       "brand": "DE LORENZO",
       "model": "DL3155BIO10",
       "serialNumber": "19-01466.7",
       "inventory": "18147",
-      "repositoryName": "PLACA DE TENS - DL3155BIO10",
+      "repositoryName": "Placa de TENS - DL3155BIO10",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [],
       "status": "Buen estado",
@@ -2938,13 +2938,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Terapia DE Ultrasonido 1",
-      "baseName": "PLACA DE Terapia DE Ultrasonido",
+      "name": "Placa de Terapia de Ultrasonido 1",
+      "baseName": "Placa de Terapia de Ultrasonido",
       "brand": "DE LORENZO",
       "model": "DL3155BIO15",
       "serialNumber": "19-00527.2",
       "inventory": "18134",
-      "repositoryName": "PLACA DE Terapia DE Ultrasonido - DL3155BIO15",
+      "repositoryName": "Placa de Terapia de Ultrasonido - DL3155BIO15",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Sonda piezometrica (1)"
@@ -2954,13 +2954,13 @@ const equipmentData = {
       "observations": "Se le está despegando el sticker del nombre"
     },
     {
-      "name": "PLACA DE Terapia DE Ultrasonido 2",
-      "baseName": "PLACA DE Terapia DE Ultrasonido",
+      "name": "Placa de Terapia de Ultrasonido 2",
+      "baseName": "Placa de Terapia de Ultrasonido",
       "brand": "DE LORENZO",
       "model": "DL3155BIO15",
       "serialNumber": "19-00527.5",
       "inventory": "18137",
-      "repositoryName": "PLACA DE Terapia DE Ultrasonido - DL3155BIO15",
+      "repositoryName": "Placa de Terapia de Ultrasonido - DL3155BIO15",
       "location": "ESTANTERIA (2) 22593",
       "accessories": [
         "Sonda piezometrica (1)"
@@ -2970,13 +2970,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Terapia Láser 1",
-      "baseName": "PLACA DE Terapia Láser",
+      "name": "Placa de Terapia Láser 1",
+      "baseName": "Placa de Terapia Láser",
       "brand": "DE LORENZO",
       "model": "DL3155BIO13",
       "serialNumber": "19-01250.6",
       "inventory": "18138",
-      "repositoryName": "PLACA DE Terapia Láser - DL3155BIO13",
+      "repositoryName": "Placa de Terapia Láser - DL3155BIO13",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [],
       "status": "Buen estado",
@@ -2984,13 +2984,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "PLACA DE Terapia Láser 2",
-      "baseName": "PLACA DE Terapia Láser",
+      "name": "Placa de Terapia Láser 2",
+      "baseName": "Placa de Terapia Láser",
       "brand": "DE LORENZO",
       "model": "DL3155BIO13",
       "serialNumber": "19-01250.8",
       "inventory": "18139",
-      "repositoryName": "PLACA DE Terapia Láser - DL3155BIO13",
+      "repositoryName": "Placa de Terapia Láser - DL3155BIO13",
       "location": "ESTANTERIA (1) 22592",
       "accessories": [],
       "status": "Buen estado",
@@ -2998,13 +2998,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Simulador DE NIBP 1",
-      "baseName": "Simulador DE NIBP",
+      "name": "Simulador de NIBP 1",
+      "baseName": "Simulador de NIBP",
       "brand": "BC BIOMEDICAL",
       "model": "NIBP-1010",
       "serialNumber": "646120",
       "inventory": "19359",
-      "repositoryName": "Simulador DE NIBP - NIBP-1010",
+      "repositoryName": "Simulador de NIBP - NIBP-1010",
       "location": "ARMARIO B",
       "accessories": [
         "Adaptador en T",
@@ -3015,13 +3015,13 @@ const equipmentData = {
       "observations": ""
     },
     {
-      "name": "Simulador DE Paciente 1",
-      "baseName": "Simulador DE Paciente",
+      "name": "Simulador de Paciente 1",
+      "baseName": "Simulador de Paciente",
       "brand": "BC BIOMEDICAL",
       "model": "PS-2220",
       "serialNumber": "634510",
       "inventory": "18023",
-      "repositoryName": "Simulador DE Paciente - PS-2220",
+      "repositoryName": "Simulador de Paciente - PS-2220",
       "location": "ARMARIO B",
       "accessories": [
         "Cable de alimentación",
@@ -3036,13 +3036,13 @@ const equipmentData = {
       "observations": "Falta manual, equipo funcional"
     },
     {
-      "name": "Simulador DE Paciente 2",
-      "baseName": "Simulador DE Paciente",
+      "name": "Simulador de Paciente 2",
+      "baseName": "Simulador de Paciente",
       "brand": "BC BIOMEDICAL",
       "model": "PS-2220",
       "serialNumber": "634509",
       "inventory": "18022",
-      "repositoryName": "Simulador DE Paciente - PS-2220",
+      "repositoryName": "Simulador de Paciente - PS-2220",
       "location": "ARMARIO B",
       "accessories": [
         "Cable de alimentación",
@@ -3124,13 +3124,13 @@ const equipmentData = {
       "observations": "El panel de usuario se encuentra con grietas,equipo donado, sin cable de alimentacion"
     },
     {
-      "name": "UNIDAD DE Electrocirugía 1",
-      "baseName": "UNIDAD DE Electrocirugía",
+      "name": "Unidad de Electrocirugía 1",
+      "baseName": "Unidad de Electrocirugía",
       "brand": "VALLEYLAB",
       "model": "ForceFX",
       "serialNumber": "F7F54654A",
       "inventory": "",
-      "repositoryName": "UNIDAD DE Electrocirugía - ForceFX",
+      "repositoryName": "Unidad de Electrocirugía - ForceFX",
       "location": "ESTANTERIA (4) 22595",
       "accessories": [
         "Cable de alimentación de grado médico (1)",

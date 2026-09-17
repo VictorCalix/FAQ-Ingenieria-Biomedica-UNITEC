@@ -1,6 +1,6 @@
 const WEBHOOK_TOKEN = "BiomedFAQBitacoraDigitalByVictor";
 const SPREADSHEET_ID = "1ol9Gx_nSO20OOPGlqvQpkCgXDlCWa082PN5qaj-hZrM";
-const SCRIPT_VERSION = "2026-08-26-report-date-checkbox-privacy-v5";
+const SCRIPT_VERSION = "2026-09-17-review-tabs-first-review-report-v6";
 const DEFAULT_BITACORA_SHEET_NAME = "2026Q3";
 const DEFAULT_SUGERENCIAS_SHEET_NAME = "Sugerencias FAQ";
 const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
@@ -246,7 +246,7 @@ function generarReportePdfDesdeSheet(sheet, semana) {
   }
 
   if (!filas.length) {
-    return { result: "error", error: "No hay filas validadas para ese periodo." };
+    return { result: "error", error: "No hay filas con primera revisión para ese periodo." };
   }
 
   const reportLabel = semana === ALL_TRIMESTER_REPORT_VALUE ? ALL_TRIMESTER_REPORT_LABEL : semana;
@@ -583,7 +583,7 @@ function buildReportHtml(semana, filas) {
 </head>
 <body>
   <h1>Reporte semanal de Bitácora</h1>
-  <div class="meta">${escapeHtml(semana)} · ${filas.length} registro${filas.length === 1 ? "" : "s"} validado${filas.length === 1 ? "" : "s"} · Generado ${escapeHtml(formatDateOnly(new Date()))}</div>
+  <div class="meta">${escapeHtml(semana)} · ${filas.length} registro${filas.length === 1 ? "" : "s"} con primera revisión · Generado ${escapeHtml(formatDateOnly(new Date()))}</div>
   <table>
     <thead>
       <tr>
