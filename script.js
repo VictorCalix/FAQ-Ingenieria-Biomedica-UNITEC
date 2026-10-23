@@ -426,3 +426,4 @@ document.querySelector("#suggestion-form").addEventListener("submit", async even
   closeModal();
   alert("Pregunta enviada correctamente.");
 });
+

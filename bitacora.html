@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Bitácora | Ingeniería Biomédica</title>
+  <link rel="icon" type="image/png" href="assets/UT.png">
   <link rel="stylesheet" href="styles.css">
   <script src="equipment-data.js"></script>
   <style>
@@ -983,6 +984,13 @@ const dateInput = document.querySelector("#log-date");
       .toISOString()
       .slice(0, 10);
     dateInput.value = localToday;
+    const timeToInput = date => date.toTimeString().slice(0, 5);
+    const endTimeInput = document.querySelector("#log-form input[name=hora_fin]");
+    const startTimeInput = document.querySelector("#log-form input[name=hora_inicio]");
+    const defaultEnd = new Date();
+    const defaultStart = new Date(defaultEnd.getTime() - 60 * 60 * 1000);
+    endTimeInput.value = timeToInput(defaultEnd);
+    startTimeInput.value = timeToInput(defaultStart);
 
     if (isRevisionView) {
       document.body.classList.add("revision-view");
@@ -1023,6 +1031,11 @@ const dateInput = document.querySelector("#log-date");
       document.body.classList.add("modal-open");
       loadReportWeeks();
     });
+    if (window.location.hash === "#report-modal") {
+      reportModal.hidden = false;
+      document.body.classList.add("modal-open");
+      loadReportWeeks();
+    }
     document.querySelector("#close-report-modal").addEventListener("click", closeReportModal);
     reportModal.addEventListener("click", event => {
       if (event.target === reportModal) closeReportModal();
@@ -1881,6 +1894,9 @@ const dateInput = document.querySelector("#log-date");
 
       event.target.reset();
       dateInput.value = localToday;
+      const resetEnd = new Date();
+      endTimeInput.value = timeToInput(resetEnd);
+      startTimeInput.value = timeToInput(new Date(resetEnd.getTime() - 60 * 60 * 1000));
       document.querySelectorAll(".log-select").forEach(select => {
         updateSelectedEquipment(select, []);
       });
