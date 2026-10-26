@@ -9,6 +9,7 @@ const REPORT_CLEANUP_TRIGGER_HANDLER = "cleanupExpiredReports";
 const REPORT_FILE_PROPERTY_PREFIX = "reportFile:";
 const ALL_TRIMESTER_REPORT_VALUE = "__TODO_EL_TRIMESTRE__";
 const ALL_TRIMESTER_REPORT_LABEL = "Todo el trimestre";
+const ALL_YEAR_REPORT_VALUE = "__TODO_EL_ANO__";
 // Define aqui una fecha dentro de la Semana 1 del periodo activo.
 const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-20";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
@@ -154,15 +155,22 @@ function handleReportActionUnsafe(body) {
     });
   }
 
+  if (action === "listarAnios") {
+    return json({
+      ok: true,
+      anios: obtenerAniosDisponiblesDesdeSheet(sheet)
+    });
+  }
+
   if (action === "obtenerFilas") {
     return json({
       ok: true,
-      filas: obtenerFilasPorSemanaDesdeSheet(sheet, body.semana || "")
+      filas: obtenerFilasPorSemanaDesdeSheet(sheet, body.semana || "", body.anio || "")
     });
   }
 
   if (action === "generarPdf") {
-    const result = generarReportePdfDesdeSheet(sheet, body.semana || "");
+    const result = generarReportePdfDesdeSheet(sheet, body.semana || "", body.anio || "");
     return json(Object.assign({ ok: result.result !== "error" }, result));
   }
 
@@ -228,18 +236,31 @@ function obtenerSemanasDisponiblesDesdeSheet(sheet) {
     .map(week => week.value);
 }
 
-function obtenerFilasPorSemanaDesdeSheet(sheet, semana) {
-  const rows = getReviewedBitacoraRows(sheet);
+function obtenerAniosDisponiblesDesdeSheet(sheet) {
+  return [...new Set(getReviewedBitacoraRows(sheet)
+    .map(row => coerceDate(row["Fecha"]))
+    .filter(Boolean)
+    .map(date => String(date.getFullYear())))]
+    .sort((a, b) => Number(b) - Number(a));
+}
+
+function obtenerFilasPorSemanaDesdeSheet(sheet, semana, anio) {
+  const rows = getReviewedBitacoraRows(sheet).filter(row => {
+    if (!anio || anio === "__TODOS_LOS_ANOS__") return true;
+    const date = coerceDate(row["Fecha"]);
+    return date && String(date.getFullYear()) === String(anio);
+  });
   return (semana === ALL_TRIMESTER_REPORT_VALUE ? rows : rows.filter(row => {
+      if (semana === ALL_YEAR_REPORT_VALUE) return true;
       const week = getAutoWeekForDate(row["Fecha"]);
       return week && week.value === semana;
     }))
     .map(mapBitacoraRowForReport);
 }
 
-function generarReportePdfDesdeSheet(sheet, semana) {
+function generarReportePdfDesdeSheet(sheet, semana, anio) {
   cleanupExpiredReports();
-  const filas = obtenerFilasPorSemanaDesdeSheet(sheet, semana);
+  const filas = obtenerFilasPorSemanaDesdeSheet(sheet, semana, anio);
 
   if (!semana) {
     return { result: "error", error: "Selecciona un periodo." };
@@ -249,7 +270,11 @@ function generarReportePdfDesdeSheet(sheet, semana) {
     return { result: "error", error: "No hay filas con primera revisión para ese periodo." };
   }
 
-  const reportLabel = semana === ALL_TRIMESTER_REPORT_VALUE ? ALL_TRIMESTER_REPORT_LABEL : semana;
+  const reportLabel = semana === ALL_YEAR_REPORT_VALUE
+    ? `Todo el año${anio ? " " + anio : ""}`
+    : semana === ALL_TRIMESTER_REPORT_VALUE
+      ? `${ALL_TRIMESTER_REPORT_LABEL}${anio ? " " + anio : ""}`
+      : semana;
   const html = buildReportHtml(reportLabel, filas);
   const safeWeekName = normalizeFileName(reportLabel);
   const fileName = "Reporte Bitacora " + safeWeekName + ".pdf";
@@ -454,7 +479,7 @@ function setCellByHeader(sheet, headers, rowNumber, header, value) {
 
 function normalizeMultilineValue(value) {
   return formatReportValue(value)
-    .split("|")
+    .split(/[|;]/)
     .map(part => part.trim())
     .filter(Boolean)
     .join("\n");

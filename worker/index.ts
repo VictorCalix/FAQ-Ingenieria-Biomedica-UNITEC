@@ -112,7 +112,7 @@ async function submitReportRequest(request: Request, env: Env): Promise<Response
   }
 
   const action = String(body.action || "");
-  const allowedActions = new Set(["listarSemanas", "obtenerFilas", "generarPdf"]);
+  const allowedActions = new Set(["listarSemanas", "listarAnios", "obtenerFilas", "generarPdf"]);
   if (!allowedActions.has(action)) {
     return jsonResponse({ ok: false, error: "Acción de reporte inválida." }, 400);
   }
@@ -120,6 +120,7 @@ async function submitReportRequest(request: Request, env: Env): Promise<Response
   const payload = {
     action,
     semana: body.semana || "",
+    anio: body.anio || "",
     sheetName: env.BITACORA_SHEET_NAME || "Bitacora",
     spreadsheetId: env.BITACORA_SPREADSHEET_ID || "",
     submittedAt: new Date().toISOString(),

@@ -196,6 +196,50 @@
       margin-top: 0;
     }
 
+    .usage-details {
+      border: 1px solid #cfe1e4;
+      border-radius: 16px;
+      background: #f7fbfb;
+      padding: 0 15px 15px;
+    }
+
+    .usage-details summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 52px;
+      padding: 0;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      list-style: none;
+    }
+
+    .usage-details summary::-webkit-details-marker { display: none; }
+    .usage-details summary::after { content: '+'; font-size: 18px; font-weight: 400; }
+    .usage-details[open] summary::after { content: '−'; }
+    .usage-summary-meta { color: var(--muted); font-size: 10px; font-weight: 400; }
+    .usage-help { margin: 0 0 13px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .usage-checks { display: grid; gap: 10px; }
+    .usage-equipment { display: grid; gap: 9px; padding: 13px 0 3px; border-top: 1px solid #cfe1e4; }
+    .usage-equipment:first-child { padding-top: 0; border-top: 0; }
+    .usage-equipment h3 { margin: 0 0 2px; color: var(--blue); font: 700 13px Georgia, serif; }
+    .usage-question { display: grid; grid-template-columns: 1fr minmax(145px, 190px); gap: 12px; align-items: center; }
+    .usage-question label { margin: 0; color: var(--ink); font-size: 12px; font-weight: 400; letter-spacing: 0; line-height: 1.35; text-transform: none; }
+    .usage-question select { margin: 0; min-height: 36px; padding: 0 10px; }
+    .usage-incident-field { display: none; margin-top: 13px; color: #a33737 !important; }
+    .usage-incident-field.is-visible { display: block; }
+    .usage-incident-field textarea { margin-top: 7px; border-color: #dfb9b9; background: #fffafa; }
+    .usage-details.is-disabled { opacity: .62; }
+
+    @media (max-width:560px) {
+      .usage-question { grid-template-columns: 1fr; gap: 6px; }
+      .usage-summary-meta { display: none; }
+    }
+
     .report-panel {
       width: min(900px, 100%);
       scrollbar-color: #173b7299 transparent;
@@ -431,7 +475,7 @@
       background: transparent;
       color: var(--muted);
       cursor: pointer;
-      font: 700 12px/1.2 Inter, Arial, sans-serif;
+      font: 700 12px/1.2 Arial, Helvetica, sans-serif;
       padding: 9px 10px;
       text-align: center;
     }
@@ -522,6 +566,21 @@
       line-height: 1.45;
       white-space: pre-line;
     }
+
+    .review-rich-value { color: var(--ink); font-size: 13px; line-height: 1.45; }
+    .review-data-list { margin: 0; padding-left: 18px; }
+    .review-data-list li + li { margin-top: 5px; }
+    .review-empty-value { color: var(--muted); }
+    .review-usage-details { display: grid; gap: 10px; }
+    .review-usage-card { border: 1px solid #cfe1e4; border-radius: 12px; background: #fff; padding: 10px 12px; }
+    .review-usage-card h3 { margin: 0 0 8px; color: var(--blue); font-size: 13px; }
+    .review-usage-card dl { display: grid; gap: 6px; margin: 0; }
+    .review-answer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 6px 8px; border-radius: 8px; background: #f7faf9; }
+    .review-answer dt, .review-answer dd { margin: 0; }
+    .review-answer dt { color: var(--muted); }
+    .review-answer dd { font-weight: 700; text-align: right; }
+    .review-answer.is-alert { background: #fff1ed; color: #9a321d; }
+    .review-incident { margin: 0; padding: 10px 12px; border-radius: 10px; background: #fff1ed; color: #9a321d; font-size: 13px; }
 
     .revision-form {
       display: grid;
@@ -707,13 +766,30 @@
           </div>
         </div>
 
-        <label>
-          Insumos
-          <input name="insumos" placeholder="Describe los insumos utilizados">
-        </label>
+        <details class="usage-details" id="usage-details">
+          <summary>
+            <span>Detalles del uso</span>
+            <span class="usage-summary-meta" id="usage-summary-meta">Se activa al elegir equipo</span>
+          </summary>
+          <div class="usage-checks" id="usage-checks"></div>
+          <label class="usage-incident-field" id="usage-incident-field">
+            Describe el hallazgo o incidente
+            <textarea id="usage-incident" rows="3" placeholder="Ej. La batería estaba descargada al iniciar o se observó una alarma."></textarea>
+          </label>
+        </details>
+
+        <section class="supplies-section" aria-labelledby="supplies-title">
+          <div class="section-heading">
+            <span class="filter-label" id="supplies-title">Insumos utilizados</span>
+            <small>Registra cantidad y qué ocurrió con cada insumo.</small>
+          </div>
+          <div id="supplies-list" class="supplies-list"></div>
+          <button class="secondary-action" id="add-supply" type="button">+ Agregar insumo</button>
+          <input name="insumos" type="hidden">
+        </section>
 
         <label>
-          Observaciones
+          Observaciones Adicionales
           <textarea name="observaciones" rows="5"></textarea>
         </label>
 
@@ -793,7 +869,7 @@
             </div>
             <div class="summary-field">
               <span>Insumos</span>
-              <strong id="review-supplies"></strong>
+              <div class="review-rich-value" id="review-supplies"></div>
             </div>
             <div class="summary-field wide">
               <span>Equipo</span>
@@ -801,7 +877,11 @@
             </div>
             <div class="summary-field wide">
               <span>Accesorios</span>
-              <strong id="review-accessories"></strong>
+              <div class="review-rich-value" id="review-accessories"></div>
+            </div>
+            <div class="summary-field wide" id="review-usage-summary-field" hidden>
+              <span>Detalles y preguntas del uso</span>
+              <div class="review-usage-details" id="review-usage-details"></div>
             </div>
             <div class="summary-field wide">
               <span>Observaciones de reserva</span>
@@ -903,7 +983,13 @@
 
       <div class="report-controls">
         <label>
-          Período
+          Año
+          <select id="report-year">
+            <option value="">Cargando años…</option>
+          </select>
+        </label>
+        <label>
+          Semana o período
           <select id="report-week">
             <option value="">Cargando semanas…</option>
           </select>
@@ -944,10 +1030,20 @@
 const dateInput = document.querySelector("#log-date");
     const accessoriesBox = document.querySelector("#accessories-box");
     const accessoriesList = document.querySelector("#accessories-list");
+    const usageDetails = document.querySelector("#usage-details");
+    const usageChecks = document.querySelector("#usage-checks");
+    const usageSummaryMeta = document.querySelector("#usage-summary-meta");
+    const usageIncidentField = document.querySelector("#usage-incident-field");
+    const usageIncident = document.querySelector("#usage-incident");
+    const usageAnswers = new Map();
+    const accessorySelections = new Map();
     const activityOtherField = document.querySelector("#activity-other-field");
     const activityOtherInput = document.querySelector("#activity-other-input");
     const reportModal = document.querySelector("#report-modal");
+    const suppliesList = document.querySelector("#supplies-list");
+    const addSupplyButton = document.querySelector("#add-supply");
     const reportWeekSelect = document.querySelector("#report-week");
+    const reportYearSelect = document.querySelector("#report-year");
     const reportStatus = document.querySelector("#report-status");
     const reportPreview = document.querySelector("#report-preview");
     const reportPreviewBody = document.querySelector("#report-preview-body");
@@ -955,6 +1051,8 @@ const dateInput = document.querySelector("#log-date");
     const generateReportButton = document.querySelector("#generate-report-pdf");
     const reportPdfLink = document.querySelector("#report-pdf-link");
     const allTrimesterReportValue = "__TODO_EL_TRIMESTRE__";
+    const allYearsReportValue = "__TODOS_LOS_ANOS__";
+    const allYearReportValue = "__TODO_EL_ANO__";
     const revisionList = document.querySelector("#revision-list");
     const revisionEmpty = document.querySelector("#revision-empty");
     const revisionCount = document.querySelector("#revision-count");
@@ -967,6 +1065,8 @@ const dateInput = document.querySelector("#log-date");
     const revisionForm = document.querySelector("#revision-form");
     const revisionStatus = document.querySelector("#revision-status");
     const reviewEquipmentNotes = document.querySelector("#review-equipment-notes");
+    const reviewUsageSummaryField = document.querySelector("#review-usage-summary-field");
+    const reviewUsageDetails = document.querySelector("#review-usage-details");
     const revisionTabs = [...document.querySelectorAll(".revision-tab")];
     const generalObservationForm = document.querySelector("#general-observation-form");
     const generalObservationStatus = document.querySelector("#general-observation-status");
@@ -1258,10 +1358,11 @@ const dateInput = document.querySelector("#log-date");
       document.querySelector("#review-date").textContent = selectedReview.fechaReserva || "N/A";
       document.querySelector("#review-time").textContent = `${selectedReview.horaInicio || "N/A"} a ${selectedReview.horaFin || "N/A"}`;
       document.querySelector("#review-activity").textContent = selectedReview.actividad || "N/A";
-      document.querySelector("#review-supplies").textContent = selectedReview.insumos || "N/A";
+      renderReviewList(document.querySelector("#review-supplies"), selectedReview.insumos, "No se registraron insumos.");
       document.querySelector("#review-equipment").textContent = selectedReview.equipo || "N/A";
-      document.querySelector("#review-accessories").textContent = selectedReview.accesorios || "N/A";
+      renderReviewList(document.querySelector("#review-accessories"), selectedReview.accesorios, "No se registraron accesorios.");
       document.querySelector("#review-reservation-notes").textContent = selectedReview.observacionesReserva || "N/A";
+      renderReviewUsageDetails(selectedReview.observacionesReserva);
       const firstReviewSummary = document.querySelector("#first-review-summary");
       const firstReviewNotes = [
         selectedReview.primeraRevisionEncargado ? `Encargado: ${selectedReview.primeraRevisionEncargado}` : "",
@@ -1283,8 +1384,83 @@ const dateInput = document.querySelector("#log-date");
       selectedReview = null;
       revisionSummary.hidden = true;
       revisionForm.hidden = true;
+      reviewUsageSummaryField.hidden = true;
+      reviewUsageDetails.innerHTML = "";
       document.querySelector("#first-review-summary").hidden = true;
       reviewEquipmentNotes.innerHTML = "";
+    }
+
+    function splitStoredList(value) {
+      return String(value || "")
+        .split(/\s*(?:;|\n)\s*/)
+        .map(item => item.trim())
+        .filter(item => item && item.toUpperCase() !== "N/A");
+    }
+
+    function renderReviewList(container, value, emptyMessage) {
+      const items = splitStoredList(value);
+      container.innerHTML = items.length
+        ? `<ul class="review-data-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+        : `<span class="review-empty-value">${escapeHtml(emptyMessage)}</span>`;
+    }
+
+    function isReviewAlert(label, value) {
+      const question = String(label || "").toLocaleLowerCase("es");
+      const answer = String(value || "").toLocaleLowerCase("es");
+      if (!answer) return false;
+      if (answer.includes("descargada") || answer.includes("ocurrió durante") || answer.includes("ya estaba antes")) return true;
+      if (question.includes("falla") || question.includes("alarma") || question.includes("incidente") || question.includes("daño")) return answer.startsWith("sí") || answer === "si";
+      if (question.includes("funcionó") || question.includes("completos") || question.includes("devolvió") || question.includes("limpio") || question.includes("orden")) return answer === "no";
+      return false;
+    }
+
+    function renderReviewUsageDetails(observations) {
+      const text = String(observations || "");
+      const marker = ["Detalles del uso:", "Detalles rápidos del uso:"].find(item => text.includes(item)) || "Detalles del uso:";
+      const start = text.indexOf(marker);
+      if (start < 0) {
+        reviewUsageSummaryField.hidden = true;
+        reviewUsageDetails.innerHTML = "";
+        return;
+      }
+
+      const detailText = text.slice(start + marker.length).trim();
+      const lines = detailText.split(/\r?\n/).map(line => line.trimEnd()).filter(Boolean);
+      const groups = [];
+      let current = null;
+      let incident = "";
+
+      lines.forEach(line => {
+        if (line.startsWith("Hallazgo o incidente:")) {
+          incident = line.slice("Hallazgo o incidente:".length).trim();
+          return;
+        }
+        const answer = line.match(/^\s{2}(.+?):\s*(.*)$/);
+        if (answer && current) {
+          current.answers.push({ label: answer[1], value: answer[2] });
+          return;
+        }
+        current = { equipment: line.trim(), answers: [] };
+        groups.push(current);
+      });
+
+      if (!groups.length && !incident) {
+        reviewUsageSummaryField.hidden = true;
+        reviewUsageDetails.innerHTML = "";
+        return;
+      }
+
+      reviewUsageDetails.innerHTML = groups.map(group => `
+        <section class="review-usage-card">
+          <h3>${escapeHtml(group.equipment)}</h3>
+          <dl>${group.answers.map(answer => `
+            <div class="review-answer${isReviewAlert(answer.label, answer.value) ? " is-alert" : ""}">
+              <dt>${escapeHtml(answer.label)}</dt><dd>${escapeHtml(answer.value || "Sin respuesta")}</dd>
+            </div>
+          `).join("")}</dl>
+        </section>
+      `).join("") + (incident ? `<p class="review-incident"><strong>Hallazgo o incidente:</strong> ${escapeHtml(incident)}</p>` : "");
+      reviewUsageSummaryField.hidden = false;
     }
 
     function splitReviewEquipment(text) {
@@ -1374,15 +1550,26 @@ const dateInput = document.querySelector("#log-date");
 
     async function loadReportWeeks() {
       reportWeekSelect.innerHTML = '<option value="">Cargando semanas…</option>';
+      reportYearSelect.innerHTML = '<option value="">Cargando años…</option>';
       reportWeekSelect.disabled = true;
+      reportYearSelect.disabled = true;
       generateReportButton.disabled = true;
       reportPreview.classList.remove("is-visible");
       reportPdfLink.classList.remove("is-visible");
       setReportStatus("Cargando semanas con primera revisión…");
 
       try {
-        const result = await reportRequest("listarSemanas");
-        const weeks = result.semanas || [];
+        const [weeksResult, yearsResult] = await Promise.all([
+          reportRequest("listarSemanas"),
+          reportRequest("listarAnios")
+        ]);
+        const weeks = weeksResult.semanas || [];
+        const years = yearsResult.anios || [];
+        reportYearSelect.innerHTML = "";
+        reportYearSelect.append(new Option("Todos los años", allYearsReportValue));
+        years.forEach(year => reportYearSelect.append(new Option(year, year)));
+        reportYearSelect.value = years[0] || allYearsReportValue;
+        reportYearSelect.disabled = false;
         reportWeekSelect.innerHTML = "";
 
         if (!weeks.length) {
@@ -1394,8 +1581,9 @@ const dateInput = document.querySelector("#log-date");
         reportWeekSelect.append(new Option("Selecciona una semana…", ""));
         weeks.forEach(week => reportWeekSelect.append(new Option(week, week)));
         reportWeekSelect.append(new Option("Todo el trimestre", allTrimesterReportValue));
+        reportWeekSelect.append(new Option("Todo el año", allYearReportValue));
         reportWeekSelect.disabled = false;
-        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"} y reporte trimestral.`);
+        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"}, trimestre y año.`);
       } catch (error) {
         reportWeekSelect.innerHTML = '<option value="">Error al cargar</option>';
         setReportStatus(error.message, "error");
@@ -1412,10 +1600,11 @@ const dateInput = document.querySelector("#log-date");
         return;
       }
 
-      setReportStatus(week === allTrimesterReportValue ? "Cargando registros del trimestre…" : "Cargando registros de la semana…");
+      const year = reportYearSelect.value;
+      setReportStatus(week === allYearReportValue ? "Cargando registros del año…" : week === allTrimesterReportValue ? "Cargando registros del trimestre…" : "Cargando registros de la semana…");
 
       try {
-        const result = await reportRequest("obtenerFilas", { semana: week });
+        const result = await reportRequest("obtenerFilas", { semana: week, anio: year });
         renderReportPreview(result.filas || []);
       } catch (error) {
         setReportStatus(error.message, "error");
@@ -1454,8 +1643,13 @@ const dateInput = document.querySelector("#log-date");
       loadReportRows(event.target.value);
     });
 
+    reportYearSelect.addEventListener("change", () => {
+      if (reportWeekSelect.value) loadReportRows(reportWeekSelect.value);
+    });
+
     generateReportButton.addEventListener("click", async () => {
       const week = reportWeekSelect.value;
+      const year = reportYearSelect.value;
       if (!week) return;
 
       generateReportButton.disabled = true;
@@ -1463,7 +1657,7 @@ const dateInput = document.querySelector("#log-date");
       setReportStatus("Generando PDF…");
 
       try {
-        const result = await reportRequest("generarPdf", { semana: week });
+        const result = await reportRequest("generarPdf", { semana: week, anio: year });
         reportPdfLink.href = result.url;
         reportPdfLink.classList.add("is-visible");
         setReportStatus(`PDF generado (${result.totalFilas} registro${result.totalFilas === 1 ? "" : "s"}).`, "ok");
@@ -1632,16 +1826,18 @@ const dateInput = document.querySelector("#log-date");
       if (!selected.length) {
         accessoriesBox.classList.remove("is-visible");
         accessoriesList.innerHTML = "";
+        renderUsageChecks([]);
         return;
       }
 
       accessoriesList.innerHTML = selected.map(equipmentName => {
         const equipment = equipmentByValue.get(equipmentName);
         const accessories = normalizeAccessories(equipment?.accessories);
+        const savedAccessories = accessorySelections.get(equipmentName) || [];
         const list = accessories.length
           ? accessories.map(item => `
               <label>
-                <input type="checkbox" name="accesorios" value="${escapeHtml(normalizeVisibleText(item))}" data-equipment="${escapeHtml(equipmentName)}" data-accessory="${escapeHtml(normalizeVisibleText(item))}">
+                <input type="checkbox" name="accesorios" value="${escapeHtml(normalizeVisibleText(item))}" data-equipment="${escapeHtml(equipmentName)}" data-accessory="${escapeHtml(normalizeVisibleText(item))}"${savedAccessories.includes(normalizeVisibleText(item)) ? " checked" : ""}>
                 <span>${escapeHtml(normalizeVisibleText(item))}</span>
               </label>
             `).join("")
@@ -1655,6 +1851,169 @@ const dateInput = document.querySelector("#log-date");
         `;
       }).join("");
       accessoriesBox.classList.add("is-visible");
+      accessoriesList.querySelectorAll("input[name=accesorios]").forEach(input => {
+        input.addEventListener("change", () => {
+          const equipmentName = input.dataset.equipment;
+          const selectedForEquipment = [...accessoriesList.querySelectorAll("input[name=accesorios]")]
+            .filter(item => item.dataset.equipment === equipmentName && item.checked)
+            .map(item => item.value);
+          accessorySelections.set(equipmentName, selectedForEquipment);
+          renderUsageChecks(selected);
+        });
+      });
+      renderUsageChecks(selected);
+    }
+
+    function addSupplyRow(values = {}) {
+      const row = document.createElement("div");
+      row.className = "supply-row";
+      row.innerHTML = `
+        <input class="supply-name" type="text" placeholder="Nombre del insumo" value="${escapeHtml(values.name || "")}">
+        <input class="supply-quantity" type="number" min="0" step="any" placeholder="Cantidad" value="${escapeHtml(values.quantity || "")}">
+        <select class="supply-unit">
+          ${["unidad(es)", "mL", "L", "g", "kg", "paquete(s)"].map(unit => `<option${unit === (values.unit || "unidad(es)") ? " selected" : ""}>${unit}</option>`).join("")}
+        </select>
+        <select class="supply-destination">
+          ${["Se usó completo", "Devuelto cerrado", "Devuelto abierto", "Desechado", "Quedó en el equipo"].map(destination => `<option${destination === (values.destination || "Se usó completo") ? " selected" : ""}>${destination}</option>`).join("")}
+        </select>
+        <button class="remove-supply" type="button" aria-label="Quitar insumo">×</button>
+      `;
+      suppliesList.append(row);
+      row.querySelectorAll("input, select").forEach(field => field.addEventListener("input", syncSuppliesField));
+      row.querySelectorAll("select").forEach(field => field.addEventListener("change", syncSuppliesField));
+      row.querySelector(".remove-supply").addEventListener("click", () => {
+        row.remove();
+        syncSuppliesField();
+      });
+      row.querySelector(".supply-name").focus();
+    }
+
+    function syncSuppliesField() {
+      const lines = [...suppliesList.querySelectorAll(".supply-row")].map(row => {
+        const name = row.querySelector(".supply-name").value.trim();
+        const quantity = row.querySelector(".supply-quantity").value.trim();
+        const unit = row.querySelector(".supply-unit").value;
+        const destination = row.querySelector(".supply-destination").value;
+        if (!name) return "";
+        const amount = quantity ? `${quantity} ${unit}` : "cantidad no indicada";
+        return `${name} — ${amount} — ${destination}`;
+      }).filter(Boolean);
+      const value = lines.join("; ");
+      document.querySelector("#log-form input[name=insumos]").value = value;
+      renderUsageChecks(getSelectedEquipment(document.querySelector(".log-select")));
+      return value;
+    }
+
+    function resetSupplies() {
+      suppliesList.innerHTML = "";
+      syncSuppliesField();
+    }
+
+    addSupplyButton.addEventListener("click", () => addSupplyRow());
+
+    function renderUsageChecks(equipmentNames) {
+      const selected = Array.isArray(equipmentNames) ? equipmentNames : [];
+      const hasSupplies = document.querySelector("#log-form input[name=insumos]").value.trim().length > 0;
+
+      usageChecks.innerHTML = "";
+      usageDetails.classList.toggle("is-disabled", !selected.length);
+      usageSummaryMeta.textContent = selected.length
+        ? `${selected.length} equipo${selected.length === 1 ? "" : "s"} seleccionado${selected.length === 1 ? "" : "s"}`
+        : "Se activa al elegir equipo" ;
+
+      if (!selected.length) {
+        usageDetails.open = false;
+        usageIncidentField.classList.remove("is-visible");
+        return;
+      }
+
+      selected.forEach((equipmentName, equipmentIndex) => {
+        const selectedAccessories = accessorySelections.get(equipmentName) || [];
+        const hasBattery = selectedAccessories.some(item => /bater[ií]as?\b(?!\s+desechables?)/i.test(item));
+        const hasDistilledWater = selectedAccessories.some(item => /agua\s+destilada/i.test(item));
+        const hasTransducer = selectedAccessories.some(item => /^\s*transductor/i.test(item));
+        const prefix = `equipo-${equipmentIndex}`;
+        const questions = [
+          ["equipo-funciono", "¿El equipo encendió y funcionó correctamente?", ["Sí", "No"], "No"],
+          ["equipo-alerta", "¿Presentó falla, alarma o mensaje de error?", ["No", "Sí"], "Sí"],
+          ["equipo-dano", "¿Notó algún daño físico en el equipo (carcasa, pantalla, perillas o conectores)?", ["No", "Sí, ya estaba antes de usarlo", "Sí, ocurrió durante el uso"], ["Sí, ya estaba antes de usarlo", "Sí, ocurrió durante el uso"]],
+          ["accesorios-completos", "¿Los accesorios estaban completos y en buen estado?", ["Sí", "No", "No aplica"], "No"],
+          ["accesorios-dano", "¿Algún accesorio presentó daño o desgaste (cable pelado, conector flojo, fuga o fisura)?", ["No", "Sí, ya estaba antes de usarlo", "Sí, ocurrió durante el uso", "No usé accesorios"], ["Sí, ya estaba antes de usarlo", "Sí, ocurrió durante el uso"]],
+          ["equipo-devuelto", "¿Devolvió el equipo y sus accesorios completos a su lugar?", ["Sí", "No"], "No"],
+          ["equipo-entrega", "¿Lo dejó limpio, apagado y desconectado?", ["Sí", "No"], "No"],
+          ["laboratorio-orden", "¿El laboratorio estaba en orden al llegar?", ["Sí", "No"], "No"],
+          ["area-limpia", "¿Dejó el área de trabajo limpia y ordenada?", ["Sí", "No"], "No"],
+          ["incidente", "¿Ocurrió algún incidente durante el uso?", ["No", "Sí"], "Sí"]
+        ];
+        if (hasBattery) {
+          questions.push(["bateria-inicio", "¿Cómo encontró la batería al iniciar?", ["Cargada", "Parcialmente", "Descargada"], "Descargada"]);
+          questions.push(["bateria-final", "¿Cómo dejó la batería?", ["Cargada", "Cargada parcialmente", "Descargada"], "Descargada"]);
+        }
+        if (hasDistilledWater) questions.push(["agua-deposito", "¿Vació el depósito de agua al terminar?", ["Sí", "No", "No aplica"], "No"]);
+        if (hasTransducer) questions.push(["transductor-gel", "¿Limpió el gel del transductor al terminar?", ["Sí", "No"], "No"]);
+        if (hasSupplies) questions.push(["insumos-destino", "¿Qué pasó con los sobrantes?", ["Se usó completo", "Devuelto cerrado", "Devuelto abierto", "Desechado", "Quedó en el equipo"], null]);
+
+        const block = document.createElement("section");
+        block.className = "usage-equipment";
+        block.innerHTML = `<h3>${escapeHtml(equipmentName)}</h3>${questions.map(([id, label, options]) => {
+          const answerKey = `${equipmentName}::${id}`;
+          const value = usageAnswers.get(answerKey) || "";
+          return `<div class="usage-question"><label for="usage-${prefix}-${id}">${escapeHtml(label)}</label><select required id="usage-${prefix}-${id}" data-usage-key="${escapeHtml(answerKey)}" data-usage-alert="${escapeHtml(questions.find(question => question[0] === id)?.[3] || "")}"><option value="">Selecciona…</option>${options.map(option => `<option value="${escapeHtml(option)}"${value === option ? " selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></div>`;
+        }).join("")}`;
+        usageChecks.append(block);
+      });
+
+      usageChecks.querySelectorAll("select[data-usage-key]").forEach(select => {
+        select.addEventListener("change", () => {
+          usageAnswers.set(select.dataset.usageKey, select.value);
+          updateUsageIncidentVisibility();
+        });
+      });
+      updateUsageIncidentVisibility();
+    }
+
+    function updateUsageIncidentVisibility() {
+      const hasAlert = [...usageChecks.querySelectorAll("select[data-usage-alert]")]
+        .some(select => select.dataset.usageAlert && select.value === select.dataset.usageAlert);
+      usageIncidentField.classList.toggle("is-visible", hasAlert || Boolean(usageIncident.value.trim()));
+    }
+
+    function getUsageDetailsText() {
+      const groups = [...usageChecks.querySelectorAll(".usage-equipment")];
+      const lines = groups.map(group => {
+        const equipment = group.querySelector("h3")?.textContent.trim();
+        const answers = [...group.querySelectorAll(".usage-question")].map(row => {
+          const label = row.querySelector("label")?.textContent.trim();
+          const value = row.querySelector("select")?.value;
+          return value ? `  ${label}: ${value}` : "";
+        }).filter(Boolean);
+        return answers.length ? `${equipment}:\n${answers.join("\n")}` : "";
+      }).filter(Boolean);
+      const incident = usageIncident.value.trim();
+      if (incident) lines.push(`Hallazgo o incidente: ${incident}`);
+      return lines.length ? `Detalles del uso:\n${lines.join("\n")}` : "";
+    }
+
+    function validateUsageDetails() {
+      const unanswered = [...usageChecks.querySelectorAll("select[data-usage-key]")]
+        .find(select => !select.value);
+      if (unanswered) {
+        usageDetails.open = true;
+        unanswered.focus();
+        alert("Completa todos los detalles rápidos de cada equipo antes de continuar.");
+        return false;
+      }
+
+      const hasAlert = [...usageChecks.querySelectorAll("select[data-usage-alert]")]
+        .some(select => select.dataset.usageAlert && select.value === select.dataset.usageAlert);
+      if (hasAlert && !usageIncident.value.trim()) {
+        usageDetails.open = true;
+        usageIncidentField.classList.add("is-visible");
+        usageIncident.focus();
+        alert("Describe el hallazgo o incidente indicado en los detalles rápidos.");
+        return false;
+      }
+      return true;
     }
 
     document.querySelectorAll(".log-select").forEach(select => {
@@ -1775,6 +2134,11 @@ const dateInput = document.querySelector("#log-date");
       if (error) error.hidden = true;
     });
 
+    document.querySelector("#log-form input[name=insumos]").addEventListener("input", () => {
+      renderUsageChecks(getSelectedEquipment(document.querySelector(".log-select")));
+    });
+    usageIncident.addEventListener("input", updateUsageIncidentVisibility);
+
     function formatSelectedAccessories(form) {
       const grouped = new Map();
 
@@ -1795,6 +2159,8 @@ const dateInput = document.querySelector("#log-date");
     }
 
     function getFormPayload(form) {
+      const usageDetailsText = getUsageDetailsText();
+      const observations = form.elements.observaciones.value.trim();
       return {
         nombre: form.elements.nombre.value.trim(),
         cuenta: form.elements.cuenta.value.trim(),
@@ -1805,8 +2171,8 @@ const dateInput = document.querySelector("#log-date");
         tipo_actividad: form.elements.tipo_actividad.value,
         equipo: form.elements.equipo.value,
         accesorios: formatSelectedAccessories(form),
-        insumos: form.elements.insumos.value.trim(),
-        observaciones: form.elements.observaciones.value.trim()
+        insumos: syncSuppliesField(),
+        observaciones: [observations, usageDetailsText].filter(Boolean).join("\n\n")
       };
     }
 
@@ -1864,6 +2230,7 @@ const dateInput = document.querySelector("#log-date");
         alert("Selecciona al menos un equipo antes de registrar el uso.");
         return;
       }
+      if (!validateUsageDetails()) return;
       const terms = event.target.elements.terminos;
       if (!terms.checked) {
         alert("Debes aceptar los términos y condiciones antes de registrar el uso.");
@@ -1894,6 +2261,11 @@ const dateInput = document.querySelector("#log-date");
 
       event.target.reset();
       dateInput.value = localToday;
+      usageAnswers.clear();
+      accessorySelections.clear();
+      resetSupplies();
+      usageIncident.value = "";
+      usageIncidentField.classList.remove("is-visible");
       const resetEnd = new Date();
       endTimeInput.value = timeToInput(resetEnd);
       startTimeInput.value = timeToInput(new Date(resetEnd.getTime() - 60 * 60 * 1000));
