@@ -9,7 +9,7 @@ Copia `.env.example` a tu configuración real y cambia estos valores:
 
 ```env
 BITACORA_WEBHOOK_URL=https://script.google.com/macros/s/AKfycbxZue3jhXKwLuAiHBB3g2uH2dIxOc_FpVEDpQBgEJpBPD8Kb_xAm_6_J5iV6uD_maaU/exec
-BITACORA_SHEET_NAME=2026Q3
+BITACORA_SHEET_NAME=2026Q4
 SUGERENCIAS_SHEET_NAME=Sugerencias FAQ
 BITACORA_WEBHOOK_TOKEN=BiomedFAQBitacoraDigitalByVictor
 BITACORA_SPREADSHEET_ID=1ol9Gx_nSO20OOPGlqvQpkCgXDlCWa082PN5qaj-hZrM
@@ -29,7 +29,7 @@ Si la hoja no existe, el Apps Script la crea con encabezados.
 2. Ve a `Extensiones > Apps Script`.
 3. Pega el contenido de `google-apps-script-bitacora.js`.
 4. Confirma que `WEBHOOK_TOKEN` tenga el mismo valor de `BITACORA_WEBHOOK_TOKEN`.
-5. Ejecuta una vez `setupSheets()` para crear la hoja `2026Q3` y la hoja `Sugerencias FAQ` con sus campos.
+5. Ejecuta una vez `setupSheets()` para crear la hoja `2026Q4` y la hoja `Sugerencias FAQ` con sus campos.
 6. Despliega como `Aplicación web`. Si ya existe un despliegue, entra a
    `Administrar implementaciones`, edita con el lápiz y selecciona
    `Nueva versión`; guardar el código no actualiza la URL `/exec` por sí solo.
@@ -56,7 +56,9 @@ La pagina `bitacora.html` incluye un boton `Generar reporte PDF`. Ese boton
 usa `/api/bitacora/reporte`, que reenvia al Apps Script estas acciones:
 
 - `listarSemanas`: calcula automaticamente las semanas a partir de la columna
-  `Fecha` de los registros con `Validado por Pasante` marcado.
+  `Fecha` de los registros con primera revisión.
+- `listarTrimestres`: ofrece cada trimestre que tenga registros con primera
+  revisión.
 - `obtenerFilas`: devuelve la vista previa de los registros validados de una
   semana.
 - `generarPdf`: crea un PDF en Drive dentro de la carpeta

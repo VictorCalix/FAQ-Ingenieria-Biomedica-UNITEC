@@ -979,7 +979,7 @@
     <section class="panel report-panel" role="dialog" aria-modal="true" aria-labelledby="report-title">
       <button class="close" id="close-report-modal" type="button" aria-label="Cerrar">×</button>
       <h2 id="report-title">Reporte de bitácora</h2>
-      <p class="intro">Selecciona una semana calculada automáticamente a partir de las fechas de registros con primera revisión o todo el trimestre.</p>
+      <p class="intro">Selecciona una semana, un trimestre o un año a partir de las fechas de registros con primera revisión.</p>
 
       <div class="report-controls">
         <label>
@@ -1286,7 +1286,7 @@ const dateInput = document.querySelector("#log-date");
       const firstCount = pendingReviews.filter(row => Number(row.revisionNumber) === 1).length;
       const secondCount = pendingReviews.filter(row => Number(row.revisionNumber) === 2).length;
       const counts = { 1: firstCount, 2: secondCount };
-      revisionCount.textContent = `${pendingReviews.length} pendiente${pendingReviews.length === 1 ? "" : "s"}`;
+      revisionCount.textContent = `${firstCount} pendiente${firstCount === 1 ? "" : "s"}`;
 
       revisionTabs.forEach(tab => {
         const tabNumber = Number(tab.dataset.reviewTab || 1);
@@ -1362,7 +1362,7 @@ const dateInput = document.querySelector("#log-date");
       document.querySelector("#review-equipment").textContent = selectedReview.equipo || "N/A";
       renderReviewList(document.querySelector("#review-accessories"), selectedReview.accesorios, "No se registraron accesorios.");
       document.querySelector("#review-reservation-notes").textContent = selectedReview.observacionesReserva || "N/A";
-      renderReviewUsageDetails(selectedReview.observacionesReserva);
+      renderReviewUsageDetails(selectedReview.observacionesUso);
       const firstReviewSummary = document.querySelector("#first-review-summary");
       const firstReviewNotes = [
         selectedReview.primeraRevisionEncargado ? `Encargado: ${selectedReview.primeraRevisionEncargado}` : "",
@@ -1559,12 +1559,14 @@ const dateInput = document.querySelector("#log-date");
       setReportStatus("Cargando semanas con primera revisión…");
 
       try {
-        const [weeksResult, yearsResult] = await Promise.all([
+        const [weeksResult, yearsResult, quartersResult] = await Promise.all([
           reportRequest("listarSemanas"),
-          reportRequest("listarAnios")
+          reportRequest("listarAnios"),
+          reportRequest("listarTrimestres")
         ]);
         const weeks = weeksResult.semanas || [];
         const years = yearsResult.anios || [];
+        const quarters = quartersResult.trimestres || [];
         reportYearSelect.innerHTML = "";
         reportYearSelect.append(new Option("Todos los años", allYearsReportValue));
         years.forEach(year => reportYearSelect.append(new Option(year, year)));
@@ -1579,11 +1581,17 @@ const dateInput = document.querySelector("#log-date");
         }
 
         reportWeekSelect.append(new Option("Selecciona una semana…", ""));
-        weeks.forEach(week => reportWeekSelect.append(new Option(week, week)));
-        reportWeekSelect.append(new Option("Todo el trimestre", allTrimesterReportValue));
+        const weekGroup = document.createElement("optgroup");
+        weekGroup.label = "Semanas";
+        weeks.forEach(week => weekGroup.append(new Option(week, week)));
+        reportWeekSelect.append(weekGroup);
+        const quarterGroup = document.createElement("optgroup");
+        quarterGroup.label = "Trimestres";
+        quarters.forEach(quarter => quarterGroup.append(new Option(quarter.label, quarter.value)));
+        reportWeekSelect.append(quarterGroup);
         reportWeekSelect.append(new Option("Todo el año", allYearReportValue));
         reportWeekSelect.disabled = false;
-        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"} disponible${weeks.length === 1 ? "" : "s"}, trimestre y año.`);
+        setReportStatus(`${weeks.length} semana${weeks.length === 1 ? "" : "s"}, ${quarters.length} trimestre${quarters.length === 1 ? "" : "s"} y año disponibles.`);
       } catch (error) {
         reportWeekSelect.innerHTML = '<option value="">Error al cargar</option>';
         setReportStatus(error.message, "error");

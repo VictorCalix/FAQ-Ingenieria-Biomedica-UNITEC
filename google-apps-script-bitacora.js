@@ -1,7 +1,7 @@
 const WEBHOOK_TOKEN = "BiomedFAQBitacoraDigitalByVictor";
 const SPREADSHEET_ID = "1ol9Gx_nSO20OOPGlqvQpkCgXDlCWa082PN5qaj-hZrM";
-const SCRIPT_VERSION = "2026-09-17-review-tabs-first-review-report-v6";
-const DEFAULT_BITACORA_SHEET_NAME = "2026Q3";
+const SCRIPT_VERSION = "2026-10-29-review-tabs-reports-q4-v7";
+const DEFAULT_BITACORA_SHEET_NAME = "2026Q4";
 const DEFAULT_SUGERENCIAS_SHEET_NAME = "Sugerencias FAQ";
 const REPORTS_FOLDER_NAME = "Reportes Bitacora Biomedica";
 const REPORT_EXPIRATION_MINUTES = 5;
@@ -10,6 +10,7 @@ const REPORT_FILE_PROPERTY_PREFIX = "reportFile:";
 const ALL_TRIMESTER_REPORT_VALUE = "__TODO_EL_TRIMESTRE__";
 const ALL_TRIMESTER_REPORT_LABEL = "Todo el trimestre";
 const ALL_YEAR_REPORT_VALUE = "__TODO_EL_ANO__";
+const QUARTER_REPORT_PREFIX = "__TRIMESTRE__:";
 // Define aqui una fecha dentro de la Semana 1 del periodo activo.
 const BITACORA_PRIMERA_SEMANA_FECHA = "2026-07-20";
 const SUGERENCIAS_BLACKLIST_CUENTAS = [
@@ -162,6 +163,13 @@ function handleReportActionUnsafe(body) {
     });
   }
 
+  if (action === "listarTrimestres") {
+    return json({
+      ok: true,
+      trimestres: obtenerTrimestresDisponiblesDesdeSheet(sheet)
+    });
+  }
+
   if (action === "obtenerFilas") {
     return json({
       ok: true,
@@ -244,13 +252,37 @@ function obtenerAniosDisponiblesDesdeSheet(sheet) {
     .sort((a, b) => Number(b) - Number(a));
 }
 
+function obtenerTrimestresDisponiblesDesdeSheet(sheet) {
+  const quarters = {};
+  getReviewedBitacoraRows(sheet).forEach(row => {
+    const date = coerceDate(row["Fecha"]);
+    if (!date) return;
+    const quarter = Math.floor(date.getMonth() / 3) + 1;
+    const value = QUARTER_REPORT_PREFIX + date.getFullYear() + ":" + quarter;
+    quarters[value] = {
+      value: value,
+      label: "Trimestre " + quarter + " (" + date.getFullYear() + ")",
+      year: String(date.getFullYear()),
+      quarter: quarter
+    };
+  });
+  return Object.values(quarters).sort((a, b) => a.value.localeCompare(b.value));
+}
+
 function obtenerFilasPorSemanaDesdeSheet(sheet, semana, anio) {
   const rows = getReviewedBitacoraRows(sheet).filter(row => {
     if (!anio || anio === "__TODOS_LOS_ANOS__") return true;
     const date = coerceDate(row["Fecha"]);
     return date && String(date.getFullYear()) === String(anio);
   });
-  return (semana === ALL_TRIMESTER_REPORT_VALUE ? rows : rows.filter(row => {
+  return (semana === ALL_TRIMESTER_REPORT_VALUE || semana === ALL_YEAR_REPORT_VALUE ? rows : rows.filter(row => {
+      const quarterMatch = String(semana).match(/^__TRIMESTRE__:(\d{4}):(\d)$/);
+      if (quarterMatch) {
+        const date = coerceDate(row["Fecha"]);
+        return date
+          && date.getFullYear() === Number(quarterMatch[1])
+          && Math.floor(date.getMonth() / 3) + 1 === Number(quarterMatch[2]);
+      }
       if (semana === ALL_YEAR_REPORT_VALUE) return true;
       const week = getAutoWeekForDate(row["Fecha"]);
       return week && week.value === semana;
@@ -270,7 +302,10 @@ function generarReportePdfDesdeSheet(sheet, semana, anio) {
     return { result: "error", error: "No hay filas con primera revisión para ese periodo." };
   }
 
-  const reportLabel = semana === ALL_YEAR_REPORT_VALUE
+  const quarterMatch = String(semana).match(/^__TRIMESTRE__:(\d{4}):(\d)$/);
+  const reportLabel = quarterMatch
+    ? `Trimestre ${quarterMatch[2]} (${quarterMatch[1]})`
+    : semana === ALL_YEAR_REPORT_VALUE
     ? `Todo el año${anio ? " " + anio : ""}`
     : semana === ALL_TRIMESTER_REPORT_VALUE
       ? `${ALL_TRIMESTER_REPORT_LABEL}${anio ? " " + anio : ""}`
@@ -376,11 +411,19 @@ function mapBitacoraRowForRevision(row) {
     insumos: normalizeMultilineValue(row["Insumos"]),
     cantidadInsumos: "",
     accesoriosOtros: "",
-    observacionesReserva: normalizeMultilineValue(row["Observaciones"]),
+    observacionesReserva: extractAdditionalObservations(row["Observaciones"]),
+    observacionesUso: normalizeMultilineValue(row["Observaciones"]),
     primeraRevisionEncargado: formatReportValue(row["Primera revisi\u00f3n - Encargado"]),
     primeraRevisionFecha: formatReportValue(row["Primera revisi\u00f3n - Fecha"]),
     primeraRevisionObservaciones: normalizeMultilineValue(row["Primera revisi\u00f3n - Observaciones"])
   };
+}
+
+function extractAdditionalObservations(value) {
+  const text = normalizeMultilineValue(value);
+  return text
+    .replace(/\n*Detalles (?:r[aá]pidos del )?uso:[\s\S]*$/i, "")
+    .trim();
 }
 
 function hasFirstReview(row) {
@@ -607,7 +650,7 @@ function buildReportHtml(semana, filas) {
   </style>
 </head>
 <body>
-  <h1>Reporte semanal de Bitácora</h1>
+  <h1>Reporte de Bitácora</h1>
   <div class="meta">${escapeHtml(semana)} · ${filas.length} registro${filas.length === 1 ? "" : "s"} con primera revisión · Generado ${escapeHtml(formatDateOnly(new Date()))}</div>
   <table>
     <thead>
